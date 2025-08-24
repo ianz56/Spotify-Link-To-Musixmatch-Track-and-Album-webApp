@@ -98,6 +98,24 @@ window.addEventListener("load", () => {
   window.addEventListener("offline", handleOnlineStatus);
 });
 
+// EOL notice 
+function closeEOLNotice() {
+  const eolNotice = document.getElementById("eol-notice");
+  if (eolNotice) {
+    eolNotice.style.display = "none";
+    // save to localStorage so it stays hidden on page refresh
+    localStorage.setItem("eol-notice-closed", "true");
+  }
+}
+
+// Check if the EOL notice was previously closed
+window.addEventListener("load", () => {
+  const eolNotice = document.getElementById("eol-notice");
+  if (eolNotice && localStorage.getItem("eol-notice-closed") === "true") {
+    eolNotice.style.display = "none";
+  }
+});
+
 // Hide the note element if the current URL contains a query string
 document.querySelector(".note").style.display = window.location.href.includes(
   "?"

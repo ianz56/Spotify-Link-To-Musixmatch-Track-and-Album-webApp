@@ -26,6 +26,18 @@
     <meta content="#ff6050" data-react-helmet="true" name="theme-color" />
   </head>
   <body>
+    <!-- End of Life Notice -->
+    <div id="eol-notice" class="eol-banner">
+      <div class="eol-content">
+        <span class="eol-icon">⚠️</span>
+        <span class="eol-text">
+          <strong>End of Life Notice:</strong> This tool will become defunct on August 25, 2025, following the termination of the Musixmatch API free tier. You can still set your own API key.
+          <a href="https://about.musixmatch.com/api-pricing" target="_blank" class="eol-learn-more">Learn More</a>
+        </span>
+        <button class="eol-close" onclick="closeEOLNotice()">&times;</button>
+      </div>
+    </div>
+
     <div id="offline-div" spellcheck="true" style="display: none">
       <h3
         style="
