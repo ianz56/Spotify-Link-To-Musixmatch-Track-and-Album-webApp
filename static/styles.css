@@ -395,7 +395,6 @@ th:last-child {
 @media (max-width: 768px) {
   .container {
     padding: 24px;
-    margin: 10px;
   }
 
   .card {
