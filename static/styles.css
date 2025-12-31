@@ -27,9 +27,16 @@ body {
   padding: 40px 20px;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
+  flex: 1;
+  /* Pushes footer down */
+  width: 100%;
+  box-sizing: border-box;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -39,6 +46,14 @@ body {
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+}
+
+.container a {
+  color: var(--primary-color);
+}
+
+.container a:hover {
+  color: var(--text-color);
 }
 
 h1 {
@@ -189,6 +204,8 @@ button[type="submit"]:active {
   top: 20px;
   z-index: 100;
   box-shadow: var(--shadow-md);
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .navbar ul {
@@ -209,10 +226,15 @@ button[type="submit"]:active {
   transition: all 0.2s ease;
 }
 
-.navbar a:hover,
+.navbar a:hover {
+  background-color: rgba(29, 185, 84, 0.1);
+  color: var(--primary-color);
+}
+
 .navbar a.active {
   background-color: var(--primary-color);
   color: white;
+  box-shadow: var(--shadow-md);
 }
 
 /* Utility & Misc */
@@ -287,6 +309,10 @@ th:last-child {
   max-width: 600px;
   position: relative;
   animation: slideIn 0.3s ease;
+}
+
+.modal-content a {
+  color: var(--primary-color);
 }
 
 .close {
@@ -384,8 +410,112 @@ th:last-child {
     height: auto;
   }
 
+  .navbar {
+    display: block;
+    /* Allow block display for scrolling container */
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    white-space: nowrap;
+    /* Prevent line breaks */
+    padding: 10px 16px;
+    /* Adjust padding */
+    width: 100%;
+    /* ensure it takes full width of container */
+    max-width: 100%;
+    /* prevent overflowing the parent */
+    box-sizing: border-box;
+    /* include padding in width calculation */
+    justify-content: start;
+    /* Align items to the start */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling on iOS */
+  }
+
+  .navbar::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome/Safari/Opera */
+  }
+
+  .navbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
   .navbar ul {
-    flex-wrap: wrap;
-    justify-content: center;
+    display: inline-flex;
+    /* Keep items in a row */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    justify-content: flex-start;
+    /* Ensure items start from the left */
+    padding-right: 20px;
+    /* Add some space at the end */
+  }
+}
+
+/* Footer */
+.footer {
+  margin-top: 30px;
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.footer-left,
+.footer-right,
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-center {
+  font-weight: 500;
+}
+
+.footer a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: var(--primary-color);
+}
+
+.github-link img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.github-link:hover img {
+  opacity: 1;
+}
+
+.separator {
+  color: var(--border-color);
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
   }
 }
