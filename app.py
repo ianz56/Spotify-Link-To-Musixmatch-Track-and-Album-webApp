@@ -71,8 +71,8 @@ class StartAiohttp:
         self.limit = limit
         self.limit_per_host = limit_per_host
 
-    def start_session(self):
-        self.close_session()
+    async def start_session(self):
+        await self.close_session()
         connector = aiohttp.TCPConnector(
             limit=self.limit, limit_per_host=self.limit_per_host)
         self.session = aiohttp.ClientSession(connector=connector)
@@ -117,7 +117,7 @@ async def index():
             if payload:
                 key = payload.get("mxm-key")
 
-        client.start_session()
+        await client.start_session()
         mxm = MXM(key, session=client.get_session())
         try:
             if (len(link) < 12):
@@ -160,7 +160,7 @@ async def split():
             payload = verify_token(token)
             if payload:
                 key = payload.get("mxm-key")
-        client.start_session()
+        await client.start_session()
         mxm = MXM(key, session=client.get_session())
         match = re.search(r'open.spotify.com',
                             link) and re.search(r'track', link)
@@ -246,7 +246,7 @@ async def setAPI():
 
     if key:
         # check the key
-        client.start_session()
+        await client.start_session()
         mxm = MXM(key, session=client.get_session())
         sp_data = [{"isrc": "DGA072332812", "image": None}]
 
@@ -288,7 +288,7 @@ async def mxm_to_sp():
             if payload:
                 key = payload.get("mxm-key")
 
-        client.start_session()
+        await client.start_session()
         mxm = MXM(key, session=client.get_session())
         album = await mxm.album_sp_id(link)
         await client.close_session()
@@ -309,7 +309,7 @@ async def abstrack() -> str:
                 key = payload.get("mxm-key")
         if not re.match("^[0-9]+$",id):
             return render_template("abstrack.html", error = "Invalid input!")
-        client.start_session()
+        await client.start_session()
         mxm = MXM(key, session=client.get_session())
         track, album = await mxm.abstrack(id)
         await client.close_session()

@@ -19,24 +19,24 @@ form.addEventListener("submit", (event) => {
     return Promise.resolve(); // Resolve with a void value
   }
 
-  if (window.location.pathname === "/abstrack") { 
+  if (window.location.pathname === "/abstrack") {
     window.location.href =
-    window.location.href.split("?")[0] +
-    "?id=" +
-    encodeURIComponent(inputLink);
-  }else{
+      window.location.href.split("?")[0] +
+      "?id=" +
+      encodeURIComponent(inputLink);
+  } else {
     window.location.href =
-    window.location.href.split("?")[0] +
-    "?link=" +
-    encodeURIComponent(inputLink);
+      window.location.href.split("?")[0] +
+      "?link=" +
+      encodeURIComponent(inputLink);
   }
-  
+
 });
 
 // Get the how-to-use link and modal elements
 const howToUseLink = document.querySelector("#how_to_use");
 const modal = document.querySelector(".modal");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelector(".modal .close");
 
 // Add click event listener for the how-to-use link
 howToUseLink.addEventListener("click", (event) => {
