@@ -204,7 +204,7 @@ button[type="submit"]:active {
   top: 20px;
   z-index: 100;
   box-shadow: var(--shadow-md);
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 
