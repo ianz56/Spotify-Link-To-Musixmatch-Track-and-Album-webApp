@@ -11,3 +11,6 @@ key.json
 .env
 *.ipynb
 app.log
+ProviderMusixmatch.js
+.env.example
+test_check_request.py

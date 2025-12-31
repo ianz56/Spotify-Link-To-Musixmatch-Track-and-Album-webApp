@@ -5,6 +5,10 @@ import base64
 import hmac
 import hashlib
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import aiohttp
 from flask import Flask, request, render_template, make_response
 from asgiref.wsgi import WsgiToAsgi
@@ -319,5 +323,5 @@ if __name__ == '__main__':
     import asyncio
     from hypercorn.config import Config
     from hypercorn.asyncio import serve
-    asyncio.run(serve(app, Config()))
+    asyncio.run(serve(asgi_app, Config()))
     # app.run(debug=True)

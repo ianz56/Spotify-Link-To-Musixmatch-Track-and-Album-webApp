@@ -32,7 +32,7 @@ class Musixmatch(object):
         :param backoff: Factor to apply between attempts after the second try
         """
 
-        self._url = "https://api.musixmatch.com/ws/1.1/"
+        self._url = "https://apic-desktop.musixmatch.com/ws/1.1/"
         self._key = API_key
         self.requests_timeout = requests_timeout
         self.backoff_factor = backoff_factor
@@ -56,16 +56,23 @@ class Musixmatch(object):
     async def _api_call(self, method, api_method, params = None):
         url = self._url + api_method
         if params:
-            params["apikey"] = self._key
+            params["usertoken"] = self._key
         else:
-            params = {"apikey": self._key}
+            params = {"usertoken": self._key}
+        
+        params["app_id"] = "web-desktop-app-v1.0"
+
+        headers = {
+            "Authority": "apic-desktop.musixmatch.com",
+            "Cookie": "x-mxm-token-guid=",
+        }
 
         retries = 0
 
         while retries < self.max_retries:
             try:
                 #print(params)
-                async with self._session.request(method=method, url=str(url), params = params) as response:
+                async with self._session.request(method=method, url=str(url), params=params, headers=headers) as response:
                     
                     response.raise_for_status()
                     res = await response.text()
