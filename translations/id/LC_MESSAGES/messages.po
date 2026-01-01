@@ -36,13 +36,13 @@ msgstr "Sumber MXM"
 #: templates/abstrack.html:56 templates/api.html:56 templates/index.html:57
 #: templates/isrc.html:56 templates/mxm.html:56 templates/split.html:56
 msgid "MXM Abstrack"
-msgstr "Abstrack MXM"
+msgstr "Abstrak MXM"
 
 #: templates/abstrack.html:57 templates/api.html:57 templates/index.html:58
 #: templates/isrc.html:57 templates/mxm.html:57 templates/split.html:57
 #: templates/split.html:69
 msgid "Split Checker"
-msgstr "Pengecek Split"
+msgstr "Split Checker"
 
 #: templates/abstrack.html:58 templates/api.html:58 templates/index.html:59
 #: templates/isrc.html:58 templates/mxm.html:58 templates/split.html:58
@@ -51,15 +51,15 @@ msgstr "Atur Token"
 
 #: templates/abstrack.html:70
 msgid "Musixmatch Abstrack"
-msgstr "Abstrack Musixmatch"
+msgstr "Abstrak Musixmatch"
 
 #: templates/abstrack.html:72
 msgid "Musixmatch abstrack:"
-msgstr "Abstrack Musixmatch:"
+msgstr "Abstrak Musixmatch:"
 
 #: templates/abstrack.html:73
 msgid "Enter the abstrack here"
-msgstr "Masukkan abstrack di sini"
+msgstr "Masukkan abstrak di sini"
 
 #: templates/abstrack.html:74 templates/index.html:75 templates/isrc.html:75
 #: templates/mxm.html:74
@@ -92,15 +92,15 @@ msgstr "Eksplisit:"
 
 #: templates/abstrack.html:108
 msgid "Has Lyrics:"
-msgstr "Ada Lirik:"
+msgstr "Memiliki Lirik:"
 
 #: templates/abstrack.html:111
 msgid "Has Subtitles:"
-msgstr "Ada Subtitle:"
+msgstr "Memiliki Subtitle:"
 
 #: templates/abstrack.html:114
 msgid "Link:"
-msgstr "Tautan:"
+msgstr "Link:"
 
 #: templates/abstrack.html:118
 msgid "Album Info:"
@@ -151,7 +151,7 @@ msgstr "Simpan"
 
 #: templates/api.html:78
 msgid "This Page is for any one want to use the tool with their Private Token key"
-msgstr "Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token Pribadi mereka"
+msgstr "Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token Pribadinya"
 
 #: templates/api.html:86
 msgid "Your Token:"
@@ -211,7 +211,7 @@ msgid ""
 "          Token which expires in every one hour then it regenerates a new"
 " token automatically. So you can say your Token\n"
 "          is super secured."
-msgstr "Kami tidak menyimpan Token secara langsung di cookie. Sebaliknya, kami menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang Token Anda sangat aman."
+msgstr "Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang Token Anda sangat aman."
 
 #: templates/index.html:38
 msgid "No Internet Connection"

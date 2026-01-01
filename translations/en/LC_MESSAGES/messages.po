@@ -255,7 +255,7 @@ msgstr ""
 
 #: templates/isrc.html:139
 msgid "No countries found."
-msgstr ""
+msgstr "No countries found."
 
 #: templates/mxm.html:70
 msgid "Musixmatch Album source"
