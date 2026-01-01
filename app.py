@@ -10,8 +10,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import aiohttp
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, redirect, url_for, session
 from asgiref.wsgi import WsgiToAsgi
+from flask_babel import Babel, _
 from mxm import MXM
 from spotify import Spotify
 
@@ -64,33 +65,33 @@ def jwt_ref(resp,payload):
     return resp
 
 
-class StartAiohttp:
-    session = None
-
-    def __init__(self, limit, limit_per_host) -> None:
-        self.limit = limit
-        self.limit_per_host = limit_per_host
-
-    async def start_session(self):
-        await self.close_session()
-        connector = aiohttp.TCPConnector(
-            limit=self.limit, limit_per_host=self.limit_per_host)
-        self.session = aiohttp.ClientSession(connector=connector)
-
-    def get_session(self):
-        return self.session
-
-    async def close_session(self):
-        if self.session:
-            await self.session.close()
-            self.session = None
-
-
-client = StartAiohttp(7, 7)
 
 
 app = Flask(__name__)
+
+def get_locale():
+    # 1. Check if user has explicitly set a language cookie
+    lang = request.cookies.get('language')
+    if lang in ['en', 'id']:
+        return lang
+    # 2. Check browser settings
+    return request.accept_languages.best_match(['en', 'id'])
+
+babel = Babel(app, locale_selector=get_locale)
+
+@app.context_processor
+def inject_get_locale():
+    return dict(get_locale=get_locale)
+
 sp = Spotify()
+
+
+@app.route('/set_language/<language>')
+def set_language(language=None):
+    response = make_response(redirect(request.referrer or url_for('index')))
+    if language in ['en', 'id']:
+        response.set_cookie('language', language)
+    return response
 
 
 @app.route('/', methods=['GET'])
@@ -117,24 +118,23 @@ async def index():
             if payload:
                 key = payload.get("mxm-key")
 
-        await client.start_session()
-        mxm = MXM(key, session=client.get_session())
-        try:
-            if (len(link) < 12):
-                return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
-            elif re.search(r'artist/(\w+)', link):
-                return render_template('index.html', artist=sp.artist_albums(link, []))
-            else:
-                sp_data = sp.get_isrc(link) if len(link) > 12 else [
-                    {"isrc": link, "image": None}]
-        except Exception as e:
-            return render_template('index.html', tracks_data=[str(e)])
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            try:
+                if (len(link) < 12):
+                    return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
+                elif re.search(r'artist/(\w+)', link):
+                    return render_template('index.html', artist=sp.artist_albums(link, []))
+                else:
+                    sp_data = sp.get_isrc(link) if len(link) > 12 else [
+                        {"isrc": link, "image": None}]
+            except Exception as e:
+                return render_template('index.html', tracks_data=[str(e)])
 
-        mxmLinks = await mxm.Tracks_Data(sp_data)
+            mxmLinks = await mxm.Tracks_Data(sp_data)
+        
         if isinstance(mxmLinks, str):
             return mxmLinks
-
-        await client.close_session()
 
         return render_template('index.html', tracks_data=mxmLinks)
 
@@ -160,46 +160,47 @@ async def split():
             payload = verify_token(token)
             if payload:
                 key = payload.get("mxm-key")
-        await client.start_session()
-        mxm = MXM(key, session=client.get_session())
-        match = re.search(r'open.spotify.com',
-                            link) and re.search(r'track', link)
-        match = match and re.search(
-            r'open.spotify.com', link2) and re.search(r'track', link2)
-        if match:
-            sp_data1 = sp.get_isrc(link)
-            sp_data2 = sp.get_isrc(link2)
-            track1 = await mxm.Tracks_Data(sp_data1, True)
-            track1 = track1[0]
-            if isinstance(track1, str):
-                return render_template('split.html', error="track1: " + track1)
-            track2 = await mxm.Tracks_Data(sp_data2, True)
-            track2 = track2[0]
-            if isinstance(track2, str):
-                return render_template('split.html', error="track2: " + track1)
-            await client.close_session()
-            track1["track"] = sp_data1[0]["track"]
-            track2["track"] = sp_data2[0]["track"]
-            try:
-                if track1["isrc"] != track2["isrc"] and track1["commontrack_id"] == track2["commontrack_id"]:
-                    message = f"""Can be splitted </br>
-                        you can c/p:</br>
-                        :mxm: <a href="{track1["track_share_url"]}" target="_blank">MXM Page</a> </br>
-                        :spotify: <a href="{link}" target="_blank">{track1["track"]["name"]}</a>,
-                        :isrc: {track1["isrc"]} </br>
-                        :spotify: <a href="{link2}" target="_blank">{track2["track"]["name"]}</a>,
-                        :isrc: {track2["isrc"]}
-                        """
-                elif track1["isrc"] == track2["isrc"] and track1["commontrack_id"] == track2["commontrack_id"]:
-                    message = "Can not be splitted as they have the Same ISRC"
-                else:
-                    message = "They have different Pages"
-            except:
-                return render_template('split.html', error="Something went wrong")
+        
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            match = re.search(r'open.spotify.com',
+                                link) and re.search(r'track', link)
+            match = match and re.search(
+                r'open.spotify.com', link2) and re.search(r'track', link2)
+            if match:
+                sp_data1 = sp.get_isrc(link)
+                sp_data2 = sp.get_isrc(link2)
+                track1 = await mxm.Tracks_Data(sp_data1, True)
+                track1 = track1[0]
+                if isinstance(track1, str):
+                    return render_template('split.html', error="track1: " + track1)
+                track2 = await mxm.Tracks_Data(sp_data2, True)
+                track2 = track2[0]
+                if isinstance(track2, str):
+                    return render_template('split.html', error="track2: " + track1)
+                
+                track1["track"] = sp_data1[0]["track"]
+                track2["track"] = sp_data2[0]["track"]
+                try:
+                    if track1["isrc"] != track2["isrc"] and track1["commontrack_id"] == track2["commontrack_id"]:
+                        message = f"""Can be splitted </br>
+                            you can c/p:</br>
+                            :mxm: <a href="{track1["track_share_url"]}" target="_blank">MXM Page</a> </br>
+                            :spotify: <a href="{link}" target="_blank">{track1["track"]["name"]}</a>,
+                            :isrc: {track1["isrc"]} </br>
+                            :spotify: <a href="{link2}" target="_blank">{track2["track"]["name"]}</a>,
+                            :isrc: {track2["isrc"]}
+                            """
+                    elif track1["isrc"] == track2["isrc"] and track1["commontrack_id"] == track2["commontrack_id"]:
+                        message = "Can not be splitted as they have the Same ISRC"
+                    else:
+                        message = "They have different Pages"
+                except:
+                    return render_template('split.html', error="Something went wrong")
 
-            return render_template('split.html', split_result={"track1": track1, "track2": track2}, message=message)
-        else:
-            return render_template('split.html', error="Wrong Spotify Link")
+                return render_template('split.html', split_result={"track1": track1, "track2": track2}, message=message)
+            else:
+                return render_template('split.html', error="Wrong Spotify Link")
 
     else:
         return render_template('split.html')
@@ -246,15 +247,14 @@ async def setAPI():
 
     if key:
         # check the key
-        await client.start_session()
-        mxm = MXM(key, session=client.get_session())
-        sp_data = [{"isrc": "DGA072332812", "image": None}]
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            sp_data = [{"isrc": "DGA072332812", "image": None}]
 
-        # Call the Tracks_Data method with the appropriate parameters
-        mxmLinks = await mxm.Tracks_Data(sp_data)
-        print(mxmLinks)
-        await client.close_session()
-
+            # Call the Tracks_Data method with the appropriate parameters
+            mxmLinks = await mxm.Tracks_Data(sp_data)
+            print(mxmLinks)
+        
         if isinstance(mxmLinks[0], str):
             return render_template("api.html", error="Please Enter A Valid Key")
 
@@ -288,10 +288,10 @@ async def mxm_to_sp():
             if payload:
                 key = payload.get("mxm-key")
 
-        await client.start_session()
-        mxm = MXM(key, session=client.get_session())
-        album = await mxm.album_sp_id(link)
-        await client.close_session()
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            album = await mxm.album_sp_id(link)
+        
         return render_template("mxm.html", album=album.get("album"), error=album.get("error"))
     else:
         return render_template("mxm.html")
@@ -309,10 +309,11 @@ async def abstrack() -> str:
                 key = payload.get("mxm-key")
         if not re.match("^[0-9]+$",id):
             return render_template("abstrack.html", error = "Invalid input!")
-        await client.start_session()
-        mxm = MXM(key, session=client.get_session())
-        track, album = await mxm.abstrack(id)
-        await client.close_session()
+        
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            track, album = await mxm.abstrack(id)
+        
         return render_template("abstrack.html", track=track, album= album, error=track.get("error"))
     else:
         return render_template("abstrack.html")
