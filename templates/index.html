@@ -1,257 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-N2FR6G2S');</script>
-  <!-- End Google Tag Manager -->
-  <title>Spotify to Musixmatch Link</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
-  <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta content="Spotify To Mxm" property="og:title" />
-  <meta content="Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link" property="og:description" />
-  <!-- <meta content="#ff6050" data-react-helmet="true" name="theme-color" /> -->
-</head>
+{% block title %}Spotify to Musixmatch Link{% endblock %}
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2FR6G2S" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div id="offline-div" spellcheck="true" style="display: none">
-    <h3 style="
-          font-size: 50px;
-          margin: 0;
-          padding: 0;
-          color: #ff5900;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        ">
-      {{ _('No Internet Connection') }}
-    </h3>
-    <p style="
-          font-size: 30px;
-          margin: 0;
-          padding: 0;
-          color: #ff0000;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        ">
-      {{ _("Make sure you're connected to the internet.") }}
-    </p>
-  </div>
-
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <ul>
-        <li><a href="/">{{ _('Home Page') }}</a></li>
-        <li><a href="/spotify">{{ _('Spotify Data') }}</a></li>
-        <li><a href="/mxm">{{ _('MXM Source') }}</a></li>
-        <li><a href="/abstrack">{{ _('MXM Abstrack') }}</a></li>
-        <li><a href="/split">{{ _('Split Checker') }}</a></li>
-        <li><a href="/api">{{ _('Set Token') }}</a></li>
-      </ul>
-    </div>
-
-    <!-- Floating Language Switcher -->
-    <div class="lang-fab-container">
-      <button class="lang-fab-btn" aria-label="Language">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path
-            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-        </svg>
-      </button>
-      <div class="lang-fab-dropdown">
-        <a href="{{ url_for('set_language', language='en') }}"
-          style="{{ 'font-weight: bold;' if get_locale() == 'en' else '' }}">English</a>
-        <a href="{{ url_for('set_language', language='id') }}"
-          style="{{ 'font-weight: bold;' if get_locale() == 'id' else '' }}">Indonesia</a>
-      </div>
-    </div>
-  </nav>
-
-
-
-
-  <div class="container">
-    <h1>{{ _('Spotify to Musixmatch Link') }}</h1>
-    <form action="/" method="GET">
-      <label for="input_link">{{ _('Spotify Track|Album|Artist Link Or ISRC:') }}</label>
-      <input type="text" id="input_link" name="link" placeholder="{{ _('Enter Spotify track link here') }}" />
-      <button type="submit" id="process_button">{{ _('Get links') }}</button>
-      <div class="loading" id="loading"></div>
-    </form>
-    <div class="output" id="output">
-      {% if tracks_data %}
-      <div class="row">
-        {% for track in tracks_data %} {% if track.isrc %}
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card">
-            <img src="{{ track.image }}" alt="{{ track.track_name }}" />
-            <div class="card-details">
-              <h5 class="card-title">{{ track.track_name }}</h5>
-              {% if track.matcher_album %}
-              <p class="card-text">
-                Album:
-                <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.matcher_album[0] }}"
-                  class="card-link" target="_blank">{{ track.matcher_album[1] }}</a>
-              </p>
-              {% else %}
-              <p class="card-text">
-                Album:
-                <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.album_id }}" class="card-link"
-                  target="_blank">{{ track.album_name }}</a>
-              </p>
-              {% endif %}
-              <p class="card-text">ISRC: {{ track.isrc }}</p>
-              <p class="card-text">Track ID: {{ track.commontrack_id}}</p>
-              <p class="card-text">
-                Link:
-                <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>,
-                <span href="{{ track.beta.split('?')[0] }}" class="card-link" target="_blank">Beta Musixmatch</span>
-              </p>
-              {% if track.note %}
-              <p class="card-text">Note: {{ track.note|safe }}</p>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        {% else %}
+{% block content %}
+<div class="container">
+  <h1>{{ _('Spotify to Musixmatch Link') }}</h1>
+  <form action="/" method="GET">
+    <label for="input_link">{{ _('Spotify Track|Album|Artist Link Or ISRC:') }}</label>
+    <input type="text" id="input_link" name="link" placeholder="{{ _('Enter Spotify track link here') }}" />
+    <button type="submit" id="process_button">{{ _('Get links') }}</button>
+    <div class="loading" id="loading"></div>
+  </form>
+  <div class="output" id="output">
+    {% if tracks_data %}
+    <div class="row">
+      {% for track in tracks_data %} {% if track.isrc %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card">
-          <p class="card-text">{{ track }}</p>
-        </div>
-        {% endif %} {% endfor %}
-      </div>
-      {% endif %} {% if artist %}
-      <div class="row">
-        {% for album in artist %}
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card">
-            <img src="{{ album.images[0].url }}" alt="{{ album.name }}" />
-            <div class="card-details">
-              <h5 class="card-title">{{ album.name }}</h5>
-              <p class="card-text">type: {{ album.album_type}}</p>
-              <p class="card-text">
-                Spotify:
-                <a href="{{ album.external_urls.spotify }}" target="_blank">Album link</a>
-              </p>
-              <a href="/?link={{ album.external_urls.spotify }}" target="_blank">Get MXM Links</a>
-            </div>
+          <img src="{{ track.image }}" alt="{{ track.track_name }}" />
+          <div class="card-details">
+            <h5 class="card-title">{{ track.track_name }}</h5>
+            {% if track.matcher_album %}
+            <p class="card-text">
+              Album:
+              <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.matcher_album[0] }}"
+                class="card-link" target="_blank">{{ track.matcher_album[1] }}</a>
+            </p>
+            {% else %}
+            <p class="card-text">
+              Album:
+              <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.album_id }}" class="card-link"
+                target="_blank">{{ track.album_name }}</a>
+            </p>
+            {% endif %}
+            <p class="card-text">ISRC: {{ track.isrc }}</p>
+            <p class="card-text">Track ID: {{ track.commontrack_id}}</p>
+            <p class="card-text">
+              Link:
+              <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>,
+              <span href="{{ track.beta.split('?')[0] }}" class="card-link" target="_blank">Beta Musixmatch</span>
+            </p>
+            {% if track.note %}
+            <p class="card-text">Note: {{ track.note|safe }}</p>
+            {% endif %}
           </div>
         </div>
-        {% endfor %}
       </div>
-      {% endif %}
+      {% else %}
+      <div class="card">
+        <p class="card-text">{{ track }}</p>
+      </div>
+      {% endif %} {% endfor %}
     </div>
-    <div>
-      <a href="#" id="how_to_use">{{ _('How to Use?') }}</a>
-    </div>
-  </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-left">
-        <!-- <span>Version 1.0</span>
-        <span class="separator">•</span> -->
-      </div>
-
-      <div class="footer-center">
-        <span>Coded with ❤️ for music</span>
-      </div>
-
-      <div class="footer-right">
-        <div>
-          <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank"
-            class="github-link">
-            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg" alt="GitHub"
-              class="icon" />
-          </a>
-        </div>
-        <div>
-          <a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank"
-            class="github-link">
-            <svg class="icon" aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20"
-              data-view-component="true" class="octicon octicon-repo-forked mr-2">
-              <path
-                d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z">
-              </path>
-            </svg>
-          </a>
+    {% endif %} {% if artist %}
+    <div class="row">
+      {% for album in artist %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <img src="{{ album.images[0].url }}" alt="{{ album.name }}" />
+          <div class="card-details">
+            <h5 class="card-title">{{ album.name }}</h5>
+            <p class="card-text">type: {{ album.album_type}}</p>
+            <p class="card-text">
+              Spotify:
+              <a href="{{ album.external_urls.spotify }}" target="_blank">Album link</a>
+            </p>
+            <a href="/?link={{ album.external_urls.spotify }}" target="_blank">Get MXM Links</a>
+          </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-  </footer>
-  <!-- <div class="note">
-    <span class="close" id="closenote">&times;</span>
-    <p class="note-text">
-      Importing new release songs now works, but it may take some additional time.
-    </p>
-  </div> -->
-  <div class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>How to Use</h2>
-      <ol>
-        <li>
-          Enter a valid Spotify link (track or album) or ISRC into the input
-          field.
-        </li>
-        <li>
-          Click the "Get links" button and wait until the processing ends.
-        </li>
-      </ol>
-      <h3>If the track has not been imported yet:</h3>
-      <ul>
-        <li>
-          The app tries to import it automatically. You may get the links
-          immediately or have to wait for 1 or 2 minutes (depending on the
-          MXM API).
-        </li>
-        <li>
-          If you see the same message after a while, it means that the app
-          can't import it. You have to ask for help via Slack.
-        </li>
-      </ul>
-      <h3>Spotify Limits:</h3>
-      <ul>
-        <li>You can't get more than 50 tracks from an album.</li>
-      </ul>
-      <h3>Hosting Limits:</h3>
-      <ul>
-        <li>
-          If you see a limit error, it mostly means that the album has many
-          tracks. Try to get the links by using a track link, then open the
-          album from MXM.
-        </li>
-        <!-- <li>
+    {% endif %}
+  </div>
+  <div>
+    <a href="#" id="how_to_use">{{ _('How to Use?') }}</a>
+  </div>
+</div>
+
+<div class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>How to Use</h2>
+    <ol>
+      <li>
+        Enter a valid Spotify link (track or album) or ISRC into the input
+        field.
+      </li>
+      <li>
+        Click the "Get links" button and wait until the processing ends.
+      </li>
+    </ol>
+    <h3>If the track has not been imported yet:</h3>
+    <ul>
+      <li>
+        The app tries to import it automatically. You may get the links
+        immediately or have to wait for 1 or 2 minutes (depending on the
+        MXM API).
+      </li>
+      <li>
+        If you see the same message after a while, it means that the app
+        can't import it. You have to ask for help via Slack.
+      </li>
+    </ul>
+    <h3>Spotify Limits:</h3>
+    <ul>
+      <li>You can't get more than 50 tracks from an album.</li>
+    </ul>
+    <h3>Hosting Limits:</h3>
+    <ul>
+      <li>
+        If you see a limit error, it mostly means that the album has many
+        tracks. Try to get the links by using a track link, then open the
+        album from MXM.
+      </li>
+      <!-- <li>
           You can use http://cifor55334.pythonanywhere.com/ or
           https://spotify-to-mxm.onrender.com/ as a mirror to the Vercel
           domain.
         </li> -->
-      </ul>
-      <p class="reach">
-        Finally, if you face a problem or the app is malfunctioning, you can
-        reach me via Slack "<a href="https://lyricscurators.slack.com/team/U0140RQGG4E" target="_blank">@Ian P.</a>".
-      </p>
-      <p>This site is a fork of Adel Hashem's <a
-          href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank">GitHub
-          repo.</a></p>
-      <p>Hoping this app is useful.</p>
+    </ul>
+    <p class="reach">
+      Finally, if you face a problem or the app is malfunctioning, you can
+      reach me via Slack "<a href="https://lyricscurators.slack.com/team/U0140RQGG4E" target="_blank">@Ian P.</a>".
+    </p>
+    <p>This site is a fork of Adel Hashem's <a
+        href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank">GitHub
+        repo.</a></p>
+    <p>Hoping this app is useful.</p>
 
-    </div>
   </div>
-  <script defer src="https://spotify-to-mxm.vercel.app/_vercel/insights/script.js"></script>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

@@ -746,3 +746,19 @@ th:last-child {
     margin-top: 10px;
   }
 }
+/* Offline Message */
+#offline-div h3 {
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
+  color: #ff5900;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#offline-div p {
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+  color: #ff0000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
