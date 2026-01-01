@@ -183,10 +183,7 @@ msgid "Copy the debug and copy usertoken"
 msgstr ""
 
 #: templates/api.html:123
-msgid ""
-"Please save and pin your key on the clipboard as it is saved in the "
-"browser you use only. If you changed\n"
-"          browsers, you'll need to enter it again."
+msgid "Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again."
 msgstr ""
 
 #: templates/api.html:128
@@ -210,12 +207,7 @@ msgid "How secure will be the Token?"
 msgstr ""
 
 #: templates/api.html:142
-msgid ""
-"We are not setting the Token directly to the cookie. Instead, we are "
-"generating a token based on your\n"
-"          Token which expires in every one hour then it regenerates a new"
-" token automatically. So you can say your Token\n"
-"          is super secured."
+msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
 msgstr ""
 
 #: templates/index.html:38
@@ -278,11 +270,8 @@ msgstr ""
 msgid "The tool can only get the source of the album."
 msgstr ""
 
-#: templates/mxm.html:84
-msgid ""
-"If a track page connected to more than one album, it's better to enter "
-"the\n"
-"        album page."
+#: templates/mxm.html:16
+msgid "If a track matches multiple albums, please use the album link."
 msgstr ""
 
 #: templates/split.html:76

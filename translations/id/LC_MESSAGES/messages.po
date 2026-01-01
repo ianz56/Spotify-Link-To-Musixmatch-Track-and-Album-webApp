@@ -185,14 +185,8 @@ msgid "Copy the debug and copy usertoken"
 msgstr "Salin debug dan salin usertoken"
 
 #: templates/api.html:123
-msgid ""
-"Please save and pin your key on the clipboard as it is saved in the "
-"browser you use only. If you changed\n"
-"          browsers, you'll need to enter it again."
-msgstr ""
-"Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di "
-"browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu "
-"memasukkannya lagi."
+msgid "Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again."
+msgstr "Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu memasukkannya lagi."
 
 #: templates/api.html:128
 msgid "How can I return to use the tool Token:"
@@ -215,17 +209,10 @@ msgid "How secure will be the Token?"
 msgstr "Seberapa aman Token ini?"
 
 #: templates/api.html:142
-msgid ""
-"We are not setting the Token directly to the cookie. Instead, we are "
-"generating a token based on your\n"
-"          Token which expires in every one hour then it regenerates a new"
-" token automatically. So you can say your Token\n"
-"          is super secured."
-msgstr ""
-"Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web "
-"menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu "
-"jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang "
-"Token Anda sangat aman."
+msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your
+        Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token
+        is super secured."
+msgstr "Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang Token Anda sangat aman."
 
 #: templates/index.html:38
 msgid "No Internet Connection"
@@ -253,15 +240,15 @@ msgstr "Cara Penggunaan?"
 
 #: templates/isrc.html:75
 msgid "Get Spotify Data"
-msgstr "Dapatkan Data Spotify"
+msgstr "Ambil Data Spotify"
 
 #: templates/isrc.html:77
 msgid "Spotify Track|Album Link or ISRC:"
-msgstr "Link Lagu|Album Spotify atau ISRC:"
+msgstr "Link Trek|Album Spotify atau ISRC:"
 
 #: templates/isrc.html:79
 msgid "Enter Spotify track|album link or an ISRC here"
-msgstr "Masukkan link lagu|album Spotify atau ISRC di sini"
+msgstr "Masukkan link trek|album Spotify atau ISRC di sini"
 
 #: templates/isrc.html:104
 msgid "No Available Markets"
@@ -279,40 +266,35 @@ msgstr "Sumber Album Musixmatch"
 
 #: templates/mxm.html:77
 msgid "Musixmatch Album|track Link:"
-msgstr "Link Album|Lagu Musixmatch:"
+msgstr "Link Album|Trek Musixmatch:"
 
 #: templates/mxm.html:78
 msgid "Enter Musixmatch album|track link here"
-msgstr "Masukkan link album|lagu Musixmatch di sini"
+msgstr "Masukkan link album|trek Musixmatch di sini"
 
 #: templates/mxm.html:83
 msgid "The tool can only get the source of the album."
-msgstr "Alat ini hanya bisa mendapatkan sumber album."
+msgstr "Alat ini dapat mengambil sumber album."
 
-#: templates/mxm.html:84
-msgid ""
-"If a track page connected to more than one album, it's better to enter "
-"the\n"
-"        album page."
-msgstr ""
-"Jika halaman lagu terhubung ke lebih dari satu album, lebih baik masukkan"
-" halaman album."
+#: templates/mxm.html:16
+msgid "If a track matches multiple albums, please use the album link."
+msgstr "Jika halaman trek terhubung ke banyak album, silakan gunakan link album."
 
 #: templates/split.html:76
 msgid "Track 1:"
-msgstr "Lagu 1:"
+msgstr "Trek 1:"
 
 #: templates/split.html:77
 msgid "Enter Spotify track link 1"
-msgstr "Masukkan link lagu Spotify 1"
+msgstr "Masukkan link trek Spotify 1"
 
 #: templates/split.html:78
 msgid "Track 2:"
-msgstr "Lagu 2:"
+msgstr "Trek 2:"
 
 #: templates/split.html:79
 msgid "Enter Spotify track link 2"
-msgstr "Masukkan link lagu Spotify 2"
+msgstr "Masukkan link trek Spotify 2"
 
 #: templates/split.html:80
 msgid "Check"
@@ -320,11 +302,11 @@ msgstr "Cek"
 
 #: templates/split.html:92
 msgid "Track 1"
-msgstr "Lagu 1"
+msgstr "Trek 1"
 
 #: templates/split.html:93
 msgid "Track 2"
-msgstr "Lagu 2"
+msgstr "Trek 2"
 
 #: templates/split.html:98
 msgid "Track 1 ISRC:"

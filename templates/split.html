@@ -5,11 +5,11 @@
 {% block content %}
 <div class="container">
   <h1>{{ _('Split Checker') }}</h1>
-  <form action="/" method="GET">
+  <form action="/split" method="GET">
     <label for="input_link_1">{{ _('Track 1:') }}</label>
-    <input type="text" id="input_link_1" name="link_1" placeholder="{{ _('Enter Spotify track link 1') }}" />
+    <input type="text" id="input_link_1" name="link" placeholder="{{ _('Enter Spotify track link 1') }}" />
     <label for="input_link_2">{{ _('Track 2:') }}</label>
-    <input type="text" id="input_link_2" name="link_2" placeholder="{{ _('Enter Spotify track link 2') }}" />
+    <input type="text" id="input_link_2" name="link2" placeholder="{{ _('Enter Spotify track link 2') }}" />
     <button type="submit" id="split_button">{{ _('Check') }}</button>
     <div class="loading" id="loading"></div>
   </form>
