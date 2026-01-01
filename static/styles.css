@@ -200,7 +200,13 @@ span.card-link:hover {
 
 /* Navbar */
 .navbar {
-  max-width: 800px;
+  position: sticky;
+  margin: 0 auto 40px auto;
+  display: flex;
+  align-items: center;
+  top: 20px;
+  z-index: 100;
+  /* max-width: 800px;
   margin: 0 auto 40px auto;
   background-color: var(--nav-bg);
   padding: 16px;
@@ -214,8 +220,20 @@ span.card-link:hover {
   top: 20px;
   z-index: 100;
   box-shadow: var(--shadow-md);
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: visible; */
+  /* Changed from auto/hidden to visible for dropdown */
+}
+
+.navbar-container {
+  max-width: 800px;
+  background-color: var(--nav-bg);
+  padding: 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar ul {
@@ -224,6 +242,21 @@ span.card-link:hover {
   padding: 0;
   display: flex;
   gap: 8px;
+  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Floating Language Button */
+.lang-fab-container {
+  margin-left: 20px;
+  /* position: absolute; */
+  /* Changed from fixed to absolute to stick with navbar */
+  /* top: 50%; */
+  /* right: 16px; */
+  /* Align to right padding of navbar */
+  /* transform: translateY(-50%); */
+  /* z-index: 1001; */
 }
 
 .navbar a {
@@ -430,47 +463,40 @@ th:last-child {
   }
 
   .navbar {
+    /* Allow block layout for sticky positioning context */
+    /* Add some side padding to the wrapper */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .navbar-container {
     display: block;
-    /* Allow block display for scrolling container */
+    /* Allow block display for scrolling */
     overflow-x: auto;
     /* Enable horizontal scrolling */
     white-space: nowrap;
     /* Prevent line breaks */
-    padding: 10px 16px;
-    /* Adjust padding */
     width: 100%;
-    /* ensure it takes full width of container */
     max-width: 100%;
-    /* prevent overflowing the parent */
-    box-sizing: border-box;
-    /* include padding in width calculation */
-    justify-content: start;
-    /* Align items to the start */
+
+    /* Clean up scrollbars */
     -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on iOS */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
   }
 
-  .navbar::-webkit-scrollbar {
+  .navbar-container::-webkit-scrollbar {
     display: none;
     /* Hide scrollbar for Chrome/Safari/Opera */
   }
 
-  .navbar {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-  }
-
   .navbar ul {
     display: inline-flex;
-    /* Keep items in a row */
     flex-wrap: nowrap;
-    /* Prevent wrapping */
     justify-content: flex-start;
-    /* Ensure items start from the left */
     padding-right: 20px;
-    /* Add some space at the end */
   }
 
   .modal-content {
@@ -553,5 +579,170 @@ th:last-child {
     flex-direction: column;
     gap: 16px;
     text-align: center;
+  }
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--card-bg);
+  min-width: 120px;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  z-index: 1000;
+  border: 1px solid var(--border-color);
+  right: 0;
+  /* Align to right */
+  top: 100%;
+  margin-top: 0;
+  /* Removed gap to fix hover issue */
+}
+
+.dropdown-content a {
+  color: var(--text-color);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-radius: var(--radius-md);
+  font-weight: normal;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(29, 185, 84, 0.1);
+  color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  animation: slideIn 0.2s ease;
+}
+
+.dropbtn {
+  cursor: pointer;
+}
+
+/* Mobile Dropdown Fix */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: fixed;
+    /* Fix it to screen on mobile */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    margin-top: 0;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+
+
+
+@media (max-width: 1100px) {
+  /* No changes needed for tablet/smaller desktops if navbar is fluid, 
+     but we might want to ensure it doesn't overlap links on small screens */
+}
+
+.lang-fab-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  color: var(--text-color);
+}
+
+.lang-fab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.lang-fab-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.lang-fab-dropdown {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  min-width: 150px;
+  overflow: hidden;
+  animation: slideIn 0.2s ease;
+}
+
+.lang-fab-dropdown a {
+  display: block;
+  padding: 12px 16px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.lang-fab-dropdown a:hover {
+  background-color: rgba(29, 185, 84, 0.1);
+  color: var(--primary-color);
+}
+
+/* .lang-fab-container:hover .lang-fab-dropdown {
+  display: block;
+} */
+.lang-fab-dropdown.show {
+  display: block;
+  animation: slideIn 0.2s ease;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .lang-fab-container {
+    /* Keep fixed on mobile */
+    margin-left: 8px;
+    /* Reset transform */
+  }
+
+  .lang-fab-dropdown {
+    top: auto;
+    /* bottom: 60px; */
+    transform-origin: bottom right;
+    margin-top: 10px;
   }
 }

@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check strict pathname match OR fallback to href comparison
     const isMatch = link.pathname === currentPath || link.getAttribute("href") === currentPath;
 
-    console.log(`Checking link: ${link.pathname} (href: ${link.getAttribute("href")}) -> Match: ${isMatch}`);
-
     if (isMatch) {
       link.classList.add("active");
       // Auto-scroll the active link into view (center it horizontally)
@@ -21,6 +19,37 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Language FAB Click Handler
+  const fabBtn = document.querySelector('.lang-fab-btn');
+  const dropdown = document.querySelector('.lang-fab-dropdown');
+
+  if (fabBtn && dropdown) {
+    fabBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling to window
+      dropdown.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', (e) => {
+      if (!fabBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // Close dropdown when pressing Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('show');
+      }
+    })
+  }
+
+  // Hide the note element if the current URL contains a query string
+  const noteElement = document.querySelector(".note");
+  if (noteElement) {
+    noteElement.style.display = window.location.href.includes("?") ? "none" : "block";
+  }
 });
 
 // Get the form and button elements
@@ -83,23 +112,10 @@ if (closeBtn && modal) {
 
 // Add click event listener for clicks outside the modal
 window.addEventListener("click", (event) => {
-  if (event.target === modal) {
+  if (modal && event.target === modal) {
     modal.style.display = "none";
   }
 });
-
-// Get the close button element and note element
-// const closeButton = document.getElementById("closenote");
-// const note = document.querySelector(".note");
-
-// // If the close button and note elements exist
-// if (closeButton && note) {
-//   // Add an event listener to the close button
-//   closeButton.addEventListener("click", () => {
-//     // Hide the note element
-//     note.style.display = "none";
-//   });
-// }
 
 window.addEventListener("load", () => {
   const offlineDiv = document.getElementById("offline-div");
@@ -108,16 +124,19 @@ window.addEventListener("load", () => {
     const elements = document.querySelectorAll(
       "body > *:not(head):not(script):not(meta)"
     );
-    if (navigator.onLine) {
-      for (const element of elements) {
-        element.style.removeProperty("display");
+
+    if (offlineDiv) {
+      if (navigator.onLine) {
+        for (const element of elements) {
+          element.style.removeProperty("display");
+        }
+        offlineDiv.style.display = "none";
+      } else {
+        for (const element of elements) {
+          element.style.display = "none";
+        }
+        offlineDiv.style.display = "block";
       }
-      offlineDiv.style.display = "none";
-    } else {
-      for (const element of elements) {
-        element.style.display = "none";
-      }
-      offlineDiv.style.display = "block";
     }
   }
 
@@ -129,12 +148,3 @@ window.addEventListener("load", () => {
   });
   window.addEventListener("offline", handleOnlineStatus);
 });
-
-
-
-// Hide the note element if the current URL contains a query string
-document.querySelector(".note").style.display = window.location.href.includes("?")
-  ? "none"
-  : "block";
-
-

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-01 15:36+0700\n"
+"POT-Creation-Date: 2026-01-01 16:09+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: templates/abstrack.html:57 templates/api.html:57 templates/index.html:58
 #: templates/isrc.html:57 templates/mxm.html:57 templates/split.html:57
-#: templates/split.html:69
+#: templates/split.html:74
 msgid "Split Checker"
 msgstr ""
 
@@ -48,162 +48,167 @@ msgstr ""
 msgid "Set Token"
 msgstr ""
 
-#: templates/abstrack.html:70
+#: templates/abstrack.html:61 templates/api.html:61 templates/index.html:62
+#: templates/isrc.html:61 templates/mxm.html:61 templates/split.html:61
+msgid "Language"
+msgstr ""
+
+#: templates/abstrack.html:75
 msgid "Musixmatch Abstrack"
 msgstr ""
 
-#: templates/abstrack.html:72
+#: templates/abstrack.html:77
 msgid "Musixmatch abstrack:"
 msgstr ""
 
-#: templates/abstrack.html:73
+#: templates/abstrack.html:78
 msgid "Enter the abstrack here"
 msgstr ""
 
-#: templates/abstrack.html:74 templates/index.html:75 templates/isrc.html:75
-#: templates/mxm.html:74
+#: templates/abstrack.html:79 templates/index.html:80 templates/isrc.html:80
+#: templates/mxm.html:79
 msgid "Get links"
 msgstr ""
 
-#: templates/abstrack.html:83 templates/abstrack.html:182
+#: templates/abstrack.html:88 templates/abstrack.html:187
 msgid "Error:"
 msgstr ""
 
-#: templates/abstrack.html:94
+#: templates/abstrack.html:99
 msgid "Track Info:"
 msgstr ""
 
-#: templates/abstrack.html:96
+#: templates/abstrack.html:101
 msgid "Track Name:"
 msgstr ""
 
-#: templates/abstrack.html:99
+#: templates/abstrack.html:104
 msgid "Album Name:"
 msgstr ""
 
-#: templates/abstrack.html:102
+#: templates/abstrack.html:107
 msgid "Artist Name:"
 msgstr ""
 
-#: templates/abstrack.html:105
+#: templates/abstrack.html:110
 msgid "Explicit:"
 msgstr ""
 
-#: templates/abstrack.html:108
+#: templates/abstrack.html:113
 msgid "Has Lyrics:"
 msgstr ""
 
-#: templates/abstrack.html:111
+#: templates/abstrack.html:116
 msgid "Has Subtitles:"
 msgstr ""
 
-#: templates/abstrack.html:114
+#: templates/abstrack.html:119
 msgid "Link:"
 msgstr ""
 
-#: templates/abstrack.html:118
+#: templates/abstrack.html:123
 msgid "Album Info:"
 msgstr ""
 
-#: templates/abstrack.html:120 templates/isrc.html:89 templates/mxm.html:89
+#: templates/abstrack.html:125 templates/isrc.html:94 templates/mxm.html:94
 msgid "Album:"
 msgstr ""
 
-#: templates/abstrack.html:125 templates/mxm.html:96
+#: templates/abstrack.html:130 templates/mxm.html:101
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:129 templates/abstrack.html:140
-#: templates/mxm.html:101 templates/mxm.html:114
+#: templates/abstrack.html:134 templates/abstrack.html:145
+#: templates/mxm.html:106 templates/mxm.html:119
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:140 templates/abstrack.html:155
-#: templates/abstrack.html:170 templates/mxm.html:114 templates/mxm.html:133
+#: templates/abstrack.html:145 templates/abstrack.html:160
+#: templates/abstrack.html:175 templates/mxm.html:119 templates/mxm.html:138
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:144 templates/abstrack.html:155
-#: templates/mxm.html:120 templates/mxm.html:133
+#: templates/abstrack.html:149 templates/abstrack.html:160
+#: templates/mxm.html:125 templates/mxm.html:138
 msgid "Apple Music source:"
 msgstr ""
 
-#: templates/abstrack.html:159 templates/abstrack.html:170
+#: templates/abstrack.html:164 templates/abstrack.html:175
 msgid "Amazon Music source:"
 msgstr ""
 
-#: templates/abstrack.html:231 templates/isrc.html:221 templates/mxm.html:195
+#: templates/abstrack.html:236 templates/isrc.html:226 templates/mxm.html:200
 msgid "Countries"
 msgstr ""
 
-#: templates/api.html:69
+#: templates/api.html:74
 msgid "Set Your Token"
 msgstr ""
 
-#: templates/api.html:71 templates/api.html:72
+#: templates/api.html:76 templates/api.html:77
 msgid "Enter Your Token:"
 msgstr ""
 
-#: templates/api.html:73
+#: templates/api.html:78
 msgid "Save"
 msgstr ""
 
-#: templates/api.html:78
+#: templates/api.html:83
 msgid "This Page is for any one want to use the tool with their Private Token key"
 msgstr ""
 
-#: templates/api.html:86
+#: templates/api.html:91
 msgid "Your Token:"
 msgstr ""
 
-#: templates/api.html:88
+#: templates/api.html:93
 msgid "Delete your token"
 msgstr ""
 
-#: templates/api.html:106
+#: templates/api.html:111
 msgid "How To Get An Token:"
 msgstr ""
 
-#: templates/api.html:109
+#: templates/api.html:114
 msgid "Login in"
 msgstr ""
 
-#: templates/api.html:113
+#: templates/api.html:118
 msgid "Go to"
 msgstr ""
 
-#: templates/api.html:116
+#: templates/api.html:121
 msgid "Copy the debug and copy usertoken"
 msgstr ""
 
-#: templates/api.html:118
+#: templates/api.html:123
 msgid ""
 "Please save and pin your key on the clipboard as it is saved in the "
 "browser you use only. If you changed\n"
 "          browsers, you'll need to enter it again."
 msgstr ""
 
-#: templates/api.html:123
+#: templates/api.html:128
 msgid "How can I return to use the tool Token:"
 msgstr ""
 
-#: templates/api.html:126
+#: templates/api.html:131
 msgid "Delete your key from the page here or delete the site cookies"
 msgstr ""
 
-#: templates/api.html:129
+#: templates/api.html:134
 msgid "Would the tool use my Token for other users:"
 msgstr ""
 
-#: templates/api.html:132
+#: templates/api.html:137
 msgid "No, your Token is saved in your cookies not in a DB"
 msgstr ""
 
-#: templates/api.html:134
+#: templates/api.html:139
 msgid "How secure will be the Token?"
 msgstr ""
 
-#: templates/api.html:137
+#: templates/api.html:142
 msgid ""
 "We are not setting the Token directly to the cookie. Instead, we are "
 "generating a token based on your\n"
@@ -220,106 +225,106 @@ msgstr ""
 msgid "Make sure you're connected to the internet."
 msgstr ""
 
-#: templates/index.html:71
+#: templates/index.html:76
 msgid "Spotify to Musixmatch Link"
 msgstr ""
 
-#: templates/index.html:73
+#: templates/index.html:78
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr ""
 
-#: templates/index.html:74
+#: templates/index.html:79
 msgid "Enter Spotify track link here"
 msgstr ""
 
-#: templates/index.html:141
+#: templates/index.html:146
 msgid "How to Use?"
 msgstr ""
 
-#: templates/isrc.html:70
+#: templates/isrc.html:75
 msgid "Get Spotify Data"
 msgstr ""
 
-#: templates/isrc.html:72
+#: templates/isrc.html:77
 msgid "Spotify Track|Album Link or ISRC:"
 msgstr ""
 
-#: templates/isrc.html:74
+#: templates/isrc.html:79
 msgid "Enter Spotify track|album link or an ISRC here"
 msgstr ""
 
-#: templates/isrc.html:99
+#: templates/isrc.html:104
 msgid "No Available Markets"
 msgstr ""
 
-#: templates/isrc.html:139
+#: templates/isrc.html:144
 msgid "No countries found."
 msgstr ""
 
-#: templates/mxm.html:70
+#: templates/mxm.html:75
 msgid "Musixmatch Album source"
 msgstr ""
 
-#: templates/mxm.html:72
+#: templates/mxm.html:77
 msgid "Musixmatch Album|track Link:"
 msgstr ""
 
-#: templates/mxm.html:73
+#: templates/mxm.html:78
 msgid "Enter Musixmatch album|track link here"
 msgstr ""
 
-#: templates/mxm.html:78
+#: templates/mxm.html:83
 msgid "The tool can only get the source of the album."
 msgstr ""
 
-#: templates/mxm.html:79
+#: templates/mxm.html:84
 msgid ""
 "If a track page connected to more than one album, it's better to enter "
 "the\n"
 "        album page."
 msgstr ""
 
-#: templates/split.html:71
+#: templates/split.html:76
 msgid "Track 1:"
 msgstr ""
 
-#: templates/split.html:72
+#: templates/split.html:77
 msgid "Enter Spotify track link 1"
 msgstr ""
 
-#: templates/split.html:73
+#: templates/split.html:78
 msgid "Track 2:"
 msgstr ""
 
-#: templates/split.html:74
+#: templates/split.html:79
 msgid "Enter Spotify track link 2"
 msgstr ""
 
-#: templates/split.html:75
+#: templates/split.html:80
 msgid "Check"
 msgstr ""
 
-#: templates/split.html:87
+#: templates/split.html:92
 msgid "Track 1"
 msgstr ""
 
-#: templates/split.html:88
+#: templates/split.html:93
 msgid "Track 2"
 msgstr ""
 
-#: templates/split.html:93
+#: templates/split.html:98
 msgid "Track 1 ISRC:"
 msgstr ""
 
-#: templates/split.html:98
+#: templates/split.html:103
 msgid "Track 1 Name:"
 msgstr ""
 
-#: templates/split.html:103
+#: templates/split.html:108
 msgid "Track ID:"
 msgstr ""
 
-#: templates/split.html:108
+#: templates/split.html:113
 msgid "Musixmatch Link:"
 msgstr ""
 
