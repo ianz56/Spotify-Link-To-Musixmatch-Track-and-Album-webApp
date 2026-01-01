@@ -472,6 +472,11 @@ th:last-child {
     padding-right: 20px;
     /* Add some space at the end */
   }
+
+  .modal-content {
+    padding: 20px 16px 20px 12px;
+    text-align: justify;
+  }
 }
 
 /* Footer */
