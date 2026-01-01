@@ -27,13 +27,14 @@ body {
   padding: 40px 20px;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .container {
-  flex: 1;
+  /* flex: 1; */
   /* Pushes footer down */
   width: 100%;
   box-sizing: border-box;
@@ -389,6 +390,10 @@ th:last-child {
   th {
     background-color: #0f172a;
   }
+
+  .footer .icon {
+    filter: invert(1);
+  }
 }
 
 /* Mobile */
@@ -468,6 +473,8 @@ th:last-child {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
   align-items: center;
   padding: 0 20px;
   font-size: 0.9em;
@@ -490,6 +497,9 @@ th:last-child {
   color: var(--text-color);
   text-decoration: none;
   transition: color 0.2s;
+  justify-content: center;
+  display: flex;
+  gap: 8px;
 }
 
 .footer a:hover {
@@ -499,12 +509,15 @@ th:last-child {
 .github-link img {
   width: 24px;
   height: 24px;
-  opacity: 0.7;
-  transition: opacity 0.2s;
 }
 
-.github-link:hover img {
+.footer .icon:hover {
   opacity: 1;
+}
+
+.footer .icon {
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
 .separator {
@@ -512,6 +525,10 @@ th:last-child {
 }
 
 @media (max-width: 600px) {
+  .footer {
+    flex: 0;
+  }
+
   .footer-content {
     flex-direction: column;
     gap: 16px;

@@ -15,3 +15,4 @@ ProviderMusixmatch.js
 .env.example
 test_check_request.py
 .cache
+.cache
