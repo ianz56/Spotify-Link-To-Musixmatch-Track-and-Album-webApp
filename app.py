@@ -325,4 +325,4 @@ if __name__ == '__main__':
     from hypercorn.config import Config
     from hypercorn.asyncio import serve
     asyncio.run(serve(asgi_app, Config()))
-    app.run(debug=True)
+    # app.run(debug=True)
