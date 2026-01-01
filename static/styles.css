@@ -427,7 +427,8 @@ th:last-child {
   /* Make shadows more subtle in dark mode */
   .container,
   .card,
-  .navbar {
+  .navbar-container,
+  .lang-fab-btn {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   }
 
