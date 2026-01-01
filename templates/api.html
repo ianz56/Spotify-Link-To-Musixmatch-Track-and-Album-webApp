@@ -55,21 +55,21 @@
       <li><a href="/mxm">MXM Source</a></li>
       <li><a href="/abstrack">MXM Abstrack</a></li>
       <li><a href="/split">Split Checker</a></li>
-      <li><a href="/api">Set API</a></li>
+      <li><a href="/api">Set Token</a></li>
     </ul>
   </nav>
 
   <div class="container">
-    <h1>Set Your API Key</h1>
+    <h1>Set Your Token</h1>
     <form action="/" method="GET">
-      <label for="input_link">Enter Your API Key:</label>
-      <input type="text" id="key" name="input_key" placeholder="Enter Your API Key:" />
+      <label for="input_link">Enter Your Token:</label>
+      <input type="text" id="key" name="input_key" placeholder="Enter Your Token:" />
       <button type="submit" id="send_api">Save</button>
       <div class="loading" id="loading"></div>
     </form>
     <div class="output" id="output">
       <p style="text-align: center">
-        This Page is for any one want to use the tool with their Private API
+        This Page is for any one want to use the tool with their Private Token
         key
       </p>
       <p></p>
@@ -78,9 +78,9 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
             <div class="card-details">
-              <p class="card-text">Your Key: {{ key }}</p>
+              <p class="card-text">Your Token: {{ key }}</p>
               <p class="card-text">
-                <a class="card-link" href="?delete_key=True">Delete your key</a>
+                <a class="card-link" href="?delete_key=True">Delete your token</a>
               </p>
             </div>
           </div>
@@ -98,17 +98,17 @@
       </div>
       {% endif %}
 
-      <h4><span style="color: #ff0000">How To Get An API Key:</span></h4>
+      <h4><span style="color: #ff0000">How To Get An Token:</span></h4>
       <ol>
         <li>
-          signup in&nbsp;<a href="https://developer.musixmatch.com/signup">https://developer.musixmatch.com/signup</a><a
-            href="https://developer.musixmatch.com/signup" target="_blank" rel="noopener"></a>
+          Login in&nbsp;<a href="https://curators.musixmatch.com/">https://curators.musixmatch.com/</a><a
+            href="https://curators.musixmatch.com/" target="_blank" rel="noopener"></a>
         </li>
         <li>
-          Go to&nbsp;<a href="https://developer.musixmatch.com/admin/applications" target="_blank"
-            rel="noopener">https://developer.musixmatch.com/admin/applications</a>
+          Go to&nbsp;<a href="https://curators.musixmatch.com/settings" target="_blank"
+            rel="noopener">https://curators.musixmatch.com/settings</a>
         </li>
-        <li>Copy the key and enter it on this page</li>
+        <li>Copy the debug and copy usertoken</li>
         <li>
           Please save and pin your key on the clipboard as it is saved in the
           browser you use only. If you changed browsers, you'll need to
@@ -116,50 +116,62 @@
         </li>
       </ol>
       <h4>
-        <span style="color: #ff0000">How can I return to use the tool API:</span>
+        <span style="color: #ff0000">How can I return to use the tool Token:</span>
       </h4>
       <ul>
         <li>Delete your key from the page here or delete the site cookies</li>
       </ul>
       <h4>
-        <span style="color: #ff0000">Would the tool use my key for other users:</span>
+        <span style="color: #ff0000">Would the tool use my Token for other users:</span>
       </h4>
       <ul>
-        <li>No, your key is saved in your cookies not in a DB</li>
+        <li>No, your Token is saved in your cookies not in a DB</li>
       </ul>
-      <h4 style="color: #ff0000">How secure will be the API Key?</h4>
+      <h4 style="color: #ff0000">How secure will be the Token?</h4>
       <ul>
         <li>
-          We are not setting the API Key directly to the cookie. Instead, we
-          are generating a token based on your api key which expires in every
+          We are not setting the Token directly to the cookie. Instead, we
+          are generating a token based on your Token which expires in every
           one hour then it regenerates a new token automatically. So you can
-          say your API Key is super secured.
+          say your Token is super secured.
         </li>
       </ul>
     </div>
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-left">
-          <span>Version 1.0</span>
-          <span class="separator">•</span>
-          <a href="#" id="how_to_use">How to Use?</a>
-        </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <!-- <span>Version 1.0</span>
+        <span class="separator">•</span> -->
+      </div>
 
-        <div class="footer-center">
-          <span>Coded with ❤️ for music</span>
-        </div>
+      <div class="footer-center">
+        <span>Coded with ❤️ for music</span>
+      </div>
 
-        <div class="footer-right">
+      <div class="footer-right">
+        <div>
+          <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank"
+            class="github-link">
+            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg" alt="GitHub"
+              class="icon" />
+          </a>
+        </div>
+        <div>
           <a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp" target="_blank"
             class="github-link">
-            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg"
-              alt="GitHub" />
+            <svg class="icon" aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20"
+              data-view-component="true" class="octicon octicon-repo-forked mr-2">
+              <path
+                d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z">
+              </path>
+            </svg>
           </a>
         </div>
       </div>
-      <script defer src="https://spotify-to-mxm.vercel.app/_vercel/insights/script.js"></script>
-    </footer>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

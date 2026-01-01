@@ -285,6 +285,12 @@ th:last-child {
   border-top-right-radius: var(--radius-md);
 }
 
+.container .output {
+  text-align: justify;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 /* Modal */
 .modal {
   display: none;
