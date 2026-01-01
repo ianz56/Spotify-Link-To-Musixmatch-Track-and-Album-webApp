@@ -10,8 +10,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import aiohttp
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, redirect, url_for, session
 from asgiref.wsgi import WsgiToAsgi
+from flask_babel import Babel, _
 from mxm import MXM
 from spotify import Spotify
 
@@ -90,7 +91,30 @@ client = StartAiohttp(7, 7)
 
 
 app = Flask(__name__)
+
+def get_locale():
+    # 1. Check if user has explicitly set a language cookie
+    lang = request.cookies.get('language')
+    if lang in ['en', 'id']:
+        return lang
+    # 2. Check browser settings
+    return request.accept_languages.best_match(['en', 'id'])
+
+babel = Babel(app, locale_selector=get_locale)
+
+@app.context_processor
+def inject_get_locale():
+    return dict(get_locale=get_locale)
+
 sp = Spotify()
+
+
+@app.route('/set_language/<language>')
+def set_language(language=None):
+    response = make_response(redirect(request.referrer or url_for('index')))
+    if language in ['en', 'id']:
+        response.set_cookie('language', language)
+    return response
 
 
 @app.route('/', methods=['GET'])
@@ -324,4 +348,4 @@ if __name__ == '__main__':
     from hypercorn.config import Config
     from hypercorn.asyncio import serve
     asyncio.run(serve(asgi_app, Config()))
-    # app.run(debug=True)
+    app.run(debug=True)

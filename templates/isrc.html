@@ -50,22 +50,29 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
-      <li><a href="/">Home Page</a></li>
-      <li><a href="/spotify">Spotify Data</a></li>
-      <li><a href="/mxm">MXM Source</a></li>
-      <li><a href="/abstrack">MXM Abstrack</a></li>
-      <li><a href="/split">Split Checker</a></li>
-      <li><a href="/api">Set Token</a></li>
+      <li><a href="/">{{ _('Home Page') }}</a></li>
+      <li><a href="/spotify">{{ _('Spotify Data') }}</a></li>
+      <li><a href="/mxm">{{ _('MXM Source') }}</a></li>
+      <li><a href="/abstrack">{{ _('MXM Abstrack') }}</a></li>
+      <li><a href="/split">{{ _('Split Checker') }}</a></li>
+      <li><a href="/api">{{ _('Set Token') }}</a></li>
+      <li style="float: right;">
+        <a href="{{ url_for('set_language', language='en') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'en' else '' }}">EN</a> |
+        <a href="{{ url_for('set_language', language='id') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'id' else '' }}">ID</a>
+      </li>
     </ul>
   </nav>
 
 
   <div class="container">
-    <h1>Get Spotify Data</h1>
+    <h1>{{ _('Get Spotify Data') }}</h1>
     <form action="/" method="GET">
-      <label for="input_link">Spotify Track|Album Link or ISRC:</label>
-      <input type="text" id="input_link" name="link" placeholder="Enter Spotify track|album link or an ISRC here" />
-      <button type="submit" id="process_button">Get links</button>
+      <label for="input_link">{{ _('Spotify Track|Album Link or ISRC:') }}</label>
+      <input type="text" id="input_link" name="link"
+        placeholder="{{ _('Enter Spotify track|album link or an ISRC here') }}" />
+      <button type="submit" id="process_button">{{ _('Get links') }}</button>
       <div class="loading" id="loading"></div>
     </form>
     <div class="output" id="output">
@@ -79,7 +86,7 @@
               <h5 class="card-title">{{ track.track.name }}</h5>
 
               <p class="card-text">
-                Album:
+                {{ _('Album:') }}
                 <a href="{{ track.track.album.external_urls.spotify }}" class="card-link" target="_blank">{{
                   track.track.album.name }}</a>
 
@@ -89,7 +96,7 @@
               <p class="card-text"><a href="javascript:void(0)" onclick="showCountriesModal({{ loop.index0 }})"
                   class="card-link show-countries-btn">Available Markets</a></p>
               {% else %}
-              <p class="card-text"> No Available Markets</p>
+              <p class="card-text"> {{ _('No Available Markets') }}</p>
               {% endif %}
 
             </div>
@@ -129,7 +136,7 @@
             });
           } else {
             const li = document.createElement('li');
-            li.textContent = 'No countries found.';
+            li.textContent = "{{ _('No countries found.') }}";
             countriesList.appendChild(li);
           }
 
@@ -211,7 +218,7 @@
   <div id="countries-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Countries</h2>
+      <h2>{{ _('Countries') }}</h2>
       <ul id="countries-list"></ul>
     </div>
   </div>

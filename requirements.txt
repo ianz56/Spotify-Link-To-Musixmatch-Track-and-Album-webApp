@@ -16,3 +16,4 @@ asgiref
 jellyfish
 redis[hiredis]
 python-dotenv
+Flask-Babel

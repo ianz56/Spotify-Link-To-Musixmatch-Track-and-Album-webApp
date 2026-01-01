@@ -50,28 +50,34 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
-      <li><a href="/">Home Page</a></li>
-      <li><a href="/spotify">Spotify Data</a></li>
-      <li><a href="/mxm">MXM Source</a></li>
-      <li><a href="/abstrack">MXM Abstrack</a></li>
-      <li><a href="/split">Split Checker</a></li>
-      <li><a href="/api">Set Token</a></li>
+      <li><a href="/">{{ _('Home Page') }}</a></li>
+      <li><a href="/spotify">{{ _('Spotify Data') }}</a></li>
+      <li><a href="/mxm">{{ _('MXM Source') }}</a></li>
+      <li><a href="/abstrack">{{ _('MXM Abstrack') }}</a></li>
+      <li><a href="/split">{{ _('Split Checker') }}</a></li>
+      <li><a href="/api">{{ _('Set Token') }}</a></li>
+      <li style="float: right;">
+        <a href="{{ url_for('set_language', language='en') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'en' else '' }}">EN</a> |
+        <a href="{{ url_for('set_language', language='id') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'id' else '' }}">ID</a>
+      </li>
     </ul>
   </nav>
 
 
   <div class="container">
-    <h1>Musixmatch Album source</h1>
+    <h1>{{ _('Musixmatch Album source') }}</h1>
     <form action="/" method="GET">
-      <label for="input_link">Musixmatch Album|track Link:</label>
-      <input type="text" id="input_link" name="link" placeholder="Enter Musixmatch album|track link here" />
-      <button type="submit" id="process_button">Get links</button>
+      <label for="input_link">{{ _('Musixmatch Album|track Link:') }}</label>
+      <input type="text" id="input_link" name="link" placeholder="{{ _('Enter Musixmatch album|track link here') }}" />
+      <button type="submit" id="process_button">{{ _('Get links') }}</button>
       <div class="loading" id="loading"></div>
     </form>
     <div class="output" id="output">
-      <p style="text-align: center;">The tool can only get the source of the album.</p>
-      <p style="text-align: center;">If a track page connected to more than one album,
-        it's better to enter the album page.</p>
+      <p style="text-align: center;">{{ _('The tool can only get the source of the album.') }}</p>
+      <p style="text-align: center;">{{ _("If a track page connected to more than one album, it's better to enter the
+        album page.") }}</p>
       {% if album %}
       <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3">
@@ -80,19 +86,19 @@
               <h5 class="card-title">{{ album.album_name }}</h5>
 
               <p class="card-text">
-                Album:
+                {{ _('Album:') }}
                 <a href="https://www.musixmatch.com/album/{{ album.artist_id }}/{{ album.album_id }}" class="card-link"
                   target="_blank">{{ album.album_name }}</a>
 
               </p>
 
               <p class="card-text">
-                Album ID: {{ album.album_id }}
+                {{ _('Album ID:') }} {{ album.album_id }}
               </p>
 
               {% if album.external_ids.spotify %}
               <p class="card-text">
-                Spotify source:
+                {{ _('Spotify source:') }}
               <div class="list">
                 <ul>
                   {% for id in album.external_ids.spotify %}
@@ -105,13 +111,13 @@
               </div>
               {% else %}
               <p class="card-text">
-                Spotify source: No Connected Source
+                {{ _('Spotify source:') }} {{ _('No Connected Source') }}
               </p>
               {% endif %}
 
               {% if album.external_ids.itunes %}
               <p class="card-text">
-                Apple Music source:
+                {{ _('Apple Music source:') }}
               <div class="list">
                 <ul>
                   {% for id in album.external_ids.itunes %}
@@ -124,7 +130,7 @@
               </div>
               {% else %}
               <p class="card-text">
-                Apple Music source: No Connected Source
+                {{ _('Apple Music source:') }} {{ _('No Connected Source') }}
               </p>
               {% endif %}
             </div>
@@ -186,7 +192,7 @@
   <div id="countries-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Countries</h2>
+      <h2>{{ _('Countries') }}</h2>
       <ul id="countries-list"></ul>
     </div>
   </div>

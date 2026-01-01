@@ -50,22 +50,28 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
-      <li><a href="/">Home Page</a></li>
-      <li><a href="/spotify">Spotify Data</a></li>
-      <li><a href="/mxm">MXM Source</a></li>
-      <li><a href="/abstrack">MXM Abstrack</a></li>
-      <li><a href="/split">Split Checker</a></li>
-      <li><a href="/api">Set Token</a></li>
+      <li><a href="/">{{ _('Home Page') }}</a></li>
+      <li><a href="/spotify">{{ _('Spotify Data') }}</a></li>
+      <li><a href="/mxm">{{ _('MXM Source') }}</a></li>
+      <li><a href="/abstrack">{{ _('MXM Abstrack') }}</a></li>
+      <li><a href="/split">{{ _('Split Checker') }}</a></li>
+      <li><a href="/api">{{ _('Set Token') }}</a></li>
+      <li style="float: right;">
+        <a href="{{ url_for('set_language', language='en') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'en' else '' }}">EN</a> |
+        <a href="{{ url_for('set_language', language='id') }}"
+          style="{{ 'font-weight: bold;' if get_locale() == 'id' else '' }}">ID</a>
+      </li>
     </ul>
   </nav>
 
 
   <div class="container">
-    <h1>Musixmatch Abstrack</h1>
+    <h1>{{ _('Musixmatch Abstrack') }}</h1>
     <form action="/" method="GET">
-      <label for="input_link">Musixmatch abstrack:</label>
-      <input type="text" id="input_link" name="link" placeholder="Enter the abstrack here" />
-      <button type="submit" id="process_button">Get links</button>
+      <label for="input_link">{{ _('Musixmatch abstrack:') }}</label>
+      <input type="text" id="input_link" name="link" placeholder="{{ _('Enter the abstrack here') }}" />
+      <button type="submit" id="process_button">{{ _('Get links') }}</button>
       <div class="loading" id="loading"></div>
     </form>
     <div class="output" id="output">
@@ -74,7 +80,7 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
             <div class="card-details">
-              <p class="card-text">error: {{ error }}</p>
+              <p class="card-text">{{ _('Error:') }} {{ error }}</p>
             </div>
           </div>
         </div>
@@ -85,42 +91,42 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
             <div class="card-details">
-              <h5 class="card-title">Track Info:</h5>
+              <h5 class="card-title">{{ _('Track Info:') }}</h5>
               <p class="card-text">
-                <strong>Track Name:</strong> {{ track.track_name }}
+                <strong>{{ _('Track Name:') }}</strong> {{ track.track_name }}
               </p>
               <p class="card-text">
-                <strong>Album Name:</strong> {{ track.album_name }}
+                <strong>{{ _('Album Name:') }}</strong> {{ track.album_name }}
               </p>
               <p class="card-text">
-                <strong>Artist Name:</strong> {{ track.artist_name }}
+                <strong>{{ _('Artist Name:') }}</strong> {{ track.artist_name }}
               </p>
               <p class="card-text">
-                <strong>Explicit:</strong> {{ track.explicit }}
+                <strong>{{ _('Explicit:') }}</strong> {{ track.explicit }}
               </p>
               <p class="card-text">
-                <strong>Has Lyrics:</strong> {{ track.has_lyrics }}
+                <strong>{{ _('Has Lyrics:') }}</strong> {{ track.has_lyrics }}
               </p>
               <p class="card-text">
-                <strong>Has Subtitles:</strong> {{ track.has_subtitles }}
+                <strong>{{ _('Has Subtitles:') }}</strong> {{ track.has_subtitles }}
               </p>
               <p class="card-text">
-                <strong>Link:</strong>
+                <strong>{{ _('Link:') }}</strong>
                 <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>
               </p>
 
-              <h5 class="card-title">Album Info:</h5>
+              <h5 class="card-title">{{ _('Album Info:') }}</h5>
               <p class="card-text">
-                <strong>Album:</strong>
+                <strong>{{ _('Album:') }}</strong>
                 <a href="https://www.musixmatch.com/album/{{ album.artist_id }}/{{ album.album_id }}" class="card-link"
                   target="_blank">{{ album.album_name }}</a>
               </p>
               <p class="card-text">
-                <strong>Album ID:</strong> {{ album.album_id }}
+                <strong>{{ _('Album ID:') }}</strong> {{ album.album_id }}
               </p>
 
               {% if album.external_ids.spotify %}
-              <p class="card-text"><strong>Spotify source:</strong></p>
+              <p class="card-text"><strong>{{ _('Spotify source:') }}</strong></p>
               <div class="list">
                 <ul>
                   {% for id in album.external_ids.spotify %}
@@ -131,11 +137,11 @@
                 </ul>
               </div>
               {% else %}
-              <p class="card-text"><strong>Spotify source:</strong> No Connected Source</p>
+              <p class="card-text"><strong>{{ _('Spotify source:') }}</strong> {{ _('No Connected Source') }}</p>
               {% endif %}
 
               {% if album.external_ids.itunes %}
-              <p class="card-text"><strong>Apple Music source:</strong></p>
+              <p class="card-text"><strong>{{ _('Apple Music source:') }}</strong></p>
               <div class="list">
                 <ul>
                   {% for id in album.external_ids.itunes %}
@@ -146,11 +152,11 @@
                 </ul>
               </div>
               {% else %}
-              <p class="card-text"><strong>Apple Music source:</strong> No Connected Source</p>
+              <p class="card-text"><strong>{{ _('Apple Music source:') }}</strong> {{ _('No Connected Source') }}</p>
               {% endif %}
 
               {% if album.external_ids.amazon_music %}
-              <p class="card-text"><strong>Amazon Music source:</strong></p>
+              <p class="card-text"><strong>{{ _('Amazon Music source:') }}</strong></p>
               <div class="list">
                 <ul>
                   {% for id in album.external_ids.amazon_music %}
@@ -161,7 +167,7 @@
                 </ul>
               </div>
               {% else %}
-              <p class="card-text"><strong>Amazon Music source:</strong> No Connected Source</p>
+              <p class="card-text"><strong>{{ _('Amazon Music source:') }}</strong> {{ _('No Connected Source') }}</p>
               {% endif %}
             </div>
           </div>
@@ -173,7 +179,7 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
             <div class="card-details">
-              <p class="card-text">Error: {{ error }}</p>
+              <p class="card-text">{{ _('Error:') }} {{ error }}</p>
             </div>
           </div>
         </div>
@@ -222,7 +228,7 @@
   <div id="countries-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Countries</h2>
+      <h2>{{ _('Countries') }}</h2>
       <ul id="countries-list"></ul>
     </div>
   </div>
