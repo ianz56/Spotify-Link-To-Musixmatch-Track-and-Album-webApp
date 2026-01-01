@@ -13,17 +13,26 @@ class MXM:
     def __init__(self, key=None, session=None):
         self.key = key or self.DEFAULT_KEY
         self.key2 = key or self.DEFAULT_KEY2 
+        if self.key:
+            print(f"DEBUG: MXM Key present (Source: {'Arg/Cookie' if key else 'Env'}). Redis check skipped.")
+
         if not self.key:
-            r = redis.Redis(
-            host=os.environ.get("REDIS_HOST"),
-            port=os.environ.get("REDIS_PORT"),
-            password=os.environ.get("REDIS_PASSWD"))
-            key1 = r.get("live:1")
-            key2 = r.get("live:2")
-            self.key = key1.decode()
-            self.key2 = key2.decode()
-            print(self.key," ", self.key2)
-            r.close()
+            try:
+                r = redis.Redis(
+                host=os.environ.get("REDIS_HOST"),
+                port=os.environ.get("REDIS_PORT"),
+                password=os.environ.get("REDIS_PASSWD"))
+                if r.ping():
+                    print("DEBUG: Redis connected")
+                
+                key1 = r.get("live:1")
+                key2 = r.get("live:2")
+                self.key = key1.decode()
+                self.key2 = key2.decode()
+                print(self.key," ", self.key2)
+                r.close()
+            except Exception as e:
+                print(f"DEBUG: Redis not connected. Error: {e}")
 
 
         self.session = session
