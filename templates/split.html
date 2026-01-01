@@ -7,9 +7,9 @@
   <h1>{{ _('Split Checker') }}</h1>
   <form action="/split" method="GET">
     <label for="input_link_1">{{ _('Track 1:') }}</label>
-    <input type="text" id="input_link_1" name="link" placeholder="{{ _('Enter Spotify track link 1') }}" />
+    <input type="text" id="input_link_1" name="link" placeholder="{{ _('E.g.:') }} https://open.spotify.com/intl-id/track/3wGL3DfKTQ4IM9dHk0IyS0?si=deaea5bbe85a4c0c" />
     <label for="input_link_2">{{ _('Track 2:') }}</label>
-    <input type="text" id="input_link_2" name="link2" placeholder="{{ _('Enter Spotify track link 2') }}" />
+    <input type="text" id="input_link_2" name="link2" placeholder="{{ _('E.g.:') }} https://open.spotify.com/intl-id/track/5o6StwqqVfG3vRLx8UP310?si=2e1d189310524de6" />
     <button type="submit" id="split_button">{{ _('Check') }}</button>
     <div class="loading" id="loading"></div>
   </form>
