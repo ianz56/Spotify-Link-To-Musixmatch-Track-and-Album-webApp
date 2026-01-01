@@ -184,6 +184,15 @@ button[type="submit"]:active {
   transition: color 0.2s ease;
 }
 
+span.card-link {
+  color: var(--text-muted);
+}
+
+span.card-link:hover {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
 .card-link:hover {
   color: var(--primary-hover);
   text-decoration: underline;
