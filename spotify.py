@@ -1,48 +1,10 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-from spotipy.cache_handler import CacheHandler
 import re
 import requests
 import redis
-import json
 from os import environ
 import logging
-
-class RedisCacheHandler(CacheHandler):
-    def __init__(self, key=None):
-        self.key = key or "spotify_token"
-        self.memory_token = None
-        self.redis_available = False
-        try:
-            self.r = redis.Redis(
-                host=environ.get("REDIS_HOST"),
-                port=environ.get("REDIS_PORT"),
-                password=environ.get("REDIS_PASSWD"),
-                socket_connect_timeout=1) # Fast timeout for check
-            if self.r.ping():
-                self.redis_available = True
-        except Exception as e:
-            logging.warning(f"Redis not available for caching: {e}. Falling back to memory.")
-
-    def get_cached_token(self):
-        if self.redis_available:
-            try:
-                token_info = self.r.get(self.key)
-                return json.loads(token_info) if token_info else None
-            except Exception as e:
-                logging.warning(f"Failed to read from Redis cache: {e}. Switching to memory.")
-                self.redis_available = False
-        
-        return self.memory_token
-
-    def save_token_to_cache(self, token_info):
-        self.memory_token = token_info
-        if self.redis_available:
-            try:
-                self.r.set(self.key, json.dumps(token_info))
-            except Exception as e:
-                 logging.warning(f"Failed to write to Redis cache: {e}. Switching to memory.")
-                 self.redis_available = False
 
 class Spotify:
     def __init__(self, client_id=None, client_secret=None) -> None:
@@ -51,8 +13,7 @@ class Spotify:
         if not (self.client_id and self.client_secret):
             self.RRAuth()
         else:
-            key_prefix = f"spotify_token:{self.client_id}"
-            cred = SpotifyClientCredentials(self.client_id, self.client_secret, cache_handler=RedisCacheHandler(key=key_prefix))
+            cred = SpotifyClientCredentials(self.client_id, self.client_secret)
             self.sp = spotipy.Spotify(client_credentials_manager=cred,retries= 3 )
         self.session = requests.Session()
         # if client_id is not None:
@@ -69,9 +30,7 @@ class Spotify:
         logging.info(f"Spotify Cred: {cred}")
         r.json().set("spotify","$.rr",(doc["rr"]+1)%len(doc["cred"]))
         r.close()
-        
-        key_prefix = f"spotify_token:{cred[0]}"
-        cred = SpotifyClientCredentials(cred[0], cred[1], cache_handler=RedisCacheHandler(key=key_prefix))
+        cred = SpotifyClientCredentials(cred[0], cred[1])
         self.sp = spotipy.Spotify(client_credentials_manager=cred,retries= 3 )
 
     def get_tarck(self, link=None, track=None) -> dict:
