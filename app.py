@@ -90,7 +90,7 @@ sp = Spotify()
 def set_language(language=None):
     response = make_response(redirect(request.referrer or url_for('index')))
     if language in ['en', 'id']:
-        response.set_cookie('language', language)
+        response.set_cookie('language', language, max_age=60*60*24*30)
     return response
 
 
