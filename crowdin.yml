@@ -1,5 +1,6 @@
+preserve_hierarchy: false
+
 files:
   - source: /translations/en/LC_MESSAGES/messages.po
-    dest: /messages.po
     translation: /translations/%two_letters_code%/LC_MESSAGES/messages.po
     multilingual: 1

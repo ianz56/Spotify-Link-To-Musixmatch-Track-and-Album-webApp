@@ -2,6 +2,8 @@ name: Crowdin Action
 
 on:
   push:
+    paths:
+      - 'translations/en/LC_MESSAGES/messages.po'
     branches: [ main ]
 
 jobs:
