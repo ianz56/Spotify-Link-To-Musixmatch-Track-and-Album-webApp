@@ -72,10 +72,10 @@ app = Flask(__name__)
 def get_locale():
     # 1. Check if user has explicitly set a language cookie
     lang = request.cookies.get('language')
-    if lang in ['en', 'id']:
+    if lang in ['en', 'id', 'su']:
         return lang
     # 2. Check browser settings
-    return request.accept_languages.best_match(['en', 'id'])
+    return request.accept_languages.best_match(['en', 'id', 'su'])
 
 babel = Babel(app, locale_selector=get_locale)
 
