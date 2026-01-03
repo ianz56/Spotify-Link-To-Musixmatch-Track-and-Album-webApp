@@ -70,16 +70,35 @@ def jwt_ref(resp,payload):
 
 app = Flask(__name__)
 
+import redis
+
 # Cache Configuration
 redis_host = os.environ.get("REDIS_HOST")
 redis_port = os.environ.get("REDIS_PORT")
 redis_password = os.environ.get("REDIS_PASSWD")
 
+use_redis = False
 if redis_host and redis_port and redis_password:
+    try:
+        # Test connection with a short timeout
+        r_test = redis.Redis(
+            host=redis_host,
+            port=int(redis_port),
+            password=redis_password,
+            socket_connect_timeout=1
+        )
+        if r_test.ping():
+            use_redis = True
+            print("✅ Redis connection successful. Using RedisCache.")
+            r_test.close()
+    except Exception as e:
+        print(f"⚠️ Redis connection failed: {e}. Falling back to SimpleCache.")
+
+if use_redis:
     cache_config = {
         "CACHE_TYPE": "RedisCache",
         "CACHE_REDIS_HOST": redis_host,
-        "CACHE_REDIS_PORT": redis_port,
+        "CACHE_REDIS_PORT": int(redis_port),
         "CACHE_REDIS_PASSWORD": redis_password,
         "CACHE_DEFAULT_TIMEOUT": 3600
     }
@@ -90,6 +109,8 @@ else:
     }
 
 app.config.from_mapping(cache_config)
+# Store status in config for easy access
+app.config['USING_REDIS'] = use_redis
 cache = Cache(app)
 
 
@@ -103,11 +124,15 @@ def get_locale():
     # 2. Check browser settings
     return request.accept_languages.best_match(SUPPORTED_LANGUAGES)
 
+def make_cache_key():
+    """Custom cache key that includes the current locale and request path."""
+    return f"{request.full_path}:{get_locale()}"
+
 babel = Babel(app, locale_selector=get_locale)
 
 @app.context_processor
 def inject_get_locale():
-    return dict(get_locale=get_locale)
+    return dict(get_locale=get_locale, using_redis=app.config.get('USING_REDIS'))
 
 sp = Spotify()
 
@@ -121,7 +146,7 @@ def set_language(language=None):
 
 
 @app.route('/', methods=['GET'])
-@cache.cached(timeout=3600, query_string=True)
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def index():
     if request.cookies.get('api_key'):
         payload = {"mxm-key": request.cookies.get('api_key'), "exp": int(
@@ -177,7 +202,7 @@ async def index():
 
 
 @app.route('/split', methods=['GET'])
-@cache.cached(timeout=3600, query_string=True)
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def split():
     link = request.args.get('link')
     link2 = request.args.get('link2')
@@ -235,7 +260,7 @@ async def split():
 
 
 @app.route('/spotify', methods=['GET'])
-@cache.cached(timeout=3600, query_string=True)
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 def isrc():
     link = request.args.get('link')
     if link:
@@ -307,7 +332,7 @@ async def setAPI():
 
 
 @app.route('/mxm', methods=['GET'])
-@cache.cached(timeout=3600, query_string=True)
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def mxm_to_sp():
     link = request.args.get('link')
     key = None
@@ -327,7 +352,7 @@ async def mxm_to_sp():
         return render_template("mxm.html")
     
 @app.route('/abstrack', methods=['GET'])
-@cache.cached(timeout=3600, query_string=True)
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def abstrack() -> str:
     """ Get the track data from the abstract track """
     id = request.args.get('id')

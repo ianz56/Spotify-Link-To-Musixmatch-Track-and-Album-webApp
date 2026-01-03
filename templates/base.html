@@ -10,7 +10,11 @@
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-N2FR6G2S');</script>
+        })(window, document, 'script', 'dataLayer', 'GTM-N2FR6G2S');
+
+        // Log Redis Status for debugging
+        console.info("Cache Status: {{ 'Redis Connected ✅' if using_redis else 'Disconnected ⚠️ (Using Memory Cache)' }}");
+    </script>
     <!-- End Google Tag Manager -->
     <title>{% block title %}Spotify to Musixmatch Link{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
