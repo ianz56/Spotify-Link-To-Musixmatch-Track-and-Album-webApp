@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'translations/**'
+  workflow_dispatch:
 
 permissions:
   contents: write

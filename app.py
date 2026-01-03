@@ -69,13 +69,15 @@ def jwt_ref(resp,payload):
 
 app = Flask(__name__)
 
+SUPPORTED_LANGUAGES = ['en', 'id', 'su']
+
 def get_locale():
     # 1. Check if user has explicitly set a language cookie
     lang = request.cookies.get('language')
-    if lang in ['en', 'id', 'su']:
+    if lang in SUPPORTED_LANGUAGES:
         return lang
     # 2. Check browser settings
-    return request.accept_languages.best_match(['en', 'id', 'su'])
+    return request.accept_languages.best_match(SUPPORTED_LANGUAGES)
 
 babel = Babel(app, locale_selector=get_locale)
 
@@ -89,7 +91,7 @@ sp = Spotify()
 @app.route('/set_language/<language>')
 def set_language(language=None):
     response = make_response(redirect(request.referrer or url_for('index')))
-    if language in ['en', 'id']:
+    if language in SUPPORTED_LANGUAGES:
         response.set_cookie('language', language, max_age=60*60*24*30)
     return response
 
