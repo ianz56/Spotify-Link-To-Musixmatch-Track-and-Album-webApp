@@ -19,6 +19,10 @@
   --nav-bg: rgba(255, 255, 255, 0.8);
 }
 
+html {
+  background-color: var(--bg-color);
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -790,4 +794,21 @@ main {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+/* Page Transition / FOUC Prevention
+body {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.preload {
+  opacity: 0;
+  overflow: hidden;
+} */
+
+/* Ensure no transitions run on children while hidden (double safety) */
+.preload * {
+  transition: none !important;
+  -webkit-transition: none !important;
 }
