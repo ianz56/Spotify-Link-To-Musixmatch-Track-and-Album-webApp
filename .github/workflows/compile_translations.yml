@@ -1,0 +1,40 @@
+name: Compile Translations
+
+on:
+  pull_request:
+    paths:
+      - 'translations/**'
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    name: Compile Translations
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Flask-Babel
+
+      - name: Compile Translations
+        run: |
+          python compile_translations.py
+
+      - name: Commit Compilation Artifacts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: compile translations [skip ci]"
+          file_pattern: "translations/**/*.mo"
