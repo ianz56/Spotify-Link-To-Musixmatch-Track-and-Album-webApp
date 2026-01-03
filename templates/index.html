@@ -43,6 +43,10 @@
             {% if track.note %}
             <p class="card-text">Note: {{ track.note|safe }}</p>
             {% endif %}
+
+            {% if is_cached %}
+              <small style="color: grey; font-size: 0.8em;">(cached)</small>
+            {% endif %}
           </div>
         </div>
       </div>

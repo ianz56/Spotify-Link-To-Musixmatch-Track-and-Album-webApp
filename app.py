@@ -146,7 +146,6 @@ def set_language(language=None):
 
 
 @app.route('/', methods=['GET'])
-@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def index():
     if request.cookies.get('api_key'):
         payload = {"mxm-key": request.cookies.get('api_key'), "exp": int(
@@ -170,25 +169,43 @@ async def index():
             if payload:
                 key = payload.get("mxm-key")
 
-        async with aiohttp.ClientSession() as session:
-            mxm = MXM(key, session=session)
-            try:
-                if (len(link) < 12):
-                    return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
-                elif re.search(r'artist/(\w+)', link):
-                    return render_template('index.html', artist=sp.artist_albums(link, []))
-                else:
-                    sp_data = sp.get_isrc(link) if len(link) > 12 else [
-                        {"isrc": link, "image": None}]
-            except Exception as e:
-                return render_template('index.html', tracks_data=[str(e)])
+        # Manual Cache Check
+        cache_key = f"search_data:{link}:{get_locale()}"
+        cached_data = cache.get(cache_key)
+        mxmLinks = None
+        is_cached = False
 
-            mxmLinks = await mxm.Tracks_Data(sp_data)
+        if cached_data:
+            mxmLinks = cached_data
+            is_cached = True
+            print(f"CACHE HIT: {cache_key}")
+        
+        else:
+            print(f"CACHE MISS: {cache_key}")
+            async with aiohttp.ClientSession() as session:
+                mxm = MXM(key, session=session)
+                try:
+                    if (len(link) < 12):
+                        return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
+                    elif re.search(r'artist/(\w+)', link):
+                        return render_template('index.html', artist=sp.artist_albums(link, []))
+                    else:
+                        sp_data = sp.get_isrc(link) if len(link) > 12 else [
+                            {"isrc": link, "image": None}]
+                except Exception as e:
+                    return render_template('index.html', tracks_data=[str(e)])
+
+                mxmLinks = await mxm.Tracks_Data(sp_data)
+                
+                # Cache the result if valid
+                if isinstance(mxmLinks, list):
+                     cache.set(cache_key, mxmLinks, timeout=3600)
+
         
         if isinstance(mxmLinks, str):
             return mxmLinks
 
-        return render_template('index.html', tracks_data=mxmLinks)
+        return render_template('index.html', tracks_data=mxmLinks, is_cached=is_cached)
 
     # refresh the token every time the user enter the site
     if token:
