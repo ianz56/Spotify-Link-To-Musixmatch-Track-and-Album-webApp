@@ -1,22 +1,18 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: spotmxm\n"
+"Project-Id-Version:  spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-01 19:54+0700\n"
-"PO-Revision-Date: 2026-01-03 07:01\n"
+"POT-Creation-Date: 2026-01-03 17:15+0700\n"
+"PO-Revision-Date: 2026-01-03 07:01+0000\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"X-Crowdin-Project: spotmxm\n"
-"X-Crowdin-Project-ID: 858512\n"
-"X-Crowdin-Language: id\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 12\n"
 
 #: templates/abstrack.html:7
 msgid "Musixmatch Abstrack"
@@ -121,7 +117,9 @@ msgstr "Simpan"
 
 #: templates/api.html:16
 msgid "This Page is for any one want to use the tool with their Private Token key"
-msgstr "Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token Pribadinya"
+msgstr ""
+"Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token"
+" Pribadinya"
 
 #: templates/api.html:24
 msgid "Your Token:"
@@ -148,8 +146,14 @@ msgid "Copy the debug and copy usertoken"
 msgstr "Salin debug dan salin usertoken"
 
 #: templates/api.html:56
-msgid "Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again."
-msgstr "Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu memasukkannya lagi."
+msgid ""
+"Please save and pin your key on the clipboard as it is saved in the "
+"browser you use only. If you changed browsers, you'll need to enter it "
+"again."
+msgstr ""
+"Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di "
+"browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu "
+"memasukkannya lagi."
 
 #: templates/api.html:60
 msgid "How can I return to use the tool Token:"
@@ -172,40 +176,57 @@ msgid "How secure will be the Token?"
 msgstr "Seberapa aman Token ini?"
 
 #: templates/api.html:74
-msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
-msgstr "Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang Token Anda sangat aman."
+msgid ""
+"We are not setting the Token directly to the cookie. Instead, we are "
+"generating a token based on your Token which expires in every one hour "
+"then it regenerates a new token automatically. So you can say your Token "
+"is super secured."
+msgstr ""
+"Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web "
+"menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu "
+"jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang "
+"Token Anda sangat aman."
 
-#: templates/base.html:33
+#: templates/base.html:37
 msgid "No Internet Connection"
 msgstr "Tidak Ada Koneksi Internet"
 
-#: templates/base.html:36
+#: templates/base.html:40
 msgid "Make sure you're connected to the internet."
 msgstr "Pastikan Anda terhubung ke internet."
 
-#: templates/base.html:44
+#: templates/base.html:48
 msgid "Home Page"
 msgstr "Beranda"
 
-#: templates/base.html:45
+#: templates/base.html:49
 msgid "Spotify Data"
 msgstr "Data Spotify"
 
-#: templates/base.html:46
+#: templates/base.html:50
 msgid "MXM Source"
 msgstr "Sumber MXM"
 
-#: templates/base.html:47
+#: templates/base.html:51
 msgid "MXM Abstrack"
 msgstr "Abstrak MXM"
 
-#: templates/base.html:48 templates/split.html:7
+#: templates/base.html:52 templates/split.html:7
 msgid "Split Checker"
 msgstr "Split Checker"
 
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Set Token"
 msgstr "Atur Token"
+
+#: templates/base.html:73
+#, fuzzy
+msgid "Contribute"
+msgstr "Negara"
+
+#: templates/base.html:90
+msgid "Coded with ❤️ for music"
+msgstr ""
 
 #: templates/index.html:7
 msgid "Spotify to Musixmatch Link"
@@ -215,7 +236,7 @@ msgstr "Link Spotify ke Musixmatch"
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr "Link Lagu|Album|Artis Spotify atau ISRC:"
 
-#: templates/index.html:77
+#: templates/index.html:81
 msgid "How to Use?"
 msgstr "Cara Penggunaan?"
 
