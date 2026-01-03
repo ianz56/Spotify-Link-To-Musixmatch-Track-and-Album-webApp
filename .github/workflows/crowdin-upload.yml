@@ -1,0 +1,29 @@
+name: Crowdin Upload Source
+
+on:
+  push:
+    paths:
+      - 'translations/en/LC_MESSAGES/messages.po'
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  crowdin-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: crowdin action
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: true
+          upload_translations: false
+          download_translations: false
+          localization_branch_name: l10n_crowdin_translations
+          create_pull_request: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
