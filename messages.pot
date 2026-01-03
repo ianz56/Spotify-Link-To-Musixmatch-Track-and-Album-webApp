@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-01 19:54+0700\n"
+"POT-Creation-Date: 2026-01-03 17:15+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,36 +181,44 @@ msgid ""
 "is super secured."
 msgstr ""
 
-#: templates/base.html:33
+#: templates/base.html:37
 msgid "No Internet Connection"
 msgstr ""
 
-#: templates/base.html:36
+#: templates/base.html:40
 msgid "Make sure you're connected to the internet."
 msgstr ""
 
-#: templates/base.html:44
+#: templates/base.html:48
 msgid "Home Page"
 msgstr ""
 
-#: templates/base.html:45
+#: templates/base.html:49
 msgid "Spotify Data"
 msgstr ""
 
-#: templates/base.html:46
+#: templates/base.html:50
 msgid "MXM Source"
 msgstr ""
 
-#: templates/base.html:47
+#: templates/base.html:51
 msgid "MXM Abstrack"
 msgstr ""
 
-#: templates/base.html:48 templates/split.html:7
+#: templates/base.html:52 templates/split.html:7
 msgid "Split Checker"
 msgstr ""
 
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Set Token"
+msgstr ""
+
+#: templates/base.html:73
+msgid "Contribute"
+msgstr ""
+
+#: templates/base.html:90
+msgid "Coded with ❤️ for music"
 msgstr ""
 
 #: templates/index.html:7
@@ -221,7 +229,7 @@ msgstr ""
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr ""
 
-#: templates/index.html:77
+#: templates/index.html:81
 msgid "How to Use?"
 msgstr ""
 
