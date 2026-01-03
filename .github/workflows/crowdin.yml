@@ -5,6 +5,7 @@ on:
     paths:
       - 'translations/en/LC_MESSAGES/messages.po'
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   synchronize-with-crowdin:
