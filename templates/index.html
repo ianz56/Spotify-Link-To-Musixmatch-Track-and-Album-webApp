@@ -37,8 +37,8 @@
             <p class="card-text">Track ID: {{ track.commontrack_id}}</p>
             <p class="card-text">
               Link:
-              <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>,
-              <span href="{{ track.beta.split('?')[0] }}" class="card-link" target="_blank">Beta Musixmatch</span>
+              <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>
+              {# <span href="{{ track.beta.split('?')[0] }}" class="card-link" target="_blank">Beta Musixmatch</span> #}
             </p>
             {% if track.note %}
             <p class="card-text">Note: {{ track.note|safe }}</p>
