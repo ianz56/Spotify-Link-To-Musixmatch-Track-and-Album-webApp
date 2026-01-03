@@ -17,3 +17,4 @@ jellyfish
 redis[hiredis]
 python-dotenv
 Flask-Babel
+Flask-Caching
