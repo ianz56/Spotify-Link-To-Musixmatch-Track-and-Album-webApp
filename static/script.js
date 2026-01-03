@@ -1,6 +1,7 @@
 // Highlight active navbar link
 document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
+
   const navLinks = document.querySelectorAll(".navbar a");
 
   console.log("Current Path:", currentPath);
@@ -141,6 +142,11 @@ window.addEventListener("load", () => {
   }
 
   handleOnlineStatus(); // Initial check
+
+  // Use setTimeout to ensure the browser has a frame to paint the styles first
+  setTimeout(() => {
+    document.body.classList.remove('preload');
+  }, 100);
 
   // Listen for online/offline events
   window.addEventListener("online", () => {

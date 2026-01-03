@@ -19,12 +19,16 @@
   --nav-bg: rgba(255, 255, 255, 0.8);
 }
 
+html {
+  background-color: var(--bg-color);
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: "Plus Jakarta Sans", "Nunito", sans-serif;
   margin: 0;
-  padding: 40px 20px;
+  padding: 0;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100dvh;
@@ -280,6 +284,18 @@ span.card-link:hover {
   box-shadow: var(--shadow-md);
 }
 
+.lang-fab-dropdown-separator {
+  display: block;
+  height: 1px;
+  background-color: var(--border-color);
+  width: 100%;
+  margin: 10px 0;
+}
+
+.lang-fab-dropdown-contribute {
+  text-decoration: underline;
+}
+
 /* Utility & Misc */
 .logo {
   display: flex;
@@ -447,6 +463,9 @@ th:last-child {
 
 /* Mobile */
 @media (max-width: 768px) {
+  body {
+    padding: 0 20px;
+  }
   .container {
     padding: 24px;
   }
@@ -708,11 +727,16 @@ th:last-child {
   min-width: 150px;
   overflow: hidden;
   animation: slideIn 0.2s ease;
+  padding: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .lang-fab-dropdown a {
   display: block;
-  padding: 12px 16px;
+  /* padding: 12px 16px; */
+  margin: 6px 0;
   color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
@@ -762,4 +786,29 @@ th:last-child {
   padding: 0;
   color: #ff0000;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Main Content Wrapper */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Page Transition / FOUC Prevention
+body {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.preload {
+  opacity: 0;
+  overflow: hidden;
+} */
+
+/* Ensure no transitions run on children while hidden (double safety) */
+.preload * {
+  transition: none !important;
+  -webkit-transition: none !important;
 }

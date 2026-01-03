@@ -11,6 +11,7 @@ load_dotenv()
 
 import aiohttp
 from flask import Flask, request, render_template, make_response, redirect, url_for, session
+from flask_caching import Cache
 from asgiref.wsgi import WsgiToAsgi
 from flask_babel import Babel, _
 from mxm import MXM
@@ -69,6 +70,50 @@ def jwt_ref(resp,payload):
 
 app = Flask(__name__)
 
+import redis
+
+# Cache Configuration
+redis_host = os.environ.get("REDIS_HOST")
+redis_port = os.environ.get("REDIS_PORT")
+redis_password = os.environ.get("REDIS_PASSWD")
+
+use_redis = False
+if redis_host and redis_port and redis_password:
+    try:
+        # Test connection with a short timeout
+        r_test = redis.Redis(
+            host=redis_host,
+            port=int(redis_port),
+            password=redis_password,
+            socket_connect_timeout=1
+        )
+        if r_test.ping():
+            use_redis = True
+            print("✅ Redis connection successful. Using RedisCache.")
+            r_test.close()
+    except Exception as e:
+        print(f"⚠️ Redis connection failed: {e}. Falling back to SimpleCache.")
+
+if use_redis:
+    cache_config = {
+        "CACHE_TYPE": "RedisCache",
+        "CACHE_REDIS_HOST": redis_host,
+        "CACHE_REDIS_PORT": int(redis_port),
+        "CACHE_REDIS_PASSWORD": redis_password,
+        "CACHE_DEFAULT_TIMEOUT": 3600
+    }
+else:
+    cache_config = {
+        "CACHE_TYPE": "SimpleCache", # Fallback to memory
+        "CACHE_DEFAULT_TIMEOUT": 3600
+    }
+
+app.config.from_mapping(cache_config)
+# Store status in config for easy access
+app.config['USING_REDIS'] = use_redis
+cache = Cache(app)
+
+
 SUPPORTED_LANGUAGES = ['en', 'id', 'su']
 
 def get_locale():
@@ -79,11 +124,15 @@ def get_locale():
     # 2. Check browser settings
     return request.accept_languages.best_match(SUPPORTED_LANGUAGES)
 
+def make_cache_key():
+    """Custom cache key that includes the current locale and request path."""
+    return f"{request.full_path}:{get_locale()}"
+
 babel = Babel(app, locale_selector=get_locale)
 
 @app.context_processor
 def inject_get_locale():
-    return dict(get_locale=get_locale)
+    return dict(get_locale=get_locale, using_redis=app.config.get('USING_REDIS'))
 
 sp = Spotify()
 
@@ -120,25 +169,43 @@ async def index():
             if payload:
                 key = payload.get("mxm-key")
 
-        async with aiohttp.ClientSession() as session:
-            mxm = MXM(key, session=session)
-            try:
-                if (len(link) < 12):
-                    return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
-                elif re.search(r'artist/(\w+)', link):
-                    return render_template('index.html', artist=sp.artist_albums(link, []))
-                else:
-                    sp_data = sp.get_isrc(link) if len(link) > 12 else [
-                        {"isrc": link, "image": None}]
-            except Exception as e:
-                return render_template('index.html', tracks_data=[str(e)])
+        # Manual Cache Check
+        cache_key = f"search_data:{link}:{get_locale()}"
+        cached_data = cache.get(cache_key)
+        mxmLinks = None
+        is_cached = False
 
-            mxmLinks = await mxm.Tracks_Data(sp_data)
+        if cached_data:
+            mxmLinks = cached_data
+            is_cached = True
+            print(f"CACHE HIT: {cache_key}")
+        
+        else:
+            print(f"CACHE MISS: {cache_key}")
+            async with aiohttp.ClientSession() as session:
+                mxm = MXM(key, session=session)
+                try:
+                    if (len(link) < 12):
+                        return render_template('index.html', tracks_data=["Wrong Spotify Link Or Wrong ISRC"])
+                    elif re.search(r'artist/(\w+)', link):
+                        return render_template('index.html', artist=sp.artist_albums(link, []))
+                    else:
+                        sp_data = sp.get_isrc(link) if len(link) > 12 else [
+                            {"isrc": link, "image": None}]
+                except Exception as e:
+                    return render_template('index.html', tracks_data=[str(e)])
+
+                mxmLinks = await mxm.Tracks_Data(sp_data)
+                
+                # Cache the result if valid
+                if isinstance(mxmLinks, list):
+                     cache.set(cache_key, mxmLinks, timeout=3600)
+
         
         if isinstance(mxmLinks, str):
             return mxmLinks
 
-        return render_template('index.html', tracks_data=mxmLinks)
+        return render_template('index.html', tracks_data=mxmLinks, is_cached=is_cached)
 
     # refresh the token every time the user enter the site
     if token:
@@ -152,6 +219,7 @@ async def index():
 
 
 @app.route('/split', methods=['GET'])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def split():
     link = request.args.get('link')
     link2 = request.args.get('link2')
@@ -209,6 +277,7 @@ async def split():
 
 
 @app.route('/spotify', methods=['GET'])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 def isrc():
     link = request.args.get('link')
     if link:
@@ -280,6 +349,7 @@ async def setAPI():
 
 
 @app.route('/mxm', methods=['GET'])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def mxm_to_sp():
     link = request.args.get('link')
     key = None
@@ -299,6 +369,7 @@ async def mxm_to_sp():
         return render_template("mxm.html")
     
 @app.route('/abstrack', methods=['GET'])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def abstrack() -> str:
     """ Get the track data from the abstract track """
     id = request.args.get('id')
