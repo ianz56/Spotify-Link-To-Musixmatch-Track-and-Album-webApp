@@ -1,6 +1,9 @@
 name: Compile Translations
 
 on:
+  push:
+    paths:
+      - 'translations/**'
   pull_request:
     paths:
       - 'translations/**'

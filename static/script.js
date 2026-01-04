@@ -143,7 +143,7 @@ window.addEventListener("load", () => {
 
   handleOnlineStatus(); // Initial check
 
-  // Use setTimeout to ensure the browser has a frame to paint the styles first
+  // Standard removal after everything loads
   setTimeout(() => {
     document.body.classList.remove('preload');
   }, 100);
@@ -154,3 +154,8 @@ window.addEventListener("load", () => {
   });
   window.addEventListener("offline", handleOnlineStatus);
 });
+
+// Safety fallback: If window.load takes too long (e.g., slow ads/analytics), force show content
+setTimeout(() => {
+    document.body.classList.remove('preload');
+}, 2000);

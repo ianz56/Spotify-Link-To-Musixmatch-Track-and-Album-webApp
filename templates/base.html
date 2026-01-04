@@ -123,6 +123,7 @@
     {% block scripts %}
     <script defer src="https://spotify-to-mxm.vercel.app/_vercel/insights/script.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "325da9ffa56c4ba6ad443c531a15d471"}'></script>
     {% endblock %}
 </body>
 
