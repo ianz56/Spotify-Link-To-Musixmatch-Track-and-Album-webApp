@@ -1,18 +1,22 @@
-
 msgid ""
 msgstr ""
-"Project-Id-Version:  spotmxm\n"
+"Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-01-03 17:15+0700\n"
-"PO-Revision-Date: 2026-01-03 06:55+0000\n"
+"PO-Revision-Date: 2026-01-03 12:51\n"
 "Last-Translator: \n"
 "Language: su\n"
 "Language-Team: Sundanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+"X-Crowdin-Project: spotmxm\n"
+"X-Crowdin-Project-ID: 858512\n"
+"X-Crowdin-Language: su\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 12\n"
 
 #: templates/abstrack.html:7
 msgid "Musixmatch Abstrack"
@@ -117,9 +121,7 @@ msgstr "Simpen"
 
 #: templates/api.html:16
 msgid "This Page is for any one want to use the tool with their Private Token key"
-msgstr ""
-"Kaca ieu ngan kanggo nu badé ngagunakeun ieu alat pikeun nganggo konci "
-"Token Nyalira"
+msgstr "Kaca ieu ngan kanggo nu badé ngagunakeun ieu alat pikeun nganggo konci Token Nyalira"
 
 #: templates/api.html:24
 msgid "Your Token:"
@@ -146,14 +148,8 @@ msgid "Copy the debug and copy usertoken"
 msgstr "Salin debug jeung salin usertoken"
 
 #: templates/api.html:56
-msgid ""
-"Please save and pin your key on the clipboard as it is saved in the "
-"browser you use only. If you changed browsers, you'll need to enter it "
-"again."
-msgstr ""
-"Mangga simpen sareng sematkeun konci anjeun dina clipboard sabab disimpen"
-" dina browser anu anjeun anggo hungkul. Upami anjeun ngarobih browser, "
-"anjeun kedah ngalebetkeun deui."
+msgid "Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again."
+msgstr "Mangga simpen sareng sematkeun konci anjeun dina clipboard sabab disimpen dina browser anu anjeun anggo hungkul. Upami anjeun ngarobih browser, anjeun kedah ngalebetkeun deui."
 
 #: templates/api.html:60
 msgid "How can I return to use the tool Token:"
@@ -161,7 +157,7 @@ msgstr "Kumaha carana abdi tiasa nganggo deui Token ti alatna:"
 
 #: templates/api.html:63
 msgid "Delete your key from the page here or delete the site cookies"
-msgstr "Hapus konci token anjeun di ieu kaca atau hapus cookies kaca"
+msgstr "Hapus konci token anjeun di ieu kaca atawa hapus cookies kaca"
 
 #: templates/api.html:66
 msgid "Would the tool use my Token for other users:"
@@ -176,16 +172,8 @@ msgid "How secure will be the Token?"
 msgstr "Sabaraha amanna Token éta?"
 
 #: templates/api.html:74
-msgid ""
-"We are not setting the Token directly to the cookie. Instead, we are "
-"generating a token based on your Token which expires in every one hour "
-"then it regenerates a new token automatically. So you can say your Token "
-"is super secured."
-msgstr ""
-"Ieu henteu nyetél Token langsung kana cookie. Sabalikna, ieu ngahasilkeun"
-" token dumasar kana Token anjeun anu kadaluwarsa unggal jam teras éta "
-"ngahasilkeun deui token énggal sacara otomatis. Janten anjeun tiasa "
-"nyarios Token anjeun aman pisan."
+msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
+msgstr "Ieu henteu nyetél Token langsung kana cookie. Sabalikna, ieu ngahasilkeun token dumasar kana Token anjeun anu kadaluwarsa unggal jam teras éta ngahasilkeun deui token énggal sacara otomatis. Janten anjeun tiasa nyarios Token anjeun aman pisan."
 
 #: templates/base.html:37
 msgid "No Internet Connection"
@@ -220,9 +208,8 @@ msgid "Set Token"
 msgstr "Atur Token"
 
 #: templates/base.html:73
-#, fuzzy
 msgid "Contribute"
-msgstr "Nagara"
+msgstr ""
 
 #: templates/base.html:90
 msgid "Coded with ❤️ for music"
@@ -234,7 +221,7 @@ msgstr "Link Spotify ka Musixmatch"
 
 #: templates/index.html:9
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
-msgstr "ISRC atau Link Lagu|Album|Artis Spotify:"
+msgstr "ISRC atawa Link Lagu|Album|Artis Spotify:"
 
 #: templates/index.html:81
 msgid "How to Use?"
@@ -246,7 +233,7 @@ msgstr "Candak Data Spotify"
 
 #: templates/isrc.html:9
 msgid "Spotify Track|Album Link or ISRC:"
-msgstr "ISRC atau Link Lagu|Album Spotify:"
+msgstr "ISRC atawa Link Lagu|Album Spotify:"
 
 #: templates/isrc.html:36
 msgid "No Available Markets"
