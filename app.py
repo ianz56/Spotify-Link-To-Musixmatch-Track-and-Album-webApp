@@ -392,6 +392,39 @@ async def abstrack() -> str:
         return render_template("abstrack.html")
 
 
+@app.route('/robots.txt')
+def robots():
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        f"Sitemap: {url_for('sitemap', _external=True)}"
+    ]
+    response = make_response("\n".join(lines))
+    response.headers["Content-Type"] = "text/plain"
+    return response
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+    sitemap_xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+                   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    
+    # List of endpoints to include in sitemap
+    pages = ['index', 'isrc', 'mxm_to_sp', 'abstrack', 'split', 'setAPI']
+    
+    for page in pages:
+         sitemap_xml.append('  <url>')
+         sitemap_xml.append(f'    <loc>{url_for(page, _external=True)}</loc>')
+         sitemap_xml.append('    <changefreq>weekly</changefreq>')
+         sitemap_xml.append('  </url>')
+         
+    sitemap_xml.append('</urlset>')
+    
+    response = make_response("\n".join(sitemap_xml))
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+
 asgi_app = WsgiToAsgi(app)
 if __name__ == '__main__':
     import asyncio
