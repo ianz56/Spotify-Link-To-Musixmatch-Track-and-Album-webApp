@@ -125,10 +125,10 @@ class MXM:
                        * jellyfish.jaro_similarity(matcher_album.lower(), sp_album.lower())  >=
                          jellyfish.jaro_similarity(track_title.lower(), sp_title.lower())
                         * jellyfish.jaro_similarity(track_album.lower(), sp_album.lower()) ):
-                        matcher["note"] = _('This track may having two pages with the same ISRC, the other <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=track["track_share_url"], artist_id=track["artist_id"], album_id=track["album_id"])
+                        matcher[_("note")] = _('This track may having two pages with the same ISRC, the other <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=track["track_share_url"], artist_id=track["artist_id"], album_id=track["album_id"])
                         links.append(matcher)
                     else:
-                        track["note"] = _('This track may be facing an ISRC issue as the Spotify ID is connected to another <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=matcher["track_share_url"], artist_id=track["artist_id"], album_id=matcher["album_id"])
+                        track[_("note")] = _('This track may be facing an ISRC issue as the Spotify ID is connected to another <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=matcher["track_share_url"], artist_id=track["artist_id"], album_id=matcher["album_id"])
                         links.append(track)
                 continue
 
@@ -144,7 +144,7 @@ class MXM:
                     continue
                 else: links.append(matcher)
             elif isinstance(track, dict) and isinstance(matcher, str):
-                track["note"] = _("This track may missing its Spotify id")
+                track[_("note")] = _("This track may missing its Spotify id")
                 links.append(track)
             else:
                 links.append(track)
