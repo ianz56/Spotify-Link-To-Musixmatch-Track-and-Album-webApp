@@ -1,22 +1,36 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: spotmxm\n"
+"Project-Id-Version:  spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-03 17:15+0700\n"
-"PO-Revision-Date: 2026-01-03 12:51\n"
+"POT-Creation-Date: 2026-01-14 15:52+0700\n"
+"PO-Revision-Date: 2026-01-03 12:51+0000\n"
 "Last-Translator: \n"
 "Language: ms\n"
 "Language-Team: Malay\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"X-Crowdin-Project: spotmxm\n"
-"X-Crowdin-Project-ID: 858512\n"
-"X-Crowdin-Language: ms\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 12\n"
+
+#: mxm.py:128
+#, python-format
+msgid "This track may having two pages with the same ISRC, the other <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
+msgstr ""
+
+#: mxm.py:131
+#, python-format
+msgid "This track may be facing an ISRC issue as the Spotify ID is connected to another <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
+msgstr ""
+
+#: mxm.py:137
+msgid "The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers."
+msgstr ""
+
+#: mxm.py:147
+msgid "This track may missing its Spotify id"
+msgstr ""
 
 #: templates/abstrack.html:7
 msgid "Musixmatch Abstrack"
@@ -26,13 +40,11 @@ msgstr ""
 msgid "Musixmatch abstrack:"
 msgstr ""
 
-#: templates/abstrack.html:10 templates/index.html:10 templates/isrc.html:11
-#: templates/mxm.html:10 templates/split.html:10 templates/split.html:12
+#: templates/abstrack.html:10 templates/index.html:10 templates/isrc.html:11 templates/mxm.html:10 templates/split.html:10 templates/split.html:12
 msgid "E.g.:"
 msgstr ""
 
-#: templates/abstrack.html:11 templates/index.html:11 templates/isrc.html:12
-#: templates/mxm.html:11
+#: templates/abstrack.html:11 templates/index.html:11 templates/isrc.html:12 templates/mxm.html:11
 msgid "Get links"
 msgstr ""
 
@@ -84,18 +96,15 @@ msgstr ""
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:66 templates/abstrack.html:77 templates/mxm.html:37
-#: templates/mxm.html:50
+#: templates/abstrack.html:66 templates/abstrack.html:77 templates/mxm.html:37 templates/mxm.html:50
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:77 templates/abstrack.html:92
-#: templates/abstrack.html:107 templates/mxm.html:50 templates/mxm.html:69
+#: templates/abstrack.html:77 templates/abstrack.html:92 templates/abstrack.html:107 templates/mxm.html:50 templates/mxm.html:69
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:81 templates/abstrack.html:92 templates/mxm.html:56
-#: templates/mxm.html:69
+#: templates/abstrack.html:81 templates/abstrack.html:92 templates/mxm.html:56 templates/mxm.html:69
 msgid "Apple Music source:"
 msgstr ""
 
@@ -175,43 +184,43 @@ msgstr ""
 msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
 msgstr ""
 
-#: templates/base.html:37
+#: templates/base.html:41
 msgid "No Internet Connection"
 msgstr ""
 
-#: templates/base.html:40
+#: templates/base.html:44
 msgid "Make sure you're connected to the internet."
 msgstr ""
 
-#: templates/base.html:48
+#: templates/base.html:52
 msgid "Home Page"
 msgstr ""
 
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Spotify Data"
 msgstr ""
 
-#: templates/base.html:50
+#: templates/base.html:54
 msgid "MXM Source"
 msgstr ""
 
-#: templates/base.html:51
+#: templates/base.html:55
 msgid "MXM Abstrack"
 msgstr ""
 
-#: templates/base.html:52 templates/split.html:7
+#: templates/base.html:56 templates/split.html:7
 msgid "Split Checker"
 msgstr ""
 
-#: templates/base.html:53
+#: templates/base.html:57
 msgid "Set Token"
 msgstr ""
 
-#: templates/base.html:73
+#: templates/base.html:77
 msgid "Contribute"
 msgstr ""
 
-#: templates/base.html:90
+#: templates/base.html:94
 msgid "Coded with ❤️ for music"
 msgstr ""
 

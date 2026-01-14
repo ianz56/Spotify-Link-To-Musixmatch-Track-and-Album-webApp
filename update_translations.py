@@ -4,7 +4,7 @@ def main():
     cli = CommandLineInterface()
     print("Updating translations...")
     try:
-        cli.run(['pybabel', 'update', '-i', 'messages.pot', '-d', 'translations'])
+        cli.run(['pybabel', 'update', '-i', 'messages.pot', '-d', 'translations', '--width=2500'])
     except Exception as e:
         print(e)
     

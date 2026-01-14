@@ -5,6 +5,7 @@ import Asyncmxm
 import asyncio
 from urllib.parse import unquote
 import redis
+from flask_babel import _
 
 class MXM:
     DEFAULT_KEY = os.environ.get("MXM_API")
@@ -110,10 +111,7 @@ class MXM:
                         matcher["album_name"],
                     ]
                     links.append(track)
-                    ''' when we get different data, the sp id attached to the matcher so we try to detect
-                    if the matcher one is vailid or it just a ISRC error.
-                    I used the probability here to choose the most accurate data to the spotify data
-                    '''
+                    ''' when we get different data, the sp id attached to the matcher so we try to detect if the matcher one is vailid or it just a ISRC error. I used the probability here to choose the most accurate data to the spotify data '''
                 else: 
                     matcher_title = re.sub(r'[()-.]', '', matcher.get("track_name"))
                     matcher_album = re.sub(r'[()-.]', '', matcher.get("album_name"))
@@ -126,27 +124,17 @@ class MXM:
                       or jellyfish.jaro_similarity(matcher_title.lower(), sp_title.lower())
                        * jellyfish.jaro_similarity(matcher_album.lower(), sp_album.lower())  >=
                          jellyfish.jaro_similarity(track_title.lower(), sp_title.lower())
-                       * jellyfish.jaro_similarity(track_album.lower(), sp_album.lower()) ):
-                        matcher["note"] = f'''This track may having two pages with the same ISRC,
-                        the other <a class="card-link" href="{track["track_share_url"]}" target="_blank"
-                        >page</a> from <a class="card-link" href="https://www.musixmatch.com/album/{(track["artist_id"])}/{(track["album_id"])}" target="_blank"
-                        >album</a>.'''
+                        * jellyfish.jaro_similarity(track_album.lower(), sp_album.lower()) ):
+                        matcher["note"] = _('This track may having two pages with the same ISRC, the other <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=track["track_share_url"], artist_id=track["artist_id"], album_id=track["album_id"])
                         links.append(matcher)
                     else:
-
-                        track["note"] = f'''This track may be facing an ISRC issue
-                        as the Spotify ID is connected to another <a class="card-link" href="{matcher["track_share_url"]}" target="_blank"
-                        >page</a> from <a class="card-link" href="https://www.musixmatch.com/album/{(track["artist_id"])}/{(matcher["album_id"])}" target="_blank"
-                        >album</a>.'''
+                        track["note"] = _('This track may be facing an ISRC issue as the Spotify ID is connected to another <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=matcher["track_share_url"], artist_id=track["artist_id"], album_id=matcher["album_id"])
                         links.append(track)
                 continue
 
             elif isinstance(track, str) and isinstance(matcher, str):
                 if re.search("404", track):
-                    track = """
-                    The track hasn't been imported yet. Please try again after 1-5 minutes. 
-                    Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers.
-                    """
+                    track = _("The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers.")
                     links.append(track)
                     continue
                 else: links.append(track)
@@ -156,7 +144,7 @@ class MXM:
                     continue
                 else: links.append(matcher)
             elif isinstance(track, dict) and isinstance(matcher, str):
-                track["note"] = "This track may missing its Spotify id"
+                track["note"] = _("This track may missing its Spotify id")
                 links.append(track)
             else:
                 links.append(track)
