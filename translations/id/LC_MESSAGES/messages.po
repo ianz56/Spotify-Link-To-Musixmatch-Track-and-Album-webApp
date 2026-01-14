@@ -1,40 +1,44 @@
-
 msgid ""
 msgstr ""
-"Project-Id-Version:  spotmxm\n"
+"Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-01-14 16:14+0700\n"
-"PO-Revision-Date: 2026-01-14 09:08+0000\n"
+"PO-Revision-Date: 2026-01-14 09:22\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+"X-Crowdin-Project: spotmxm\n"
+"X-Crowdin-Project-ID: 858512\n"
+"X-Crowdin-Language: id\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 12\n"
 
 #: mxm.py:128 mxm.py:131 mxm.py:147
 msgid "note"
-msgstr ""
+msgstr "Catatan"
 
 #: mxm.py:128
 #, python-format
 msgid "This track may having two pages with the same ISRC, the other <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
-msgstr ""
+msgstr "Trek ini mungkin memiliki dua halaman dengan ISRC yang sama, <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a> lain dari <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 
 #: mxm.py:131
 #, python-format
 msgid "This track may be facing an ISRC issue as the Spotify ID is connected to another <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
-msgstr ""
+msgstr "Trek ini mungkin mengalami masalah ISRC karena ID Spotify terhubung ke <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a> lain dari <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 
 #: mxm.py:137
 msgid "The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers."
-msgstr ""
+msgstr "Trek belum diimpor. Silakan coba lagi setelah 1-5 menit. Terkadang prosesnya bisa memakan waktu lebih lama, hingga 15 menit, tergantung pada API MXM dan servernya."
 
 #: mxm.py:147
 msgid "This track may missing its Spotify id"
-msgstr ""
+msgstr "Trek ini mungkin tidak memiliki ID Spotify"
 
 #: templates/abstrack.html:7
 msgid "Musixmatch Abstrack"
@@ -222,11 +226,11 @@ msgstr "Atur Token"
 
 #: templates/base.html:77
 msgid "Contribute"
-msgstr ""
+msgstr "Kontribusi"
 
 #: templates/base.html:94
 msgid "Coded with ❤️ for music"
-msgstr ""
+msgstr "Dibuat dengan ❤️ untuk musik"
 
 #: templates/index.html:7
 msgid "Spotify to Musixmatch Link"
