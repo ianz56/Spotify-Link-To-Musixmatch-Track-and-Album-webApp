@@ -179,8 +179,8 @@ button[type="submit"]:active {
 }
 
 .card-link {
-  display: inline-block;
-  margin-top: 12px;
+  display: inline;
+  margin: 0;
   text-decoration: none;
   color: var(--primary-color);
   font-weight: 600;
