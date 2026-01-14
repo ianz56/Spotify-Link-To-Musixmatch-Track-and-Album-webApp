@@ -1,22 +1,22 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: spotmxm\n"
+"Project-Id-Version:  spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-14 15:52+0700\n"
-"PO-Revision-Date: 2026-01-14 09:08\n"
+"POT-Creation-Date: 2026-01-14 16:14+0700\n"
+"PO-Revision-Date: 2026-01-14 09:08+0000\n"
 "Last-Translator: \n"
 "Language: su\n"
 "Language-Team: Sundanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"X-Crowdin-Project: spotmxm\n"
-"X-Crowdin-Project-ID: 858512\n"
-"X-Crowdin-Language: su\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 12\n"
+
+#: mxm.py:128 mxm.py:131 mxm.py:147
+msgid "note"
+msgstr ""
 
 #: mxm.py:128
 #, python-format
