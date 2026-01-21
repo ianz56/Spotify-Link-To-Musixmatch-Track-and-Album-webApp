@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8000
 
-ENTRYPOINT [ "hypercorn", "--bind", "0.0.0.0:8000" , "app:app" ]
+ENTRYPOINT [ "hypercorn", "--bind", "0.0.0.0:8000" , "app:asgi_app" ]
