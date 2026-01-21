@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import aiohttp
-from flask import Flask, request, render_template, make_response, redirect, url_for, session
+from flask import Flask, request, render_template, make_response, redirect, url_for, session, send_from_directory
 from flask_caching import Cache
 from asgiref.wsgi import WsgiToAsgi
 from flask_babel import Babel, _
@@ -390,6 +390,11 @@ async def abstrack() -> str:
         return render_template("abstrack.html", track=track, album= album, error=track.get("error"))
     else:
         return render_template("abstrack.html")
+
+
+@app.route('/BingSiteAuth.xml')
+def bing_site_auth():
+    return send_from_directory(app.static_folder, 'BingSiteAuth.xml')
 
 
 @app.route('/robots.txt')
