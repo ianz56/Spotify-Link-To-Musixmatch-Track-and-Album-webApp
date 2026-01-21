@@ -4,4 +4,6 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "8555:8000"
+    env_file:
+      - .env
