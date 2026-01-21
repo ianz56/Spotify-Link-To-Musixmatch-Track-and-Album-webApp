@@ -70,6 +70,35 @@ def jwt_ref(resp,payload):
 
 app = Flask(__name__)
 
+# Vercel Speed Insights Setup
+VERCEL_SPEED_INSIGHTS_SCRIPT = '''<script>
+window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>'''
+
+@app.after_request
+def inject_vercel_speed_insights(response):
+    """
+    Inject Vercel Speed Insights script into HTML responses.
+    This tracks Web Vitals for performance monitoring on Vercel.
+    """
+    if response.content_type and 'text/html' in response.content_type:
+        try:
+            response_text = response.get_data(as_text=True)
+            # Insert Speed Insights script before closing body tag
+            if '</body>' in response_text:
+                response_text = response_text.replace(
+                    '</body>',
+                    f'{VERCEL_SPEED_INSIGHTS_SCRIPT}\n</body>'
+                )
+                response.set_data(response_text)
+                # Update content length since we modified the response
+                response.headers['Content-Length'] = len(response.get_data())
+        except Exception as e:
+            print(f"⚠️ Failed to inject Vercel Speed Insights: {e}")
+            pass  # Continue normally if injection fails
+    return response
+
 import redis
 
 # Cache Configuration
