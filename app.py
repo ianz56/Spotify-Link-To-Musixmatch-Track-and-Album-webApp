@@ -397,6 +397,12 @@ def bing_site_auth():
     return send_from_directory(app.static_folder, 'BingSiteAuth.xml')
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.static_folder, 'assets'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/robots.txt')
 def robots():
     lines = [
