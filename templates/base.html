@@ -22,7 +22,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Spotify To Mxm" property="og:title" />
     <meta content="Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link" property="og:description" />
-    <meta name="description" content="Convert Spotify links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.">
+    <meta name="description"
+        content="Convert Spotify links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.">
     <meta name="keywords" content="Spotify, Musixmatch, ISRC, Lyrics, Music, Convert, Tool, Album Art, Split, Metadata">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ request.base_url }}">
@@ -72,9 +73,10 @@
                 <a href="{{ url_for('set_language', language='id') }}"
                     class="{{ 'active' if get_locale() == 'id' else '' }}">Indonesia</a>
                 <a href="{{ url_for('set_language', language='su') }}"
-                   class="{{ 'active' if get_locale() == 'su' else '' }}" >Sunda</a>
+                    class="{{ 'active' if get_locale() == 'su' else '' }}">Sunda</a>
                 <span class="lang-fab-dropdown-separator"></span>
-                <a href="https://crowdin.com/project/spotmxm" target="_blank" class="lang-fab-dropdown-contribute">{{ _('Contribute') }}</a>
+                <a href="https://crowdin.com/project/spotmxm" target="_blank" class="lang-fab-dropdown-contribute">{{
+                    _('Contribute') }}</a>
             </div>
         </div>
     </nav>
@@ -114,10 +116,9 @@
                     </a>
                 </div>
                 <div>
-                    <a href="https://crowdin.com/project/spotmxm"
-                        target="_blank" class="github-link">
-                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/refs/heads/develop/icons/crowdin.svg" alt="Crowdin"
-                            class="icon" />
+                    <a href="https://crowdin.com/project/spotmxm" target="_blank" class="github-link">
+                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/refs/heads/develop/icons/crowdin.svg"
+                            alt="Crowdin" class="icon" />
                     </a>
                 </div>
             </div>
@@ -125,9 +126,11 @@
     </footer>
 
     {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights@1.3.1/dist/index.min.js" defer></script>
     <script defer src="https://spotify-to-mxm.vercel.app/_vercel/insights/script.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "325da9ffa56c4ba6ad443c531a15d471"}'></script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "325da9ffa56c4ba6ad443c531a15d471"}'></script>
     {% endblock %}
 </body>
 
