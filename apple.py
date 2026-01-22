@@ -31,15 +31,15 @@ class AppleMusic:
                     if isinstance(loaded_data, dict) and '@graph' in loaded_data:
                          # Browse the graph
                          for item in loaded_data['@graph']:
-                             if item.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist']:
+                             if item.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist', 'MusicComposition']:
                                  data = item
                                  break
-                    elif isinstance(loaded_data, dict) and loaded_data.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist']:
+                    elif isinstance(loaded_data, dict) and loaded_data.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist', 'MusicComposition']:
                         data = loaded_data
                         break
                     elif isinstance(loaded_data, list):
                         for item in loaded_data:
-                            if item.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist']:
+                            if item.get('@type') in ['MusicRecording', 'MusicAlbum', 'MusicPlaylist', 'MusicComposition']:
                                 data = item
                                 break
                     if data: break
@@ -50,6 +50,15 @@ class AppleMusic:
             
             if data:
                 print(f"DEBUG: Found data type: {data.get('@type')}") # Debug print
+                
+                # Handle MusicComposition: the actual MusicRecording is nested in 'audio' field
+                if data.get('@type') == 'MusicComposition':
+                    audio_data = data.get('audio')
+                    if audio_data and isinstance(audio_data, dict) and audio_data.get('@type') == 'MusicRecording':
+                        # Use the nested MusicRecording data
+                        data = audio_data
+                        print(f"DEBUG: Extracted MusicRecording from MusicComposition")
+                
                 if data.get('@type') == 'MusicRecording':
                     results.append(self._parse_track(data))
                 elif data.get('@type') in ['MusicAlbum', 'MusicPlaylist']:
