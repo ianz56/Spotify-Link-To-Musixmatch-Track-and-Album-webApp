@@ -467,7 +467,11 @@ async def apple():
                     apple_music.get_apple_music_data, link
                 )
 
-                if isinstance(tracks_data, list) and isinstance(tracks_data[0], str):
+                if (
+                    isinstance(tracks_data, list)
+                    and tracks_data
+                    and isinstance(tracks_data[0], str)
+                ):
                     # Error or message
                     return render_template("apple.html", tracks_data=tracks_data)
 
@@ -527,7 +531,7 @@ async def setAPI():
 
             # Call the Tracks_Data method with the appropriate parameters
             mxmLinks = await mxm.Tracks_Data(sp_data)
-            print(mxmLinks)
+            # print(mxmLinks)
 
         if isinstance(mxmLinks[0], str):
             return render_template("api.html", error="Please Enter A Valid Key")

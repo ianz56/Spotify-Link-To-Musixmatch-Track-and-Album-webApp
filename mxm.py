@@ -14,9 +14,9 @@ class MXM:
     DEFAULT_KEY = os.environ.get("MXM_API")
     DEFAULT_KEY2 = os.environ.get("MXM_API2")
 
-    def __init__(self, key=None, session=None):
+    def __init__(self, key=None, session=None, key2=None):
         self.key = key or self.DEFAULT_KEY
-        self.key2 = key or self.DEFAULT_KEY2
+        self.key2 = key2 or self.DEFAULT_KEY2
         if not self.key:
             r = redis.Redis(
                 host=os.environ.get("REDIS_HOST"),
