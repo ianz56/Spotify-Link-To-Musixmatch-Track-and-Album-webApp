@@ -15,7 +15,7 @@ zipp==3.10.0
 asgiref
 jellyfish
 redis[hiredis]
-python-dotenv
+python-dotenv==1.0.0
 Flask-Babel
 Flask-Caching
 requests
