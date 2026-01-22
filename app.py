@@ -370,9 +370,9 @@ def isrc():
 
 
 @app.route("/apple", methods=["GET"])
-@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def apple():
     link = request.args.get("link")
+    refresh = request.args.get("refresh")
     key = None
     token = request.cookies.get("api_token")
     if link:
@@ -382,12 +382,27 @@ async def apple():
                 key = payload.get("mxm-key")
 
         cache_key = f"apple_search:{link}:{get_locale()}"
-        cached_data = cache.get(cache_key)
+        
+        cached_data = None
+        if not refresh:
+            cached_data = cache.get(cache_key)
+            
         mxmLinks = None
         is_cached = False
+        cached_timestamp = None
 
         if cached_data:
-            mxmLinks = cached_data
+            if isinstance(cached_data, dict) and "data" in cached_data:
+                mxmLinks = cached_data["data"]
+                cached_timestamp = cached_data.get("timestamp")
+                # Parse timestamp if it's a string
+                if isinstance(cached_timestamp, str):
+                    try:
+                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                    except ValueError:
+                        pass
+            else:
+                mxmLinks = cached_data
             is_cached = True
         else:
             async with aiohttp.ClientSession() as session:
@@ -402,12 +417,21 @@ async def apple():
                 mxmLinks = await mxm.Tracks_Data(tracks_data)
 
                 if isinstance(mxmLinks, list):
-                    cache.set(cache_key, mxmLinks, timeout=3600)
+                    cache_value = {
+                        "data": mxmLinks,
+                        "timestamp": datetime.datetime.now().isoformat()
+                    }
+                    cache.set(cache_key, cache_value, timeout=3600)
 
         if isinstance(mxmLinks, str):
             return mxmLinks
 
-        return render_template("apple.html", tracks_data=mxmLinks, is_cached=is_cached)
+        return render_template(
+            "apple.html", 
+            tracks_data=mxmLinks, 
+            is_cached=is_cached, 
+            cached_timestamp=cached_timestamp
+        )
 
     # refresh the token every time the user enter the site
     if token:

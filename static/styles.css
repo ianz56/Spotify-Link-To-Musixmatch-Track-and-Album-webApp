@@ -828,3 +828,48 @@ body.preload {
   transition: none !important;
   -webkit-transition: none !important;
 }
+
+/* Cached Badge & Refresh */
+.cached-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
+
+.badge-cached {
+  background-color: rgba(245, 158, 11, 0.1); /* Amber/Orange tint */
+  color: #d97706; /* Amber-600 */
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+  font-size: inherit;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.refresh-btn:hover {
+  color: var(--primary-hover);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .badge-cached {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #fbbf24; /* Amber-400 */
+  }
+}
