@@ -1,0 +1,26 @@
+[tool.ruff]
+# Target Python version
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.djlint]
+profile = "jinja"
+indent = 2
+blank_line_after_tag = "load,extends,include"
+# Ignore specific rules if needed, e.g. H006 (img alt), H031 (meta keywords)
+ignore = "H006,H031"

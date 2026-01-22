@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -16,121 +15,142 @@
         console.info("Cache Status: {{ 'Redis Connected ✅' if using_redis else 'Disconnected ⚠️ (Using Memory Cache)' }}");
     </script>
     <!-- End Google Tag Manager -->
-    <title>{% block title %}Spotify to Musixmatch Link{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
+    <title>
+      {% block title %}Spotify to Musixmatch Link{% endblock %}
+    </title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='styles.css') }}" />
     <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Spotify To Mxm" property="og:title" />
-    <meta content="Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link" property="og:description" />
+    <meta content="Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link"
+          property="og:description" />
     <meta name="description"
-        content="Convert Spotify links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.">
-    <meta name="keywords" content="Spotify, Musixmatch, ISRC, Lyrics, Music, Convert, Tool, Album Art, Split, Metadata">
+          content="Convert Spotify links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.">
+    <meta name="keywords"
+          content="Spotify, Musixmatch, ISRC, Lyrics, Music, Convert, Tool, Album Art, Split, Metadata">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ request.base_url }}">
     <!-- <meta content="#ff6050" data-react-helmet="true" name="theme-color" /> -->
     {% block head %}{% endblock %}
-</head>
-
-<body class="preload">
+  </head>
+  <body class="preload">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2FR6G2S" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2FR6G2S"
+        height="0"
+        width="0"
+        style="display:none;
+               visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
     <div id="offline-div" spellcheck="true" style="display: none">
-        <h3>
-            {{ _('No Internet Connection') }}
-        </h3>
-        <p>
-            {{ _("Make sure you're connected to the internet.") }}
-        </p>
+      <h3>{{ _("No Internet Connection") }}</h3>
+      <p>{{ _("Make sure you're connected to the internet.") }}</p>
     </div>
-
     <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="navbar-container">
-            <ul>
-                <li><a href="/">{{ _('Home Page') }}</a></li>
-                <li><a href="/spotify">{{ _('Spotify Data') }}</a></li>
-                <li><a href="/apple">{{ _('Apple Music Source') }}</a></li>
-                <li><a href="/mxm">{{ _('MXM Source') }}</a></li>
-                <li><a href="/abstrack">{{ _('MXM Abstrack') }}</a></li>
-                <li><a href="/split">{{ _('Split Checker') }}</a></li>
-                <li><a href="/api">{{ _('Set Token') }}</a></li>
-            </ul>
+      <div class="navbar-container">
+        <ul>
+          <li>
+            <a href="/">{{ _("Home Page") }}</a>
+          </li>
+          <li>
+            <a href="/spotify">{{ _("Spotify Data") }}</a>
+          </li>
+          <li>
+            <a href="/apple">{{ _("Apple Music Source") }}</a>
+          </li>
+          <li>
+            <a href="/mxm">{{ _("MXM Source") }}</a>
+          </li>
+          <li>
+            <a href="/abstrack">{{ _("MXM Abstrack") }}</a>
+          </li>
+          <li>
+            <a href="/split">{{ _("Split Checker") }}</a>
+          </li>
+          <li>
+            <a href="/api">{{ _("Set Token") }}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Floating Language Switcher -->
+      <div class="lang-fab-container">
+        <button class="lang-fab-btn" aria-label="Language">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+          </svg>
+        </button>
+        <div class="lang-fab-dropdown">
+          <a href="{{ url_for('set_language', language='en') }}"
+             class="{{ 'active' if get_locale() == 'en' else '' }}">English</a>
+          <a href="{{ url_for('set_language', language='id') }}"
+             class="{{ 'active' if get_locale() == 'id' else '' }}">Indonesia</a>
+          <a href="{{ url_for('set_language', language='su') }}"
+             class="{{ 'active' if get_locale() == 'su' else '' }}">Sunda</a>
+          <span class="lang-fab-dropdown-separator"></span>
+          <a href="https://crowdin.com/project/spotmxm"
+             target="_blank"
+             class="lang-fab-dropdown-contribute">{{ _("Contribute") }}</a>
         </div>
-
-        <!-- Floating Language Switcher -->
-        <div class="lang-fab-container">
-            <button class="lang-fab-btn" aria-label="Language">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                </svg>
-            </button>
-            <div class="lang-fab-dropdown">
-                <a href="{{ url_for('set_language', language='en') }}"
-                    class="{{ 'active' if get_locale() == 'en' else '' }}">English</a>
-                <a href="{{ url_for('set_language', language='id') }}"
-                    class="{{ 'active' if get_locale() == 'id' else '' }}">Indonesia</a>
-                <a href="{{ url_for('set_language', language='su') }}"
-                    class="{{ 'active' if get_locale() == 'su' else '' }}">Sunda</a>
-                <span class="lang-fab-dropdown-separator"></span>
-                <a href="https://crowdin.com/project/spotmxm" target="_blank" class="lang-fab-dropdown-contribute">{{
-                    _('Contribute') }}</a>
-            </div>
-        </div>
+      </div>
     </nav>
-
     <main>
-        {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
     </main>
-
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-left">
-                <!-- <span>Version 1.0</span>
+      <div class="footer-content">
+        <div class="footer-left">
+          <!-- <span>Version 1.0</span>
         <span class="separator">•</span> -->
-            </div>
-
-            <div class="footer-center">
-                <span>{{ _('Coded with ❤️ for music') }}</span>
-            </div>
-
-            <div class="footer-right">
-                <div>
-                    <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
-                        target="_blank" class="github-link">
-                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg"
-                            alt="GitHub" class="icon" />
-                    </a>
-                </div>
-                <div>
-                    <a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
-                        target="_blank" class="github-link">
-                        <svg class="icon" aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20"
-                            data-view-component="true" class="octicon octicon-repo-forked mr-2">
-                            <path
-                                d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-                <div>
-                    <a href="https://crowdin.com/project/spotmxm" target="_blank" class="github-link">
-                        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/refs/heads/develop/icons/crowdin.svg"
-                            alt="Crowdin" class="icon" />
-                    </a>
-                </div>
-            </div>
         </div>
+        <div class="footer-center">
+          <span>{{ _("Coded with ❤️ for music") }}</span>
+        </div>
+        <div class="footer-right">
+          <div>
+            <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
+               target="_blank"
+               class="github-link">
+              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg"
+                   alt="GitHub"
+                   class="icon" />
+            </a>
+          </div>
+          <div>
+            <a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
+               target="_blank"
+               class="github-link">
+              <svg class="icon"
+                   aria-hidden="true"
+                   height="20"
+                   viewBox="0 0 16 16"
+                   version="1.1"
+                   width="20"
+                   data-view-component="true"
+                   class="octicon octicon-repo-forked mr-2">
+                <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z">
+                </path>
+              </svg>
+            </a>
+          </div>
+          <div>
+            <a href="https://crowdin.com/project/spotmxm"
+               target="_blank"
+               class="github-link">
+              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/refs/heads/develop/icons/crowdin.svg"
+                   alt="Crowdin"
+                   class="icon" />
+            </a>
+          </div>
+        </div>
+      </div>
     </footer>
-
     {% block scripts %}
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-        data-cf-beacon='{"token": "325da9ffa56c4ba6ad443c531a15d471"}'></script>
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+      <script defer
+              src='https://static.cloudflareinsights.com/beacon.min.js'
+              data-cf-beacon='{"token": "325da9ffa56c4ba6ad443c531a15d471"}'></script>
     {% endblock %}
-</body>
-
+  </body>
 </html>

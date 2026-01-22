@@ -1,101 +1,95 @@
 {% extends 'base.html' %}
 
 {% block title %}Musixmatch Source{% endblock %}
-
 {% block content %}
-<div class="container">
-  <h1>{{ _('Musixmatch Album source') }}</h1>
-  <form action="/" method="GET">
-    <label for="input_link">{{ _('Musixmatch Album|track Link:') }}</label>
-    <input type="text" id="input_link" name="link" placeholder="{{ _('E.g.:') }} https://www.musixmatch.com/album/123456789" />
-    <button type="submit" id="process_button">{{ _('Get links') }}</button>
-    <div class="loading" id="loading"></div>
-  </form>
-  <div class="output" id="output">
-    <p style="text-align: center;">{{ _('The tool can only get the source of the album.') }}</p>
-    <p style="text-align: center;">{{ _("If a track matches multiple albums, please use the album link.") }}</p>
-    {% if album %}
-    <div class="row">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card">
-          <div class="card-details">
-            <h5 class="card-title">{{ album.album_name }}</h5>
-
-            <p class="card-text">
-              {{ _('Album:') }}
-              <a href="https://www.musixmatch.com/album/{{ album.artist_id }}/{{ album.album_id }}" class="card-link"
-                target="_blank">{{ album.album_name }}</a>
-
-            </p>
-
-            <p class="card-text">
-              {{ _('Album ID:') }} {{ album.album_id }}
-            </p>
-
-            {% if album.external_ids.spotify %}
-            <p class="card-text">
-              {{ _('Spotify source:') }}
-            <div class="list">
-              <ul>
-                {% for id in album.external_ids.spotify %}
-                <li>
-                  <a href="https://open.spotify.com/album/{{ id }}" class="card-link" target="_blank">{{ id }}</a>
-                </li>
+  <div class="container">
+    <h1>{{ _("Musixmatch Album source") }}</h1>
+    <form action="/" method="GET">
+      <label for="input_link">{{ _("Musixmatch Album|track Link:") }}</label>
+      <input type="text"
+             id="input_link"
+             name="link"
+             placeholder="{{ _("E.g.:") }} https://www.musixmatch.com/album/123456789" />
+      <button type="submit" id="process_button">{{ _("Get links") }}</button>
+      <div class="loading" id="loading"></div>
+    </form>
+    <div class="output" id="output">
+      <p style="text-align: center;">{{ _("The tool can only get the source of the album.") }}</p>
+      <p style="text-align: center;">{{ _("If a track matches multiple albums, please use the album link.") }}</p>
+      {% if album %}
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+              <div class="card-details">
+                <h5 class="card-title">{{ album.album_name }}</h5>
+                <p class="card-text">
+                  {{ _("Album:") }}
+                  <a href="https://www.musixmatch.com/album/{{ album.artist_id }}/{{ album.album_id }}"
+                     class="card-link"
+                     target="_blank">{{ album.album_name }}</a>
                 </p>
-                {% endfor %}
-              </ul>
+                <p class="card-text">{{ _("Album ID:") }} {{ album.album_id }}</p>
+                {% if album.external_ids.spotify %}
+                  <p class="card-text">
+                    {{ _("Spotify source:") }}
+                    <div class="list">
+                      <ul>
+                        {% for id in album.external_ids.spotify %}
+                          <li>
+                            <a href="https://open.spotify.com/album/{{ id }}"
+                               class="card-link"
+                               target="_blank">{{ id }}</a>
+                          </li>
+                        </p>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% else %}
+                  <p class="card-text">{{ _("Spotify source:") }} {{ _("No Connected Source") }}</p>
+                {% endif %}
+                {% if album.external_ids.itunes %}
+                  <p class="card-text">
+                    {{ _("Apple Music source:") }}
+                    <div class="list">
+                      <ul>
+                        {% for id in album.external_ids.itunes %}
+                          <li>
+                            <a href="https://music.apple.com/album/{{ id }}"
+                               class="card-link"
+                               target="_blank">{{ id }}</a>
+                          </li>
+                        </p>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% else %}
+                  <p class="card-text">{{ _("Apple Music source:") }} {{ _("No Connected Source") }}</p>
+                {% endif %}
+              </div>
             </div>
-            {% else %}
-            <p class="card-text">
-              {{ _('Spotify source:') }} {{ _('No Connected Source') }}
-            </p>
-            {% endif %}
-
-            {% if album.external_ids.itunes %}
-            <p class="card-text">
-              {{ _('Apple Music source:') }}
-            <div class="list">
-              <ul>
-                {% for id in album.external_ids.itunes %}
-                <li>
-                  <a href="https://music.apple.com/album/{{ id }}" class="card-link" target="_blank">{{ id }}</a>
-                </li>
-                </p>
-                {% endfor %}
-              </ul>
-            </div>
-            {% else %}
-            <p class="card-text">
-              {{ _('Apple Music source:') }} {{ _('No Connected Source') }}
-            </p>
-            {% endif %}
           </div>
         </div>
-      </div>
-    </div>
-    {% endif %}
-    {% if error %}
-    <div class="row">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card">
-          <div class="card-details">
-            <p class="card-text">error: {{ error }}</p>
+      {% endif %}
+      {% if error %}
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+              <div class="card-details">
+                <p class="card-text">error: {{ error }}</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      {% endif %}
     </div>
-    {% endif %}
-
-
   </div>
-</div>
-
-<!-- The Modal -->
-<div id="countries-modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2>{{ _('Countries') }}</h2>
-    <ul id="countries-list"></ul>
+  <!-- The Modal -->
+  <div id="countries-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>{{ _("Countries") }}</h2>
+      <ul id="countries-list">
+      </ul>
+    </div>
   </div>
-</div>
 {% endblock %}

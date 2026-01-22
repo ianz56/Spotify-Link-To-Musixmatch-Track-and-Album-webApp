@@ -1,2 +1,3 @@
-from .client import Musixmatch
 from .exceptions import *
+from . import exceptions
+from .client import Musixmatch
