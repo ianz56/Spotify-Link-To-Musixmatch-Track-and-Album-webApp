@@ -24,6 +24,7 @@ from flask import (
     url_for,
 )
 from flask_babel import Babel
+from flask_babel import gettext as _
 from flask_caching import Cache
 
 from apple import AppleMusic
@@ -237,7 +238,14 @@ async def index():
         resp = make_response(render_template("index.html"))
         expire_date = datetime.datetime.now() + datetime.timedelta(hours=1)
         resp.delete_cookie("api_key")
-        resp.set_cookie("api_token", token.decode("utf-8"), expires=expire_date)
+        resp.set_cookie(
+            "api_token",
+            token.decode("utf-8"),
+            expires=expire_date,
+            httponly=True,
+            secure=True,
+            samesite="Lax",
+        )
         return resp
 
     link = request.args.get("link")
@@ -285,7 +293,7 @@ async def index():
                     if len(link) < 12:
                         return render_template(
                             "index.html",
-                            tracks_data=["Wrong Spotify Link Or Wrong ISRC"],
+                            tracks_data=[_("Wrong Spotify Link Or Wrong ISRC")],
                         )
                     elif re.search(r"artist/(\w+)", link):
                         artist_albums = await asyncio.to_thread(
@@ -313,14 +321,16 @@ async def index():
                     app.logger.exception(e)
                     return render_template(
                         "index.html",
-                        tracks_data=["An unexpected error occurred, please try again"],
+                        tracks_data=[
+                            _("An unexpected error occurred, please try again")
+                        ],
                     )
 
         if isinstance(mxmLinks, str):
             app.logger.error(f"Error fetching tracks: {mxmLinks}")
             return render_template(
                 "index.html",
-                tracks_data=["An unexpected error occurred, please try again"],
+                tracks_data=[_("An unexpected error occurred, please try again")],
             )
 
         return render_template(
@@ -393,11 +403,13 @@ async def split():
                         track1["isrc"] == track2["isrc"]
                         and track1["commontrack_id"] == track2["commontrack_id"]
                     ):
-                        message = "Can not be splitted as they have the Same ISRC"
+                        message = _("Can not be splitted as they have the Same ISRC")
                     else:
-                        message = "They have different Pages"
+                        message = _("They have different Pages")
                 except:
-                    return render_template("split.html", error="Something went wrong")
+                    return render_template(
+                        "split.html", error=_("Something went wrong")
+                    )
 
                 return render_template(
                     "split.html",
@@ -405,7 +417,7 @@ async def split():
                     message=message,
                 )
             else:
-                return render_template("split.html", error="Wrong Spotify Link")
+                return render_template("split.html", error=_("Wrong Spotify Link"))
 
     else:
         return render_template("split.html")
@@ -425,7 +437,7 @@ def isrc():
             if len(link) == 12:
                 # search by isrc
                 return render_template("isrc.html", tracks_data=sp.search_by_isrc(link))
-            return render_template("isrc.html", tracks_data=["Wrong Spotify Link"])
+            return render_template("isrc.html", tracks_data=[_("Wrong Spotify Link")])
     else:
         return render_template("isrc.html")
 
@@ -542,7 +554,7 @@ async def setAPI():
             # print(mxmLinks)
 
         if isinstance(mxmLinks[0], str):
-            return render_template("api.html", error="Please Enter A Valid Key")
+            return render_template("api.html", error=_("Please Enter A Valid Key"))
 
         payload = {
             "mxm-key": key,
@@ -554,7 +566,14 @@ async def setAPI():
 
         resp = make_response(render_template("api.html", key="Token Generated"))
         expire_date = datetime.datetime.now() + datetime.timedelta(hours=1)
-        resp.set_cookie("api_token", token.decode("utf-8"), expires=expire_date)
+        resp.set_cookie(
+            "api_token",
+            token.decode("utf-8"),
+            expires=expire_date,
+            httponly=True,
+            secure=True,
+            samesite="Lax",
+        )
         return resp
 
     elif delete:
@@ -638,7 +657,7 @@ async def abstrack() -> str:
             if payload:
                 key = payload.get("mxm-key")
         if not re.match("^[0-9]+$", id):
-            return render_template("abstrack.html", error="Invalid input!")
+            return render_template("abstrack.html", error=_("Invalid input!"))
 
         async with aiohttp.ClientSession() as session:
             mxm = MXM(key, session=session)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-22 22:15+0700\n"
+"POT-Creation-Date: 2026-01-23 00:17+0700\n"
 "PO-Revision-Date: 2026-01-01 15:36+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,21 +18,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: mxm.py:240
+#: app.py:295
+msgid "Wrong Spotify Link Or Wrong ISRC"
+msgstr ""
+
+#: app.py:323 app.py:330
+msgid "An unexpected error occurred, please try again"
+msgstr ""
+
+#: app.py:405
+msgid "Can not be splitted as they have the Same ISRC"
+msgstr ""
+
+#: app.py:407
+msgid "They have different Pages"
+msgstr ""
+
+#: app.py:409
+msgid "Something went wrong"
+msgstr ""
+
+#: app.py:417 app.py:437
+msgid "Wrong Spotify Link"
+msgstr ""
+
+#: app.py:554
+msgid "Please Enter A Valid Key"
+msgstr ""
+
+#: app.py:657
+msgid "Invalid input!"
+msgstr ""
+
+#: mxm.py:249
 #, python-format
 msgid "This track may having two pages with the same ISRC, the other <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 msgstr ""
 
-#: mxm.py:248
+#: mxm.py:257
 #, python-format
 msgid "This track may be facing an ISRC issue as the Spotify ID is connected to another <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 msgstr ""
 
-#: mxm.py:259
+#: mxm.py:268
 msgid "The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers."
 msgstr ""
 
-#: mxm.py:272
+#: mxm.py:281
 msgid "This track may missing its Spotify id"
 msgstr ""
 
@@ -100,15 +132,15 @@ msgstr ""
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:70 templates/abstrack.html:85 templates/mxm.html:34 templates/mxm.html:48
+#: templates/abstrack.html:70 templates/abstrack.html:85 templates/mxm.html:33 templates/mxm.html:46
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:85 templates/abstrack.html:105 templates/abstrack.html:125 templates/mxm.html:48 templates/mxm.html:66
+#: templates/abstrack.html:85 templates/abstrack.html:105 templates/abstrack.html:125 templates/mxm.html:46 templates/mxm.html:62
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:90 templates/abstrack.html:105 templates/mxm.html:52 templates/mxm.html:66
+#: templates/abstrack.html:90 templates/abstrack.html:105 templates/mxm.html:49 templates/mxm.html:62
 msgid "Apple Music source:"
 msgstr ""
 
@@ -116,7 +148,7 @@ msgstr ""
 msgid "Amazon Music source:"
 msgstr ""
 
-#: templates/abstrack.html:151 templates/isrc.html:125 templates/mxm.html:114
+#: templates/abstrack.html:151 templates/isrc.html:125 templates/mxm.html:110
 msgid "Countries"
 msgstr ""
 
@@ -204,15 +236,15 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
-#: templates/apple.html:53 templates/index.html:55 templates/mxm.html:70
+#: templates/apple.html:53 templates/index.html:55 templates/mxm.html:66
 msgid "Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:65 templates/index.html:67 templates/mxm.html:82
+#: templates/apple.html:65 templates/index.html:67 templates/mxm.html:78
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:72 templates/index.html:74 templates/mxm.html:89
+#: templates/apple.html:72 templates/index.html:74 templates/mxm.html:85
 msgid "Refresh"
 msgstr ""
 
@@ -224,39 +256,39 @@ msgstr ""
 msgid "Make sure you're connected to the internet."
 msgstr ""
 
-#: templates/base.html:55
+#: templates/base.html:56
 msgid "Home Page"
 msgstr ""
 
-#: templates/base.html:58
+#: templates/base.html:59
 msgid "Spotify Data"
 msgstr ""
 
-#: templates/base.html:61
+#: templates/base.html:62
 msgid "Apple Music Source"
 msgstr ""
 
-#: templates/base.html:64
+#: templates/base.html:65
 msgid "MXM Source"
 msgstr ""
 
-#: templates/base.html:67
+#: templates/base.html:68
 msgid "MXM Abstrack"
 msgstr ""
 
-#: templates/base.html:70 templates/split.html:6
+#: templates/base.html:71 templates/split.html:6
 msgid "Split Checker"
 msgstr ""
 
-#: templates/base.html:73
+#: templates/base.html:74
 msgid "Set Token"
 msgstr ""
 
-#: templates/base.html:94
+#: templates/base.html:97
 msgid "Contribute"
 msgstr ""
 
-#: templates/base.html:108
+#: templates/base.html:111
 msgid "Coded with ❤️ for music"
 msgstr ""
 

@@ -15,20 +15,26 @@ class MXM:
     DEFAULT_KEY2 = os.environ.get("MXM_API2")
 
     def __init__(self, key=None, session=None, key2=None):
-        self.key = key or self.DEFAULT_KEY
-        self.key2 = key2 or self.DEFAULT_KEY2
-        if not self.key:
-            r = redis.Redis(
-                host=os.environ.get("REDIS_HOST"),
-                port=os.environ.get("REDIS_PORT"),
-                password=os.environ.get("REDIS_PASSWD"),
-            )
+        try:
+            r = redis.from_url(os.environ.get("REDIS_URL"))
             key1 = r.get("live:1")
-            key2 = r.get("live:2")
-            self.key = key1.decode()
-            self.key2 = key2.decode()
-            # print(self.key, " ", self.key2)
+            key2_redis = r.get("live:2")
+
+            if key1:
+                self.key = key1.decode()
+            else:
+                self.key = key or self.DEFAULT_KEY
+
+            if key2_redis:
+                self.key2 = key2_redis.decode()
+            else:
+                self.key2 = key2 or self.DEFAULT_KEY2
+
             r.close()
+        except Exception:
+            # Fallback if Redis fails or keys are missing
+            self.key = key or self.DEFAULT_KEY
+            self.key2 = key2 or self.DEFAULT_KEY2
 
         self.session = session
         self.musixmatch = Asyncmxm.Musixmatch(self.key, requests_session=session)
