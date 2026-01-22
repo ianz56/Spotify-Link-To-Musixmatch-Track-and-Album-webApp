@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Apple Music to Musixmatch Link{% endblock %}
+{% block title %}_(Apple Music to Musixmatch Link){% endblock %}
 
 {% block content %}
 <div class="container">
@@ -61,40 +61,6 @@
       {% endfor %}
     </div>
     {% endif %}
-  </div>
-  <div>
-    <a href="#" id="how_to_use">{{ _('How to Use?') }}</a>
-  </div>
-</div>
-
-<div class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>How to Use</h2>
-    <ol>
-      <li>
-        Enter a valid Apple Music track link into the input field.
-      </li>
-      <li>
-        Click the "Get links" button and wait until the processing ends.
-      </li>
-    </ol>
-    <h3>If the track has not been imported yet:</h3>
-    <ul>
-      <li>
-        The app tries to import it automatically. You may get the links
-        immediately or have to wait for 1 or 2 minutes (depending on the
-        MXM API).
-      </li>
-    </ul>
-    <h3>Apple Music Limits:</h3>
-    <ul>
-      <li>Currently supports single track links best. Album extraction might be limited.</li>
-    </ul>
-    <p class="reach">
-      Finally, if you face a problem or the app is malfunctioning, you can
-      reach me via Slack "<a href="https://lyricscurators.slack.com/team/U0140RQGG4E" target="_blank">@Ian P.</a>".
-    </p>
   </div>
 </div>
 {% endblock %}
