@@ -1,3 +1,5 @@
+import sys
+
 from babel.messages.frontend import CommandLineInterface
 
 
@@ -10,6 +12,7 @@ def main():
         )
     except Exception as e:
         print(e)
+        sys.exit(1)
 
     print("Initializing EN...")
     try:
@@ -18,6 +21,7 @@ def main():
         )
     except Exception as e:
         print(e)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

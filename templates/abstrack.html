@@ -4,11 +4,11 @@
 {% block content %}
   <div class="container">
     <h1>{{ _("Musixmatch Abstrack") }}</h1>
-    <form action="/" method="GET">
+    <form action="/abstrack" method="GET">
       <label for="input_link">{{ _("Musixmatch abstrack:") }}</label>
       <input type="text"
              id="input_link"
-             name="link"
+             name="id"
              placeholder="{{ _("E.g.:") }} 219375087" />
       <button type="submit" id="process_button">{{ _("Get links") }}</button>
       <div class="loading" id="loading"></div>

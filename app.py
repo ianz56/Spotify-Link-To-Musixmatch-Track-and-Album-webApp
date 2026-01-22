@@ -6,6 +6,7 @@ import hmac
 import json
 import os
 import re
+import time
 
 from dotenv import load_dotenv
 
@@ -64,26 +65,36 @@ def verify_token(token):
     except ValueError:
         return None
 
-    # header = base64.urlsafe_b64decode(encoded_header + "==").decode("utf-8")
     try:
-        payload = base64.urlsafe_b64decode(encoded_payload + "==").decode("utf-8")
+        # Add padding if needed
+        payload_padding = len(encoded_payload) % 4
+        if payload_padding:
+            encoded_payload += "=" * (4 - payload_padding)
+        payload = base64.urlsafe_b64decode(encoded_payload).decode("utf-8")
     except Exception:
         return None
 
     expected_signature = hmac.new(
         SECRET_KEY,
-        (encoded_header + "." + encoded_payload).encode("utf-8"),
+        (encoded_header + "." + encoded_payload.rstrip("=")).encode("utf-8"),
         hashlib.sha256,
     ).digest()
     expected_encoded_signature = base64.urlsafe_b64encode(expected_signature).rstrip(
         b"="
     )
 
-    if expected_encoded_signature != encoded_signature.encode("utf-8"):
+    # Use constant time comparison
+    if not hmac.compare_digest(
+        expected_encoded_signature, encoded_signature.encode("utf-8")
+    ):
         return None
 
     try:
         payload = json.loads(payload)
+        # Check expiration
+        exp = payload.get("exp")
+        if not isinstance(exp, int) or exp < time.time():
+            return None
     except json.JSONDecodeError:
         return None
 
@@ -226,7 +237,7 @@ async def index():
         resp = make_response(render_template("index.html"))
         expire_date = datetime.datetime.now() + datetime.timedelta(hours=1)
         resp.delete_cookie("api_key")
-        resp.set_cookie("api_token", token, expires=expire_date)
+        resp.set_cookie("api_token", token.decode("utf-8"), expires=expire_date)
         return resp
 
     link = request.args.get("link")
@@ -353,7 +364,7 @@ async def split():
                 track2 = await mxm.Tracks_Data(sp_data2, True)
                 track2 = track2[0]
                 if isinstance(track2, str):
-                    return render_template("split.html", error="track2: " + track1)
+                    return render_template("split.html", error="track2: " + track2)
 
                 track1["track"] = sp_data1[0]["track"]
                 track2["track"] = sp_data2[0]["track"]

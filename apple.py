@@ -1,5 +1,6 @@
 import json
 import re
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -16,7 +17,17 @@ class AppleMusic:
 
     def get_apple_music_data(self, link):
         try:
-            response = self.session.get(link, headers=self.headers)
+            parsed_url = urlparse(link)
+            if parsed_url.scheme not in ["http", "https"]:
+                return ["Error: Invalid URL scheme"]
+
+            if not parsed_url.hostname or not (
+                parsed_url.hostname == "music.apple.com"
+                or parsed_url.hostname.endswith(".music.apple.com")
+            ):
+                return ["Error: Invalid hostname"]
+
+            response = self.session.get(link, headers=self.headers, timeout=10)
             if response.status_code != 200:
                 return [
                     f"Error: Could not fetch Apple Music page. Status code: {response.status_code}"

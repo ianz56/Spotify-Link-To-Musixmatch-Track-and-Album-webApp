@@ -27,7 +27,7 @@ class MXM:
             key2 = r.get("live:2")
             self.key = key1.decode()
             self.key2 = key2.decode()
-            print(self.key, " ", self.key2)
+            # print(self.key, " ", self.key2)
             r.close()
 
         self.session = session
@@ -126,6 +126,9 @@ class MXM:
 
             return dict(track)
         else:
+            if not isinstance(sp_data, dict):
+                return sp_data
+
             # Fallback to search by title/artist if no ISRC
             if sp_data.get("track") and sp_data["track"].get("name"):
                 track_name = sp_data["track"]["name"]

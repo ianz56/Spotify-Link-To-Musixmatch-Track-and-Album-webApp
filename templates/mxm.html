@@ -30,17 +30,15 @@
                 </p>
                 <p class="card-text">{{ _("Album ID:") }} {{ album.album_id }}</p>
                 {% if album.external_ids.spotify %}
-                  <p class="card-text">
-                    {{ _("Spotify source:") }}
-                    <div class="list">
-                      <ul>
-                        {% for id in album.external_ids.spotify %}
-                          <li>
-                            <a href="https://open.spotify.com/album/{{ id }}"
-                               class="card-link"
-                               target="_blank">{{ id }}</a>
-                          </li>
-                        </p>
+                  <p class="card-text">{{ _("Spotify source:") }}</p>
+                  <div class="list">
+                    <ul>
+                      {% for id in album.external_ids.spotify %}
+                        <li>
+                          <a href="https://open.spotify.com/album/{{ id }}"
+                             class="card-link"
+                             target="_blank">{{ id }}</a>
+                        </li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -48,17 +46,15 @@
                   <p class="card-text">{{ _("Spotify source:") }} {{ _("No Connected Source") }}</p>
                 {% endif %}
                 {% if album.external_ids.itunes %}
-                  <p class="card-text">
-                    {{ _("Apple Music source:") }}
-                    <div class="list">
-                      <ul>
-                        {% for id in album.external_ids.itunes %}
-                          <li>
-                            <a href="https://music.apple.com/album/{{ id }}"
-                               class="card-link"
-                               target="_blank">{{ id }}</a>
-                          </li>
-                        </p>
+                  <p class="card-text">{{ _("Apple Music source:") }}</p>
+                  <div class="list">
+                    <ul>
+                      {% for id in album.external_ids.itunes %}
+                        <li>
+                          <a href="https://music.apple.com/album/{{ id }}"
+                             class="card-link"
+                             target="_blank">{{ id }}</a>
+                        </li>
                       {% endfor %}
                     </ul>
                   </div>

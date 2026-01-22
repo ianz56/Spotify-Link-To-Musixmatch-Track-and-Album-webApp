@@ -121,11 +121,12 @@ class Spotify:
         match = re.search(r"track/(\w+)", link)
         if match:
             return match.group(1)
-        elif re.search(r"artist/(\w+)", link):
-            return re.search(r"track/(\w+)", link).group(1)
 
-        else:
-            return None
+        match = re.search(r"artist/(\w+)", link)
+        if match:
+            return match.group(1)
+
+        return None
 
     def search_by_isrc(self, isrc):
         data = self.sp.search(f"isrc:{isrc}")
