@@ -1,14 +1,15 @@
 """ A simple Async Python library for the Musixmatch Web API """
 
 
-
 import asyncio
-import aiohttp
 import json
+
+import aiohttp
 
 from Asyncmxm.exceptions import MXMException
 
-class Musixmatch(object):
+
+class Musixmatch:
     """"""
 
     max_retries = 3
@@ -17,7 +18,7 @@ class Musixmatch(object):
     def __init__(
         self,
         API_key,
-        limit = 4,
+        limit=4,
         requests_session=None,
         retries=max_retries,
         requests_timeout=5,
@@ -37,7 +38,7 @@ class Musixmatch(object):
         self.requests_timeout = requests_timeout
         self.backoff_factor = backoff_factor
         self.retries = retries
-        self.limit = limit 
+        self.limit = limit
 
         if isinstance(requests_session, aiohttp.ClientSession):
             self._session = requests_session
@@ -46,20 +47,23 @@ class Musixmatch(object):
 
     def _build_session(self):
         connector = aiohttp.TCPConnector(limit=self.limit, limit_per_host=self.limit)
-        self._session = aiohttp.ClientSession(connector=connector,loop=asyncio.get_event_loop())
-    '''    
+        self._session = aiohttp.ClientSession(
+            connector=connector, loop=asyncio.get_event_loop()
+        )
+
+    '''
     async def __aexit__(self, exc_type, exc_value, exc_tb):
         """Make sure the connection gets closed"""
         await self._session.close()
     '''
 
-    async def _api_call(self, method, api_method, params = None):
+    async def _api_call(self, method, api_method, params=None):
         url = self._url + api_method
         if params:
             params["usertoken"] = self._key
         else:
             params = {"usertoken": self._key}
-        
+
         params["app_id"] = "web-desktop-app-v1.0"
 
         headers = {
@@ -71,9 +75,10 @@ class Musixmatch(object):
 
         while retries < self.max_retries:
             try:
-                #print(params)
-                async with self._session.request(method=method, url=str(url), params=params, headers=headers) as response:
-                    
+                # print(params)
+                async with self._session.request(
+                    method=method, url=str(url), params=params, headers=headers
+                ) as response:
                     response.raise_for_status()
                     res = await response.text()
                     print(res)
@@ -84,14 +89,12 @@ class Musixmatch(object):
                     else:
                         retries = self.max_retries
                         hint = res["message"]["header"].get("hint") or None
-                        raise MXMException(status_code,hint)
-            except (aiohttp.ClientError, asyncio.TimeoutError) as e:
-                retries +=1
+                        raise MXMException(status_code, hint)
+            except (aiohttp.ClientError, asyncio.TimeoutError):
+                retries += 1
                 await asyncio.sleep(self.backoff_factor * retries)
                 continue
         raise Exception("API request failed after retries")
-         
-
 
     async def track_get(
         self,
@@ -113,7 +116,7 @@ class Musixmatch(object):
         :param track_itunes_id: Apple track ID
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.get", params)
 
     async def matcher_track_get(
@@ -158,7 +161,11 @@ class Musixmatch(object):
 
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self' and k != "filters"}
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "filters"
+        }
         params = {**params, **filters}
         return await self._api_call("get", "matcher.track.get", params)
 
@@ -170,11 +177,11 @@ class Musixmatch(object):
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         :param country: A valid country code (default US)
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "chart.artists.get", params)
 
     async def chart_tracks_get(
-        self, chart_name,page = 1, page_size = 100, f_has_lyrics = 1, country="US"
+        self, chart_name, page=1, page_size=100, f_has_lyrics=1, country="US"
     ):
         """
         This api provides you the list of the top artists of a given country.
@@ -189,10 +196,10 @@ class Musixmatch(object):
         :param f_has_lyrics: When set, filter only contents with lyrics, Takes (0 or 1)
         :param country: A valid country code (default US)
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "chart.tracks.get", params)
 
-    async def track_search(self, page = 1, page_size = 100, **params):
+    async def track_search(self, page=1, page_size=100, **params):
         """
         Search for track in Musixmatch database.
 
@@ -217,11 +224,13 @@ class Musixmatch(object):
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         """
         locs = locals().copy()
-        locs.pop("params") 
+        locs.pop("params")
         params = {**params, **locs}
         return await self._api_call("get", "track.search", params)
 
-    async def track_lyrics_get(self, commontrack_id=None, track_id=None, track_spotify_id=None):
+    async def track_lyrics_get(
+        self, commontrack_id=None, track_id=None, track_spotify_id=None
+    ):
         """
         Get the lyrics of a track.
 
@@ -229,40 +238,40 @@ class Musixmatch(object):
         :param track_id: Musixmatch track id
         :param track_spotify_id: Spotify Track ID
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.lyrics.get", params)
-    
-    async def track_lyrics_post(self, lyrics:str, commontrack_id=None, track_isrc=None):
+
+    async def track_lyrics_post(
+        self, lyrics: str, commontrack_id=None, track_isrc=None
+    ):
         """
         Submit a lyrics to Musixmatch database.
 
         :param lyrics: The lyrics to be submitted
         :param commontrack_id: The track commontrack
-        :param track_isrc: A valid ISRC identifier 
+        :param track_isrc: A valid ISRC identifier
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("post", "track.lyrics.post", params)
-    
-    async def track_lyrics_mood_get(self,commontrack_id=None, track_isrc=None):
+
+    async def track_lyrics_mood_get(self, commontrack_id=None, track_isrc=None):
         """
         Get the mood list (and raw value that generated it) of a lyrics
 
         :note: Not available for the free plan
 
         :param commontrack_id: The track commontrack
-        :param track_isrc: A valid ISRC identifier 
+        :param track_isrc: A valid ISRC identifier
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.lyrics.mood.get", params)
 
-    async def track_snippet_get(self,commontrack_id=None, 
-                          track_id=None, 
-                          track_isrc=None, 
-                          track_spotify_id=None
-                          ):
+    async def track_snippet_get(
+        self, commontrack_id=None, track_id=None, track_isrc=None, track_spotify_id=None
+    ):
         """
         Get the snippet for a given track.
-            A lyrics snippet is a very short representation of a song lyrics. 
+            A lyrics snippet is a very short representation of a song lyrics.
             It's usually twenty to a hundred characters long
 
         :param commontrack_id: The track commontrack
@@ -271,16 +280,18 @@ class Musixmatch(object):
         :param track_spotify_id: Spotify Track ID
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.snippet.get", params)
-    
-    async def track_subtitle_get(self,commontrack_id=None,
-                           track_id=None, 
-                          subtitle_format = None,
-                          track_isrc=None,
-                          f_subtitle_length = None,
-                          f_subtitle_length_max_deviation = None
-                          ):
+
+    async def track_subtitle_get(
+        self,
+        commontrack_id=None,
+        track_id=None,
+        subtitle_format=None,
+        track_isrc=None,
+        f_subtitle_length=None,
+        f_subtitle_length_max_deviation=None,
+    ):
         """
         Retreive the subtitle of a track.
         Return the subtitle of a track in LRC or DFXP format.
@@ -293,16 +304,18 @@ class Musixmatch(object):
         :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.subtitle.get", params)
 
-    async def track_richsync_get(self,commontrack_id=None, 
-                          track_id=None, 
-                          track_isrc=None, 
-                          track_spotify_id=None,
-                          f_richsync_length = None,
-                          f_richsync_length_max_deviation = None
-                          ):
+    async def track_richsync_get(
+        self,
+        commontrack_id=None,
+        track_id=None,
+        track_isrc=None,
+        track_spotify_id=None,
+        f_richsync_length=None,
+        f_richsync_length_max_deviation=None,
+    ):
         """
         A rich sync is an enhanced version of the standard sync.
 
@@ -314,16 +327,18 @@ class Musixmatch(object):
         :param f_richsync_length_max_deviation: The maximum deviation allowed from the f_sync_length (seconds)
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.richsync.get", params)
-    
-    async def track_lyrics_translation_get(self,commontrack_id=None, 
-                          track_id=None, 
-                          track_isrc=None, 
-                          track_spotify_id=None,
-                          selected_language = None,
-                          min_completed = None
-                          ):
+
+    async def track_lyrics_translation_get(
+        self,
+        commontrack_id=None,
+        track_id=None,
+        track_isrc=None,
+        track_spotify_id=None,
+        selected_language=None,
+        min_completed=None,
+    ):
         """
         Get a translated lyrics for a given language
 
@@ -332,25 +347,27 @@ class Musixmatch(object):
         :param track_isrc: A valid ISRC identifier
         :param track_spotify_id: Spotify Track ID
         :param selected_language: he language of the translated lyrics (ISO 639-1)
-        :param min_completed: Teal from 0 to 1. If present, 
-            only the tracks with a translation ratio over this specific value, 
+        :param min_completed: Teal from 0 to 1. If present,
+            only the tracks with a translation ratio over this specific value,
             for a given language, are returned Set it to 1 for completed translation only, to 0.7 for a mimimum of 70% complete translation.
         :param f_subtitle_length: The desired length of the subtitle (seconds)
         :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.lyrics.translation.get", params)
-    
-    async def track_subtitle_translation_get(self,commontrack_id=None, 
-                          track_id=None, 
-                          track_isrc=None, 
-                          track_spotify_id=None,
-                          selected_language = None,
-                          min_completed = None,
-                          f_subtitle_length = None,
-                          f_subtitle_length_max_deviation = None
-                          ):
+
+    async def track_subtitle_translation_get(
+        self,
+        commontrack_id=None,
+        track_id=None,
+        track_isrc=None,
+        track_spotify_id=None,
+        selected_language=None,
+        min_completed=None,
+        f_subtitle_length=None,
+        f_subtitle_length_max_deviation=None,
+    ):
         """
         Get a translated subtitle for a given language
 
@@ -359,12 +376,12 @@ class Musixmatch(object):
         :param track_isrc: A valid ISRC identifier
         :param track_spotify_id: Spotify Track ID
         :param selected_language: he language of the translated lyrics (ISO 639-1)
-        :param min_completed: Teal from 0 to 1. If present, 
-            only the tracks with a translation ratio over this specific value, 
+        :param min_completed: Teal from 0 to 1. If present,
+            only the tracks with a translation ratio over this specific value,
             for a given language, are returned Set it to 1 for completed translation only, to 0.7 for a mimimum of 70% complete translation.
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.subtitle.translation.get", params)
 
     async def music_genres_get(self):
@@ -372,7 +389,7 @@ class Musixmatch(object):
         Get the list of the music genres of our catalogue.
         """
         return await self._api_call("get", "music.genres.get")
-    
+
     async def matcher_lyrics_get(
         self,
         q_track=None,
@@ -415,7 +432,11 @@ class Musixmatch(object):
 
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self' and k != "filters"}
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "filters"
+        }
         params = {**params, **filters}
         return await self._api_call("get", "matcher.lyrics.get", params)
 
@@ -463,7 +484,11 @@ class Musixmatch(object):
 
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k !='self' and k != "filters"}
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "filters"
+        }
         params = {**params, **filters}
         return await self._api_call("get", "matcher.subtitle.get", params)
 
@@ -475,13 +500,8 @@ class Musixmatch(object):
 
         """
         return await self._api_call("get", "artist.get", locals())
-    
-    async def artist_search(self,
-                      q_artist,
-                      page = 1,
-                      page_size = 100,
-                      f_artist_id = None                    
-                      ):
+
+    async def artist_search(self, q_artist, page=1, page_size=100, f_artist_id=None):
         """
         Search for artists
 
@@ -490,16 +510,12 @@ class Musixmatch(object):
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         :param f_artist_id: When set, filter by this artist id
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.search", params)
-    
-    async def artist_albums_get(self,
-                      artist_id,
-                      page = 1,
-                      page_size = 100,
-                      g_album_name = 1,
-                      s_release_date = "desc"
-                      ):
+
+    async def artist_albums_get(
+        self, artist_id, page=1, page_size=100, g_album_name=1, s_release_date="desc"
+    ):
         """
         Get the album discography of an artist
 
@@ -509,14 +525,15 @@ class Musixmatch(object):
         :param g_album_name: Group by Album Name
         :param s_release_date: Sort by release date (asc|desc)
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.albums.get", params)
-    
-    async def artist_related_get(self,
-                      artist_id,
-                      page = 1,
-                      page_size = 100,
-                      ):
+
+    async def artist_related_get(
+        self,
+        artist_id,
+        page=1,
+        page_size=100,
+    ):
         """
         Get a list of artists somehow related to a given one.
 
@@ -524,23 +541,19 @@ class Musixmatch(object):
         :param page: Define the page number for paginated results
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.related.get", params)
-    
-    async def album_get(self, album_id=None,album_vanity_id=None):
+
+    async def album_get(self, album_id=None, album_vanity_id=None):
         """
         Get the album object using the musixmatch id.
 
         :param album_id: The musixmatch album id.
         """
-        params = {k: v for k, v in locals().items() if v is not None and k !='self'}
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "album.get", params)
-    
-    async def album_tracks_get(self, album_id,
-                         f_has_lyrics = 0,
-                         page = 1,
-                         page_size = 100
-                         ):
+
+    async def album_tracks_get(self, album_id, f_has_lyrics=0, page=1, page_size=100):
         """
         This api provides you the list of the songs of an album.
 

@@ -1,0 +1,57 @@
+[project]
+name = "spotify-link-to-musixmatch"
+version = "0.1.0"
+description = "A Web Application that connects Musixmatch with Spotify"
+requires-python = ">=3.12"
+dependencies = [
+    "flask",
+    "mxmapi",
+    "requests[security]",
+    "spotipy",
+    "hypercorn",
+    "aiohttp==3.9.3",
+    "click==8.1.3",
+    "gunicorn==23.0.0",
+    "importlib-metadata==5.0.0",
+    "itsdangerous==2.1.2",
+    "Jinja2==3.1.3",
+    "MarkupSafe==2.1.1",
+    "Werkzeug",
+    "zipp==3.10.0",
+    "asgiref",
+    "jellyfish",
+    "redis[hiredis]",
+    "python-dotenv==1.0.0",
+    "Flask-Babel",
+    "Flask-Caching",
+    "requests",
+    "beautifulsoup4",
+    "urllib3",
+]
+
+[tool.ruff]
+# Target Python version
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+ignore = ["E501", "E402", "F403", "E722", "B006"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.djlint]
+profile = "jinja"
+indent = 2
+blank_line_after_tag = "load,extends,include"
+# Ignore specific rules if needed, e.g. H006 (img alt), H031 (meta keywords)
+ignore = "H006,H031,T002,T003,J018,H029,H021,H023,J004,H026,H037,H019,H020"
