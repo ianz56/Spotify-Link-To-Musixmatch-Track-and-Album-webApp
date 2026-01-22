@@ -310,10 +310,18 @@ async def index():
                         cache.set(cache_key, cache_value, timeout=3600)
 
                 except Exception as e:
-                    return render_template("index.html", tracks_data=[str(e)])
+                    app.logger.exception(e)
+                    return render_template(
+                        "index.html",
+                        tracks_data=["An unexpected error occurred, please try again"],
+                    )
 
         if isinstance(mxmLinks, str):
-            return mxmLinks
+            app.logger.error(f"Error fetching tracks: {mxmLinks}")
+            return render_template(
+                "index.html",
+                tracks_data=["An unexpected error occurred, please try again"],
+            )
 
         return render_template(
             "index.html",
@@ -677,7 +685,7 @@ def sitemap():
     ]
 
     # List of endpoints to include in sitemap
-    pages = ["index", "isrc", "mxm_to_sp", "abstrack", "split", "setAPI"]
+    pages = ["index", "isrc", "mxm_to_sp", "abstrack", "split", "setAPI", "apple"]
 
     for page in pages:
         sitemap_xml.append("  <url>")

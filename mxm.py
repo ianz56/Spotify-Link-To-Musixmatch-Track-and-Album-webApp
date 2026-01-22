@@ -313,7 +313,7 @@ class MXM:
                     )
                     album_id = track["message"]["body"]["track"]["album_id"]
                     album = await self.musixmatch.album_get(album_id)
-                print(album)
+                # print(album)
                 return {"album": album["message"]["body"]["album"]}
             except Asyncmxm.exceptions.MXMException as e:
                 return {"error": str(e)}
