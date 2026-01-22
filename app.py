@@ -31,9 +31,14 @@ from spotify import Spotify
 
 secret_key_value = os.environ.get("secret_key")
 
-SECRET_KEY = secret_key_value
+if not secret_key_value:
+    # Use a default key for development if not provided, or raise an error in production
+    if os.environ.get("FLASK_ENV") == "production":
+        raise ValueError("No secret_key set for Flask application in production")
+    print("⚠️ 'secret_key' not found. Using default dev key.")
+    secret_key_value = "default-dev-secret-key"
 
-SECRET_KEY = SECRET_KEY.encode("utf-8")
+SECRET_KEY = secret_key_value.encode("utf-8")
 
 
 def generate_token(payload):
@@ -54,10 +59,16 @@ def generate_token(payload):
 
 
 def verify_token(token):
-    encoded_header, encoded_payload, encoded_signature = token.split(".")
+    try:
+        encoded_header, encoded_payload, encoded_signature = token.split(".")
+    except ValueError:
+        return None
 
     # header = base64.urlsafe_b64decode(encoded_header + "==").decode("utf-8")
-    payload = base64.urlsafe_b64decode(encoded_payload + "==").decode("utf-8")
+    try:
+        payload = base64.urlsafe_b64decode(encoded_payload + "==").decode("utf-8")
+    except Exception:
+        return None
 
     expected_signature = hmac.new(
         SECRET_KEY,
@@ -69,9 +80,13 @@ def verify_token(token):
     )
 
     if expected_encoded_signature != encoded_signature.encode("utf-8"):
-        return False
+        return None
 
-    payload = json.loads(payload)
+    try:
+        payload = json.loads(payload)
+    except json.JSONDecodeError:
+        return None
+
     return payload
 
 
@@ -299,9 +314,10 @@ async def index():
     # refresh the token every time the user enter the site
     if token:
         payload = verify_token(token)
-        resp = make_response(render_template("index.html"))
-        resp = jwt_ref(resp, payload)
-        return resp
+        if payload:
+            resp = make_response(render_template("index.html"))
+            resp = jwt_ref(resp, payload)
+            return resp
 
     return render_template("index.html")
 
@@ -466,9 +482,10 @@ async def apple():
     # refresh the token every time the user enter the site
     if token:
         payload = verify_token(token)
-        resp = make_response(render_template("apple.html"))
-        resp = jwt_ref(resp, payload)
-        return resp
+        if payload:
+            resp = make_response(render_template("apple.html"))
+            resp = jwt_ref(resp, payload)
+            return resp
 
     return render_template("apple.html")
 

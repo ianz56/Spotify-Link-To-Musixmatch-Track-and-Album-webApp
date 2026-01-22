@@ -69,7 +69,7 @@ class Spotify:
                 if "external_ids" in i:
                     try:
                         image = i["album"]["images"][1]["url"]
-                    except:
+                    except (IndexError, KeyError, TypeError):
                         image = None
 
                     if i["external_ids"].get("isrc"):
@@ -91,7 +91,10 @@ class Spotify:
             track = self.get_track(link, track)
             print(link)
             if "external_ids" in track:
-                img = track["album"]["images"][1]["url"]
+                try:
+                    img = track["album"]["images"][1]["url"]
+                except (IndexError, KeyError, TypeError):
+                    img = None
                 isrcs.append(
                     {
                         "isrc": track["external_ids"]["isrc"],
