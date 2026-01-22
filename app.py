@@ -215,6 +215,7 @@ async def index():
         return resp
 
     link = request.args.get("link")
+    refresh = request.args.get("refresh")
     key = None
     token = request.cookies.get("api_token")
     if link:
@@ -225,12 +226,26 @@ async def index():
 
         # Manual Cache Check
         cache_key = f"search_data:{link}:{get_locale()}"
-        cached_data = cache.get(cache_key)
+        cached_data = None
+        if not refresh:
+            cached_data = cache.get(cache_key)
+            
         mxmLinks = None
         is_cached = False
+        cached_timestamp = None
 
         if cached_data:
-            mxmLinks = cached_data
+            if isinstance(cached_data, dict) and "data" in cached_data:
+                mxmLinks = cached_data["data"]
+                cached_timestamp = cached_data.get("timestamp")
+                # Parse timestamp if it's a string
+                if isinstance(cached_timestamp, str):
+                    try:
+                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                    except ValueError:
+                        pass
+            else:
+                mxmLinks = cached_data
             is_cached = True
             print(f"CACHE HIT: {cache_key}")
 
@@ -260,7 +275,11 @@ async def index():
 
                     # Cache the result if valid
                     if isinstance(mxmLinks, list):
-                        cache.set(cache_key, mxmLinks, timeout=3600)
+                        cache_value = {
+                            "data": mxmLinks,
+                            "timestamp": datetime.datetime.now().isoformat()
+                        }
+                        cache.set(cache_key, cache_value, timeout=3600)
 
                 except Exception as e:
                     return render_template("index.html", tracks_data=[str(e)])
@@ -268,7 +287,12 @@ async def index():
         if isinstance(mxmLinks, str):
             return mxmLinks
 
-        return render_template("index.html", tracks_data=mxmLinks, is_cached=is_cached)
+        return render_template(
+            "index.html", 
+            tracks_data=mxmLinks, 
+            is_cached=is_cached,
+            cached_timestamp=cached_timestamp
+        )
 
     # refresh the token every time the user enter the site
     if token:
@@ -497,10 +521,11 @@ async def setAPI():
 
 
 @app.route("/mxm", methods=["GET"])
-@cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def mxm_to_sp():
     link = request.args.get("link")
+    refresh = request.args.get("refresh")
     key = None
+    
     if link:
         token = request.cookies.get("api_token")
         if token:
@@ -508,12 +533,45 @@ async def mxm_to_sp():
             if payload:
                 key = payload.get("mxm-key")
 
-        async with aiohttp.ClientSession() as session:
-            mxm = MXM(key, session=session)
-            album = await mxm.album_sp_id(link)
+        cache_key = f"mxm_search:{link}:{get_locale()}"
+        cached_data = None
+        if not refresh:
+            cached_data = cache.get(cache_key)
+
+        album = None
+        is_cached = False
+        cached_timestamp = None
+
+        if cached_data:
+            if isinstance(cached_data, dict) and "data" in cached_data:
+                album = cached_data["data"]
+                cached_timestamp = cached_data.get("timestamp")
+                if isinstance(cached_timestamp, str):
+                    try:
+                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                    except ValueError:
+                        pass
+            else:
+                album = cached_data
+            is_cached = True
+        else:
+            async with aiohttp.ClientSession() as session:
+                mxm = MXM(key, session=session)
+                album = await mxm.album_sp_id(link)
+                
+                if album and not album.get("error"):
+                    cache_value = {
+                        "data": album,
+                        "timestamp": datetime.datetime.now().isoformat()
+                    }
+                    cache.set(cache_key, cache_value, timeout=3600)
 
         return render_template(
-            "mxm.html", album=album.get("album"), error=album.get("error")
+            "mxm.html", 
+            album=album.get("album"), 
+            error=album.get("error"),
+            is_cached=is_cached,
+            cached_timestamp=cached_timestamp
         )
     else:
         return render_template("mxm.html")
