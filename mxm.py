@@ -44,12 +44,21 @@ class MXM:
         except Asyncmxm.exceptions.MXMException as e:
             return str(e)
 
+    async def matcher_track_text(self, title, artist, album=None):
+        try:
+            response = await self.musixmatch2.matcher_track_get(
+                q_track=title, q_artist=artist, q_album=album
+            )
+            return response
+        except Asyncmxm.exceptions.MXMException as e:
+            return str(e)
+
     async def matcher_track(self, sp_id):
         try:
             response = await self.musixmatch2.matcher_track_get(
                 q_track="null", track_spotify_id=sp_id
             )
-            return response
+            return dict(response)
         except Asyncmxm.exceptions.MXMException as e:
             return str(e)
 
@@ -59,6 +68,42 @@ class MXM:
             try:
                 id = track["message"]["body"]["track"]["commontrack_id"]
             except TypeError as e:
+                # Fallback to search by title/artist if no ISRC or ISRC lookup failed
+                if sp_data.get("track") and sp_data["track"].get("name"):
+                    track_name = sp_data["track"]["name"]
+                    artist_name = sp_data["track"]["artists"][0]["name"] if sp_data["track"]["artists"] else ""
+                    
+                    found_track = await self.matcher_track_text(track_name, artist_name)
+                    
+                    # Duck typing: Check if it behaves like a dict (has get method) and looks successful
+                    if hasattr(found_track, 'get') and found_track.get('message'):
+                        try:
+                            # Normalize the found track to look like a 'get' response
+                            track_body = found_track["message"]["body"]["track"]
+                            # We construct a track object similar to what track_get returns but with our data
+                            # However, matcher_track_get returns a track object which is good.
+                            
+                            # We need to maintain the structure expected by the caller or downstream
+                            # Downstream expects 'track' to be a dict representing the track with isrc/image/beta keys added.
+                            # But wait, Track_links is supposed to return the track dict object directly (not the full response).
+                            
+                            # Actually, look at the success path:
+                            # track = track["message"]["body"]["track"]
+                            # track["isrc"] = ...
+                            # return track
+                            
+                            # So here we should prepare 'track' to be the dict from message body
+                            track = track_body
+                            # Use source ISRC if available, otherwise use the one from the found track
+                            track["isrc"] = sp_data.get("isrc") or track.get("track_isrc")
+                            track["image"] = sp_data.get("image")
+                            track["image"] = sp_data.get("image")
+                            track["beta"] = str(track["track_share_url"]).replace("www.","com-beta.",1)
+                            return dict(track)
+                        except (TypeError, KeyError):
+                             return "Track not found by text search."
+                    else:
+                        return str(found_track)
                 return track
 
             track = track["message"]["body"]["track"]
@@ -66,13 +111,43 @@ class MXM:
             track["image"] = sp_data["image"]
             track["beta"] = str(track["track_share_url"]).replace("www.","com-beta.",1)
             
-            return track
+            return dict(track)
         else:
+            # Fallback to search by title/artist if no ISRC
+            if sp_data.get("track") and sp_data["track"].get("name"):
+                 track_name = sp_data["track"]["name"]
+                 artist_name = sp_data["track"]["artists"][0]["name"] if sp_data["track"]["artists"] else ""
+                 
+                 found_track = await self.matcher_track_text(track_name, artist_name)
+                 
+                 if isinstance(found_track, dict):
+                     try:
+                        track = found_track["message"]["body"]["track"]
+                        track["isrc"] = sp_data.get("isrc")
+                        track["image"] = sp_data.get("image")
+                        track["beta"] = str(track["track_share_url"]).replace("www.","com-beta.",1)
+                        # Mark as found via text match but without ID (for later logic)
+                        return dict(track)
+                     except (TypeError, KeyError):
+                         return "Track not found by text search."
+                 else:
+                     return str(found_track)
+            
             return sp_data
+
     
     async def matcher_links(self, sp_data):
-        id = sp_data["track"]["id"]
-        track = await self.matcher_track(id)
+        if not sp_data.get("track"):
+            return "No matching data found."
+        
+        if not sp_data["track"].get("id"):
+             # If no Spotify ID (e.g. Apple Music), use text search for matcher as well
+             track_name = sp_data["track"]["name"]
+             artist_name = sp_data["track"]["artists"][0]["name"] if sp_data["track"]["artists"] else ""
+             track = await self.matcher_track_text(track_name, artist_name)
+        else:
+            id = sp_data["track"]["id"]
+            track = await self.matcher_track(id)
         try:
             id = track["message"]["body"]["track"]["commontrack_id"]
         except TypeError as e:
@@ -82,7 +157,7 @@ class MXM:
         track["isrc"] = sp_data["isrc"]
         track["image"] = sp_data["image"]
         track["beta"] = str(track["track_share_url"]).replace("www.","beta.",1)
-        return track
+        return dict(track)
 
     async def Tracks_Data(self, sp_data, split_check = False):
         links = []
@@ -102,7 +177,10 @@ class MXM:
                 continue
 
             # detecting what issues can facing the track
-            if isinstance(track, dict) and isinstance(matcher, dict):
+            # Use duck typing: check if objects have 'get' method (dict-like)
+            track_is_dict = hasattr(track, 'get')
+            matcher_is_dict = hasattr(matcher, 'get')
+            if track_is_dict and matcher_is_dict:
 
                 # the get call and the matcher call are the same and both have valid response
                 if (track["commontrack_id"] == matcher["commontrack_id"]):
@@ -110,7 +188,7 @@ class MXM:
                         matcher["album_id"],
                         matcher["album_name"],
                     ]
-                    links.append(track)
+                    links.append(dict(track))
                     ''' when we get different data, the sp id attached to the matcher so we try to detect if the matcher one is vailid or it just a ISRC error. I used the probability here to choose the most accurate data to the spotify data '''
                 else: 
                     matcher_title = re.sub(r'[()-.]', '', matcher.get("track_name"))
@@ -126,10 +204,10 @@ class MXM:
                          jellyfish.jaro_similarity(track_title.lower(), sp_title.lower())
                         * jellyfish.jaro_similarity(track_album.lower(), sp_album.lower()) ):
                         matcher["note"] = _('This track may having two pages with the same ISRC, the other <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=track["track_share_url"], artist_id=track["artist_id"], album_id=track["album_id"])
-                        links.append(matcher)
+                        links.append(dict(matcher))
                     else:
                         track["note"] = _('This track may be facing an ISRC issue as the Spotify ID is connected to another <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.', track_url=matcher["track_share_url"], artist_id=track["artist_id"], album_id=matcher["album_id"])
-                        links.append(track)
+                        links.append(dict(track))
                 continue
 
             elif isinstance(track, str) and isinstance(matcher, str):
@@ -138,16 +216,20 @@ class MXM:
                     links.append(track)
                     continue
                 else: links.append(track)
-            elif isinstance(track, str) and isinstance(matcher, dict):
+            elif isinstance(track, str) and matcher_is_dict:
                 if matcher.get("album_name") == sp_data[i]["track"]["album"]["name"]:
-                    links.append(matcher)
+                    links.append(dict(matcher))
                     continue
-                else: links.append(matcher)
-            elif isinstance(track, dict) and isinstance(matcher, str):
+                else: links.append(dict(matcher))
+            elif track_is_dict and isinstance(matcher, str):
                 track["note"] = _("This track may missing its Spotify id")
-                links.append(track)
+                links.append(dict(track))
             else:
-                links.append(track)
+                # Ensure dict conversion for any fallback case
+                if hasattr(track, 'get'):
+                    links.append(dict(track))
+                else:
+                    links.append(track)
         return links
     
     async def tracks_get(self, data):

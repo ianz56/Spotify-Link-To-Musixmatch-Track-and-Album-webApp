@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Apple Music to Musixmatch Link{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ _('Apple Music to Musixmatch Link') }}</h1>
+  <form action="/apple" method="GET">
+    <label for="input_link">{{ _('Apple Music Track Link:') }}</label>
+    <input type="text" id="input_link" name="link" placeholder="{{ _('E.g.:') }} https://music.apple.com/us/album/song-name/123456?i=123456" />
+    <button type="submit" id="process_button">{{ _('Get links') }}</button>
+    <div class="loading" id="loading"></div>
+  </form>
+  <div class="output" id="output">
+    {% if tracks_data %}
+    <div class="row">
+      {% for track in tracks_data %} 
+      {% if track.isrc or track.track_isrc %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <img src="{{ track.image }}" alt="{{ track.track_name }}" />
+          <div class="card-details">
+            <h5 class="card-title">{{ track.track_name }}</h5>
+            
+            {% if track.matcher_album %}
+            <p class="card-text">
+              Album:
+              <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.matcher_album[0] }}"
+                class="card-link" target="_blank">{{ track.matcher_album[1] }}</a>
+            </p>
+            {% else %}
+            <p class="card-text">
+              Album:
+              <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.album_id }}" class="card-link"
+                target="_blank">{{ track.album_name }}</a>
+            </p>
+            {% endif %}
+            
+            <p class="card-text">{{ _('Artist:') }} {{ track.artist_name }}</p>
+            <p class="card-text">ISRC: {{ track.isrc or track.track_isrc }}</p>
+            <p class="card-text">Track ID: {{ track.commontrack_id}}</p>
+            <p class="card-text">
+              Link:
+              <a href="{{ track.track_share_url.split('?')[0] }}" class="card-link" target="_blank">Musixmatch</a>
+            </p>
+            {% if track.note %}
+            <p class="card-text">{{ _('Note:') }} {{ track.note|safe }}</p>
+            {% endif %}
+
+            {% if is_cached %}
+              <small style="color: grey; font-size: 0.8em;">(cached)</small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="card">
+        <p class="card-text">{{ track }}</p>
+      </div>
+      {% endif %} 
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div>
+    <a href="#" id="how_to_use">{{ _('How to Use?') }}</a>
+  </div>
+</div>
+
+<div class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>How to Use</h2>
+    <ol>
+      <li>
+        Enter a valid Apple Music track link into the input field.
+      </li>
+      <li>
+        Click the "Get links" button and wait until the processing ends.
+      </li>
+    </ol>
+    <h3>If the track has not been imported yet:</h3>
+    <ul>
+      <li>
+        The app tries to import it automatically. You may get the links
+        immediately or have to wait for 1 or 2 minutes (depending on the
+        MXM API).
+      </li>
+    </ul>
+    <h3>Apple Music Limits:</h3>
+    <ul>
+      <li>Currently supports single track links best. Album extraction might be limited.</li>
+    </ul>
+    <p class="reach">
+      Finally, if you face a problem or the app is malfunctioning, you can
+      reach me via Slack "<a href="https://lyricscurators.slack.com/team/U0140RQGG4E" target="_blank">@Ian P.</a>".
+    </p>
+  </div>
+</div>
+{% endblock %}

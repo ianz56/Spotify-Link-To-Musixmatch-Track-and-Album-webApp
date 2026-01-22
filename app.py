@@ -16,6 +16,7 @@ from asgiref.wsgi import WsgiToAsgi
 from flask_babel import Babel, _
 from mxm import MXM
 from spotify import Spotify
+from apple import AppleMusic
 
 
 secret_key_value = os.environ.get("secret_key")
@@ -164,6 +165,7 @@ def inject_get_locale():
     return dict(get_locale=get_locale, using_redis=app.config.get('USING_REDIS'))
 
 sp = Spotify()
+apple_music = AppleMusic()
 
 
 @app.route('/set_language/<language>')
@@ -323,6 +325,57 @@ def isrc():
             return render_template('isrc.html', tracks_data=["Wrong Spotify Link"])
     else:
         return render_template('isrc.html')
+
+
+@app.route('/apple', methods=['GET'])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
+async def apple():
+    link = request.args.get('link')
+    key = None
+    token = request.cookies.get('api_token')
+    if link:
+        if token:
+            payload = verify_token(token)
+            if payload:
+                key = payload.get("mxm-key")
+
+        cache_key = f"apple_search:{link}:{get_locale()}"
+        cached_data = cache.get(cache_key)
+        mxmLinks = None
+        is_cached = False
+
+        if cached_data:
+            mxmLinks = cached_data
+            is_cached = True
+        else:
+            async with aiohttp.ClientSession() as session:
+                mxm = MXM(key, session=session)
+                # Fetch Apple Music data (synchronously for now as it uses requests)
+                tracks_data = apple_music.get_apple_music_data(link)
+                
+                if isinstance(tracks_data, list) and isinstance(tracks_data[0], str):
+                     # Error or message
+                     return render_template('apple.html', tracks_data=tracks_data)
+
+                mxmLinks = await mxm.Tracks_Data(tracks_data)
+                
+                if isinstance(mxmLinks, list):
+                    cache.set(cache_key, mxmLinks, timeout=3600)
+        
+        if isinstance(mxmLinks, str):
+            return mxmLinks
+
+        return render_template('apple.html', tracks_data=mxmLinks, is_cached=is_cached)
+
+    # refresh the token every time the user enter the site
+    if token:
+        payload = verify_token(token)
+        resp = make_response(render_template(
+            "apple.html"))
+        resp = jwt_ref(resp,payload)
+        return resp
+
+    return render_template('apple.html')
 
 
 @app.route('/api', methods=['GET'])
