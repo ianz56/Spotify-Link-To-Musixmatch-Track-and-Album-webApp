@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-22 17:26+0700\n"
+"POT-Creation-Date: 2026-01-22 22:15+0700\n"
 "PO-Revision-Date: 2026-01-14 13:01+0000\n"
 "Last-Translator: \n"
 "Language: su\n"
@@ -14,21 +14,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: mxm.py:241
+#: mxm.py:240
 #, python-format
 msgid "This track may having two pages with the same ISRC, the other <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 msgstr "Lagu ieu sigana ngagaduhan dua kaca nu ISRC-na sami, <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">kaca</a> lian ti <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 
-#: mxm.py:249
+#: mxm.py:248
 #, python-format
 msgid "This track may be facing an ISRC issue as the Spotify ID is connected to another <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 msgstr "Lagu ieu siga aya masalah ISRC sabab ID Spotify nyambung ka <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">kaca</a> lian ti ieu <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
 
-#: mxm.py:260
+#: mxm.py:259
 msgid "The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers."
 msgstr "Lagu taccan diimpor. Mangga cobi deui saatos 1-5 menit. Mung prosesna tiasa nyéépkeun waktos leuwih lami, dugi 15 menit, kumaha tina API MXM jeung sérverna."
 
-#: mxm.py:273
+#: mxm.py:272
 msgid "This track may missing its Spotify id"
 msgstr "Lagu ieu sigana kaleungitan Id Spotify-na"
 
@@ -112,7 +112,7 @@ msgstr "Sumber Apple Music:"
 msgid "Amazon Music source:"
 msgstr "Sumber Amazon Music:"
 
-#: templates/abstrack.html:151 templates/isrc.html:125 templates/mxm.html:103
+#: templates/abstrack.html:151 templates/isrc.html:125 templates/mxm.html:114
 msgid "Countries"
 msgstr "Nagara"
 
@@ -184,7 +184,7 @@ msgstr "Sabaraha amanna Token éta?"
 msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
 msgstr "Ieu henteu nyetél Token langsung kana cookie. Sabalikna, ieu ngahasilkeun token dumasar kana Token anjeun anu kadaluwarsa unggal jam teras éta ngahasilkeun deui token énggal sacara otomatis. Janten anjeun tiasa nyarios Token anjeun aman pisan."
 
-#: templates/apple.html:6
+#: templates/apple.html:3 templates/apple.html:6
 #, fuzzy
 msgid "Apple Music to Musixmatch Link"
 msgstr "Link Spotify ka Musixmatch"
@@ -206,11 +206,11 @@ msgstr ""
 msgid "Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:55 templates/index.html:57 templates/mxm.html:72
+#: templates/apple.html:65 templates/index.html:67 templates/mxm.html:82
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:61 templates/index.html:63 templates/mxm.html:78
+#: templates/apple.html:72 templates/index.html:74 templates/mxm.html:89
 msgid "Refresh"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr "Link Spotify ka Musixmatch"
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr "ISRC atawa Link Lagu|Album|Artis Spotify:"
 
-#: templates/index.html:99
+#: templates/index.html:110
 msgid "How to Use?"
 msgstr "Cara Ngagunakeun?"
 
