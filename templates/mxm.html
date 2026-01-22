@@ -67,15 +67,26 @@
                 {% endif %}
                 {% if is_cached %}
                   <div class="cached-info">
-                    <span class="badge-cached" title="{{ _('Data fetched from cache') }}">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span class="badge-cached" title="{{ _("Data fetched from cache") }}">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           width="12"
+                           height="12"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           stroke-width="3"
+                           stroke-linecap="round"
+                           stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
                       {{ _("Cached") }}
                     </span>
                     {% if cached_timestamp %}
-                      <span>{{ cached_timestamp.strftime('%H:%M') }}</span>
+                      <span>{{ cached_timestamp.strftime("%H:%M") }}</span>
                     {% endif %}
                     <span>&bull;</span>
-                    <a href="{{ url_for('mxm_to_sp', link=request.args.get('link'), refresh='true') }}" class="refresh-btn">{{ _("Refresh") }}</a>
+                    <a href="{{ url_for('mxm_to_sp', link=request.args.get('link') , refresh='true') }}"
+                       class="refresh-btn">{{ _("Refresh") }}</a>
                   </div>
                 {% endif %}
               </div>

@@ -70,7 +70,7 @@ class MXM:
         if isinstance(sp_data, dict):
             track = await self.track_get(sp_data.get("isrc"))
             try:
-                id = track["message"]["body"]["track"]["commontrack_id"]
+                _id = track["message"]["body"]["track"]["commontrack_id"]
             except TypeError:
                 # Fallback to search by title/artist if no ISRC or ISRC lookup failed
                 if sp_data.get("track") and sp_data["track"].get("name"):
@@ -106,7 +106,6 @@ class MXM:
                             track["isrc"] = sp_data.get("isrc") or track.get(
                                 "track_isrc"
                             )
-                            track["image"] = sp_data.get("image")
                             track["image"] = sp_data.get("image")
                             track["beta"] = str(track["track_share_url"]).replace(
                                 "www.", "com-beta.", 1
@@ -248,7 +247,7 @@ class MXM:
                         track["note"] = _(
                             'This track may be facing an ISRC issue as the Spotify ID is connected to another <a class="card-link" href="%(track_url)s" target="_blank">page</a> from <a class="card-link" href="https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s" target="_blank">album</a>.',
                             track_url=matcher["track_share_url"],
-                            artist_id=track["artist_id"],
+                            artist_id=matcher["artist_id"],
                             album_id=matcher["album_id"],
                         )
                         links.append(dict(track))

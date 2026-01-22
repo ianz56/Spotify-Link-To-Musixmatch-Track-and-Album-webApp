@@ -88,7 +88,7 @@ class AppleMusic:
                 elif data.get("@type") in ["MusicAlbum", "MusicPlaylist"]:
                     # Try to find image in album data first
                     album_image = data.get("image")
-                    
+
                     # If it's an album, check if the link is for a specific song (song ID in URL)
                     # Apple Music links: .../album/album-name/id?i=song-id
                     match_song_id = re.search(r"\?i=(\d+)", link)
@@ -114,7 +114,11 @@ class AppleMusic:
 
                             if is_target:
                                 # Pass album image as fallback if track doesn't have one
-                                results.append(self._parse_track(t, album_data=data, album_image=album_image))
+                                results.append(
+                                    self._parse_track(
+                                        t, album_data=data, album_image=album_image
+                                    )
+                                )
                                 found_target = True
 
                         if target_song_id and not found_target:
@@ -166,7 +170,7 @@ class AppleMusic:
         isrc = track_data.get("isrc")
         name = track_data.get("name")
         image = track_data.get("image")
-        
+
         # Fallback to album image if track image is missing
         if not image and album_image:
             image = album_image

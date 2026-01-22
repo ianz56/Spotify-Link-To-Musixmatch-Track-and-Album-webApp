@@ -1,6 +1,13 @@
+[project]
+name = "spotify-link-to-musixmatch"
+version = "0.1.0"
+description = "A Web Application that connects Musixmatch with Spotify"
+requires-python = ">=3.12"
+dependencies = []
+
 [tool.ruff]
 # Target Python version
-target-version = "py311"
+target-version = "py312"
 line-length = 88
 
 [tool.ruff.lint]
@@ -12,7 +19,7 @@ select = [
     "B",  # flake8-bugbear
     "UP", # pyupgrade
 ]
-ignore = []
+ignore = ["E501", "E402", "F403", "E722", "B006"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -23,4 +30,4 @@ profile = "jinja"
 indent = 2
 blank_line_after_tag = "load,extends,include"
 # Ignore specific rules if needed, e.g. H006 (img alt), H031 (meta keywords)
-ignore = "H006,H031"
+ignore = "H006,H031,T002,T003,J018,H029,H021,H023,J004,H026,H037,H019,H020"

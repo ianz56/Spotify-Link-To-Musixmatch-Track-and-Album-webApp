@@ -56,7 +56,7 @@ def generate_token(payload):
 def verify_token(token):
     encoded_header, encoded_payload, encoded_signature = token.split(".")
 
-    header = base64.urlsafe_b64decode(encoded_header + "==").decode("utf-8")
+    # header = base64.urlsafe_b64decode(encoded_header + "==").decode("utf-8")
     payload = base64.urlsafe_b64decode(encoded_payload + "==").decode("utf-8")
 
     expected_signature = hmac.new(
@@ -229,7 +229,7 @@ async def index():
         cached_data = None
         if not refresh:
             cached_data = cache.get(cache_key)
-            
+
         mxmLinks = None
         is_cached = False
         cached_timestamp = None
@@ -241,7 +241,9 @@ async def index():
                 # Parse timestamp if it's a string
                 if isinstance(cached_timestamp, str):
                     try:
-                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                        cached_timestamp = datetime.datetime.fromisoformat(
+                            cached_timestamp
+                        )
                     except ValueError:
                         pass
             else:
@@ -260,10 +262,10 @@ async def index():
                             tracks_data=["Wrong Spotify Link Or Wrong ISRC"],
                         )
                     elif re.search(r"artist/(\w+)", link):
-                        artist_albums = await asyncio.to_thread(sp.artist_albums, link, [])
-                        return render_template(
-                            "index.html", artist=artist_albums
+                        artist_albums = await asyncio.to_thread(
+                            sp.artist_albums, link, []
                         )
+                        return render_template("index.html", artist=artist_albums)
                     else:
                         sp_data = (
                             await asyncio.to_thread(sp.get_isrc, link)
@@ -277,7 +279,7 @@ async def index():
                     if isinstance(mxmLinks, list):
                         cache_value = {
                             "data": mxmLinks,
-                            "timestamp": datetime.datetime.now().isoformat()
+                            "timestamp": datetime.datetime.now().isoformat(),
                         }
                         cache.set(cache_key, cache_value, timeout=3600)
 
@@ -288,10 +290,10 @@ async def index():
             return mxmLinks
 
         return render_template(
-            "index.html", 
-            tracks_data=mxmLinks, 
+            "index.html",
+            tracks_data=mxmLinks,
             is_cached=is_cached,
-            cached_timestamp=cached_timestamp
+            cached_timestamp=cached_timestamp,
         )
 
     # refresh the token every time the user enter the site
@@ -406,11 +408,11 @@ async def apple():
                 key = payload.get("mxm-key")
 
         cache_key = f"apple_search:{link}:{get_locale()}"
-        
+
         cached_data = None
         if not refresh:
             cached_data = cache.get(cache_key)
-            
+
         mxmLinks = None
         is_cached = False
         cached_timestamp = None
@@ -422,7 +424,9 @@ async def apple():
                 # Parse timestamp if it's a string
                 if isinstance(cached_timestamp, str):
                     try:
-                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                        cached_timestamp = datetime.datetime.fromisoformat(
+                            cached_timestamp
+                        )
                     except ValueError:
                         pass
             else:
@@ -432,7 +436,9 @@ async def apple():
             async with aiohttp.ClientSession() as session:
                 mxm = MXM(key, session=session)
                 # Fetch Apple Music data (run in thread to avoid blocking)
-                tracks_data = await asyncio.to_thread(apple_music.get_apple_music_data, link)
+                tracks_data = await asyncio.to_thread(
+                    apple_music.get_apple_music_data, link
+                )
 
                 if isinstance(tracks_data, list) and isinstance(tracks_data[0], str):
                     # Error or message
@@ -443,7 +449,7 @@ async def apple():
                 if isinstance(mxmLinks, list):
                     cache_value = {
                         "data": mxmLinks,
-                        "timestamp": datetime.datetime.now().isoformat()
+                        "timestamp": datetime.datetime.now().isoformat(),
                     }
                     cache.set(cache_key, cache_value, timeout=3600)
 
@@ -451,10 +457,10 @@ async def apple():
             return mxmLinks
 
         return render_template(
-            "apple.html", 
-            tracks_data=mxmLinks, 
-            is_cached=is_cached, 
-            cached_timestamp=cached_timestamp
+            "apple.html",
+            tracks_data=mxmLinks,
+            is_cached=is_cached,
+            cached_timestamp=cached_timestamp,
         )
 
     # refresh the token every time the user enter the site
@@ -525,7 +531,7 @@ async def mxm_to_sp():
     link = request.args.get("link")
     refresh = request.args.get("refresh")
     key = None
-    
+
     if link:
         token = request.cookies.get("api_token")
         if token:
@@ -548,7 +554,9 @@ async def mxm_to_sp():
                 cached_timestamp = cached_data.get("timestamp")
                 if isinstance(cached_timestamp, str):
                     try:
-                        cached_timestamp = datetime.datetime.fromisoformat(cached_timestamp)
+                        cached_timestamp = datetime.datetime.fromisoformat(
+                            cached_timestamp
+                        )
                     except ValueError:
                         pass
             else:
@@ -558,20 +566,20 @@ async def mxm_to_sp():
             async with aiohttp.ClientSession() as session:
                 mxm = MXM(key, session=session)
                 album = await mxm.album_sp_id(link)
-                
+
                 if album and not album.get("error"):
                     cache_value = {
                         "data": album,
-                        "timestamp": datetime.datetime.now().isoformat()
+                        "timestamp": datetime.datetime.now().isoformat(),
                     }
                     cache.set(cache_key, cache_value, timeout=3600)
 
         return render_template(
-            "mxm.html", 
-            album=album.get("album"), 
+            "mxm.html",
+            album=album.get("album"),
             error=album.get("error"),
             is_cached=is_cached,
-            cached_timestamp=cached_timestamp
+            cached_timestamp=cached_timestamp,
         )
     else:
         return render_template("mxm.html")
