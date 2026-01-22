@@ -1,80 +1,71 @@
 {% extends 'base.html' %}
 
 {% block title %}Split Checker{% endblock %}
+
 {% block content %}
-  <div class="container">
-    <h1>{{ _("Split Checker") }}</h1>
-    <form action="/split" method="GET">
-      <label for="input_link_1">{{ _("Track 1:") }}</label>
-      <input type="text"
-             id="input_link_1"
-             name="link"
-             placeholder="{{ _("E.g.:") }} https://open.spotify.com/intl-id/track/3wGL3DfKTQ4IM9dHk0IyS0?si=deaea5bbe85a4c0c" />
-      <label for="input_link_2">{{ _("Track 2:") }}</label>
-      <input type="text"
-             id="input_link_2"
-             name="link2"
-             placeholder="{{ _("E.g.:") }} https://open.spotify.com/intl-id/track/5o6StwqqVfG3vRLx8UP310?si=2e1d189310524de6" />
-      <button type="submit" id="split_button">{{ _("Check") }}</button>
-      <div class="loading" id="loading"></div>
-    </form>
-    <div class="output" id="output">
-      <div class="row">
-        {% if split_result %}
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card">
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>{{ _("Track 1") }}</th>
-                    <th>{{ _("Track 2") }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ _("Track 1 ISRC:") }}</td>
-                    <td>{{ split_result.track1.isrc }}</td>
-                    <td>{{ split_result.track2.isrc }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ _("Track 1 Name:") }}</td>
-                    <td>{{ split_result.track1.track.name }}</td>
-                    <td>{{ split_result.track2.track.name }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ _("Track ID:") }}</td>
-                    <td>{{ split_result.track1.commontrack_id }}</td>
-                    <td>{{ split_result.track2.commontrack_id }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ _("Musixmatch Link:") }}</td>
-                    <td>
-                      <a href="{{ split_result.track1.track_share_url.split("?")[0] }}"
-                         target="_blank">Musixmatch</a>
-                    </td>
-                    <td>
-                      <a href="{{ split_result.track2.track_share_url.split("?")[0] }}"
-                         target="_blank">Musixmatch</a>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="3">{{ message|safe }}</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        {% else %}
-          {% if error %}
-            <div class="card">
-              <p class="card-text">{{ error }}</p>
-            </div>
-          {% endif %}
-        {% endif %}
+<div class="container">
+  <h1>{{ _('Split Checker') }}</h1>
+  <form action="/split" method="GET">
+    <label for="input_link_1">{{ _('Track 1:') }}</label>
+    <input type="text" id="input_link_1" name="link" placeholder="{{ _('E.g.:') }} https://open.spotify.com/intl-id/track/3wGL3DfKTQ4IM9dHk0IyS0?si=deaea5bbe85a4c0c" />
+    <label for="input_link_2">{{ _('Track 2:') }}</label>
+    <input type="text" id="input_link_2" name="link2" placeholder="{{ _('E.g.:') }} https://open.spotify.com/intl-id/track/5o6StwqqVfG3vRLx8UP310?si=2e1d189310524de6" />
+    <button type="submit" id="split_button">{{ _('Check') }}</button>
+    <div class="loading" id="loading"></div>
+  </form>
+  <div class="output" id="output">
+    <div class="row">
+      {% if split_result %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>{{ _('Track 1') }}</th>
+                <th>{{ _('Track 2') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ _('Track 1 ISRC:') }}</td>
+                <td>{{ split_result.track1.isrc }}</td>
+                <td>{{ split_result.track2.isrc }}</td>
+              </tr>
+              <tr>
+                <td>{{ _('Track 1 Name:') }}</td>
+                <td>{{ split_result.track1.track.name }}</td>
+                <td>{{ split_result.track2.track.name }}</td>
+              </tr>
+              <tr>
+                <td>{{ _('Track ID:') }}</td>
+                <td>{{ split_result.track1.commontrack_id }}</td>
+                <td>{{ split_result.track2.commontrack_id }}</td>
+              </tr>
+              <tr>
+                <td>{{ _('Musixmatch Link:') }}</td>
+                <td>
+                  <a href="{{ split_result.track1.track_share_url.split('?')[0] }}" target="_blank">Musixmatch</a>
+                </td>
+                <td>
+                  <a href="{{ split_result.track2.track_share_url.split('?')[0] }}" target="_blank">Musixmatch</a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">{{ message|safe }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
+      {% else %}{% if error %}
+      <div class="card">
+        <p class="card-text">{{ error }}</p>
+      </div>
+      {% endif %} {% endif %}
     </div>
   </div>
+</div>
 {% endblock %}

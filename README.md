@@ -3,7 +3,7 @@
     A Web Application that connects Musixmatch with Spotify
     <br />
 
-## Domains
+ ## Domains
 - [Vercel](https://spotify-to-mxm.vercel.app/)
 - [Render](https://spotify-to-mxm.onrender.com/)
 - [PythonAnywhere](http://cifor55334.pythonanywhere.com/)
@@ -23,28 +23,3 @@
 - Check If 2 tracks share the same page in Musixmatch can be split or not
 - Ability to use private API for Musixmatch
 - Handle normal Spotify links and the short one
-
-## Development
-
-### Prerequisites
-Install the development dependencies:
-```bash
-pip install -r requirements-dev.txt
-```
-
-### Code Quality
-This project uses `ruff` for linting/formatting and `pre-commit` hooks.
-To install the hooks:
-```bash
-pre-commit install
-```
-To run manually:
-```bash
-pre-commit run --all-files
-```
-
-### Testing
-To run the test suite:
-```bash
-python -m pytest tests/
-```

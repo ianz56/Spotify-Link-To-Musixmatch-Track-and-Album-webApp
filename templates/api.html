@@ -1,82 +1,79 @@
 {% extends 'base.html' %}
 
 {% block title %}Set MXM API{% endblock %}
+
 {% block content %}
-  <div class="container">
-    <h1>{{ _("Set Your Token") }}</h1>
-    <form action="/" method="GET">
-      <label for="input_link">{{ _("Enter Your Token:") }}</label>
-      <input type="text"
-             id="key"
-             name="input_key"
-             placeholder="{{ _("Enter Your Token:") }}" />
-      <button type="submit" id="send_api">{{ _("Save") }}</button>
-      <div class="loading" id="loading"></div>
-    </form>
-    <div class="output" id="output">
-      <p style="text-align: center">{{ _("This Page is for any one want to use the tool with their Private Token key") }}</p>
-      <p></p>
-      {% if key %}
-        <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card">
-              <div class="card-details">
-                <p class="card-text">{{ _("Your Token:") }} {{ key }}</p>
-                <p class="card-text">
-                  <a class="card-link" href="?delete_key=True">{{ _("Delete your token") }}</a>
-                </p>
-              </div>
-            </div>
+<div class="container">
+  <h1>{{ _('Set Your Token') }}</h1>
+  <form action="/" method="GET">
+    <label for="input_link">{{ _('Enter Your Token:') }}</label>
+    <input type="text" id="key" name="input_key" placeholder="{{ _('Enter Your Token:') }}" />
+    <button type="submit" id="send_api">{{ _('Save') }}</button>
+    <div class="loading" id="loading"></div>
+  </form>
+  <div class="output" id="output">
+    <p style="text-align: center">
+      {{ _('This Page is for any one want to use the tool with their Private Token key') }}
+    </p>
+    <p></p>
+    {% if key %}
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <div class="card-details">
+            <p class="card-text">{{ _('Your Token:') }} {{ key }}</p>
+            <p class="card-text">
+              <a class="card-link" href="?delete_key=True">{{ _('Delete your token') }}</a>
+            </p>
           </div>
         </div>
-      {% elif error %}
-        <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card">
-              <div class="card-details">
-                <p class="card-text">Erorr: {{ error }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-      <h4>
-        <span style="color: #ff0000">{{ _("How To Get An Token:") }}</span>
-      </h4>
-      <ol>
-        <li>
-          {{ _("Login in") }}&nbsp;<a href="https://curators.musixmatch.com/">https://curators.musixmatch.com/</a><a href="https://curators.musixmatch.com/"
-   target="_blank"
-   rel="noopener"></a>
-        </li>
-        <li>
-          {{ _("Go to") }}&nbsp;<a href="https://curators.musixmatch.com/settings"
-   target="_blank"
-   rel="noopener">https://curators.musixmatch.com/settings</a>
-        </li>
-        <li>{{ _("Copy the debug and copy usertoken") }}</li>
-        <li>
-          {{ _("Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again.") }}
-        </li>
-      </ol>
-      <h4>
-        <span style="color: #ff0000">{{ _("How can I return to use the tool Token:") }}</span>
-      </h4>
-      <ul>
-        <li>{{ _("Delete your key from the page here or delete the site cookies") }}</li>
-      </ul>
-      <h4>
-        <span style="color: #ff0000">{{ _("Would the tool use my Token for other users:") }}</span>
-      </h4>
-      <ul>
-        <li>{{ _("No, your Token is saved in your cookies not in a DB") }}</li>
-      </ul>
-      <h4 style="color: #ff0000">{{ _("How secure will be the Token?") }}</h4>
-      <ul>
-        <li>
-          {{ _("We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured.") }}
-        </li>
-      </ul>
+      </div>
     </div>
+    {% elif error%}
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+          <div class="card-details">
+            <p class="card-text">Erorr: {{ error }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <h4><span style="color: #ff0000">{{ _('How To Get An Token:') }}</span></h4>
+    <ol>
+      <li>
+        {{ _('Login in') }}&nbsp;<a href="https://curators.musixmatch.com/">https://curators.musixmatch.com/</a><a
+          href="https://curators.musixmatch.com/" target="_blank" rel="noopener"></a>
+      </li>
+      <li>
+        {{ _('Go to') }}&nbsp;<a href="https://curators.musixmatch.com/settings" target="_blank"
+          rel="noopener">https://curators.musixmatch.com/settings</a>
+      </li>
+      <li>{{ _('Copy the debug and copy usertoken') }}</li>
+      <li>
+        {{ _("Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again.") }}
+      </li>
+    </ol>
+    <h4>
+      <span style="color: #ff0000">{{ _('How can I return to use the tool Token:') }}</span>
+    </h4>
+    <ul>
+      <li>{{ _('Delete your key from the page here or delete the site cookies') }}</li>
+    </ul>
+    <h4>
+      <span style="color: #ff0000">{{ _('Would the tool use my Token for other users:') }}</span>
+    </h4>
+    <ul>
+      <li>{{ _('No, your Token is saved in your cookies not in a DB') }}</li>
+    </ul>
+    <h4 style="color: #ff0000">{{ _('How secure will be the Token?') }}</h4>
+    <ul>
+      <li>
+        {{ _('We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured.') }}
+      </li>
+    </ul>
   </div>
+</div>
 {% endblock %}

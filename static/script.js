@@ -8,52 +8,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   navLinks.forEach((link) => {
     // Check strict pathname match OR fallback to href comparison
-    const isMatch =
-      link.pathname === currentPath ||
-      link.getAttribute("href") === currentPath;
+    const isMatch = link.pathname === currentPath || link.getAttribute("href") === currentPath;
 
     if (isMatch) {
       link.classList.add("active");
       // Auto-scroll the active link into view (center it horizontally)
       link.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
       });
     }
   });
 
   // Language FAB Click Handler
-  const fabBtn = document.querySelector(".lang-fab-btn");
-  const dropdown = document.querySelector(".lang-fab-dropdown");
+  const fabBtn = document.querySelector('.lang-fab-btn');
+  const dropdown = document.querySelector('.lang-fab-dropdown');
 
   if (fabBtn && dropdown) {
-    fabBtn.addEventListener("click", (e) => {
+    fabBtn.addEventListener('click', (e) => {
       e.stopPropagation(); // Prevent click from bubbling to window
-      dropdown.classList.toggle("show");
+      dropdown.classList.toggle('show');
     });
 
     // Close dropdown when clicking outside
-    window.addEventListener("click", (e) => {
+    window.addEventListener('click', (e) => {
       if (!fabBtn.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.remove("show");
+        dropdown.classList.remove('show');
       }
     });
 
     // Close dropdown when pressing Escape key
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        dropdown.classList.remove("show");
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('show');
       }
-    });
+    })
   }
 
   // Hide the note element if the current URL contains a query string
   const noteElement = document.querySelector(".note");
   if (noteElement) {
-    noteElement.style.display = window.location.href.includes("?")
-      ? "none"
-      : "block";
+    noteElement.style.display = window.location.href.includes("?") ? "none" : "block";
   }
 });
 
@@ -91,6 +87,7 @@ if (form && button) {
         "?link=" +
         encodeURIComponent(inputLink);
     }
+
   });
 }
 
@@ -126,7 +123,7 @@ window.addEventListener("load", () => {
 
   function handleOnlineStatus() {
     const elements = document.querySelectorAll(
-      "body > *:not(head):not(script):not(meta)",
+      "body > *:not(head):not(script):not(meta)"
     );
 
     if (offlineDiv) {
@@ -148,7 +145,7 @@ window.addEventListener("load", () => {
 
   // Standard removal after everything loads
   setTimeout(() => {
-    document.body.classList.remove("preload");
+    document.body.classList.remove('preload');
   }, 100);
 
   // Listen for online/offline events
@@ -160,5 +157,5 @@ window.addEventListener("load", () => {
 
 // Safety fallback: If window.load takes too long (e.g., slow ads/analytics), force show content
 setTimeout(() => {
-  document.body.classList.remove("preload");
+    document.body.classList.remove('preload');
 }, 2000);

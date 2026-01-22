@@ -1,8 +1,7 @@
-import os
-import re
 import time
-
+import os
 import mxmapi
+import re
 
 
 class MXM:
