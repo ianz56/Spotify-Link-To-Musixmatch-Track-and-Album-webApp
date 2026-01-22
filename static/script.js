@@ -124,6 +124,13 @@ window.addEventListener("click", (event) => {
 window.addEventListener("load", () => {
   const offlineDiv = document.getElementById("offline-div");
 
+  /**
+   * Update page visibility to reflect current online status.
+   *
+   * When an element with id referenced by `offlineDiv` exists, hides all direct body children
+   * except `head`, `script`, and `meta` and shows the offline element while offline; restores
+   * their display styles and hides the offline element while online.
+   */
   function handleOnlineStatus() {
     const elements = document.querySelectorAll(
       "body > *:not(head):not(script):not(meta)",

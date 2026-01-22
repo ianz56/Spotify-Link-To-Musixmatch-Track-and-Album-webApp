@@ -11,6 +11,15 @@ class MXMException(Exception):
     }
 
     def __init__(self, status_code, message):
+        """
+        Initialize an MXMException with a status code and message.
+        
+        If `message` is truthy it is stored as the exception message; otherwise a default message is looked up from the class `codes` mapping using `status_code`, and `"Unknown Error"` is used if no mapping exists. The provided `status_code` and resulting `message` are stored on the instance as `status_code` and `message`.
+        
+        Parameters:
+            status_code (int): HTTP-like status code used to select a default message when `message` is not provided.
+            message (str | None): Custom error message to store; if falsy, a default from `codes` or `"Unknown Error"` will be used.
+        """
         self.status_code = status_code
         if message:
             self.message = message
@@ -18,4 +27,10 @@ class MXMException(Exception):
             self.message = self.codes.get(status_code) or "Unknown Error"
 
     def __str__(self):
+        """
+        Format the exception as a human-readable string.
+        
+        Returns:
+            str: Formatted string "Error code: {status_code} - message: {message}" where `status_code` is the exception's status code and `message` is its message.
+        """
         return f"Error code: {self.status_code} - message: {self.message}"

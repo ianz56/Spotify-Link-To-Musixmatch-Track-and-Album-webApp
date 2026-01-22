@@ -7,6 +7,12 @@ from apple import AppleMusic
 
 @pytest.fixture
 def apple_music():
+    """
+    Create and return a new AppleMusic client instance.
+    
+    Returns:
+        AppleMusic: A fresh AppleMusic client.
+    """
     return AppleMusic()
 
 

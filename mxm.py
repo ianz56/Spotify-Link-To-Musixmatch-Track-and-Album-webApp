@@ -15,6 +15,15 @@ class MXM:
     DEFAULT_KEY2 = os.environ.get("MXM_API2")
 
     def __init__(self, key=None, session=None):
+        """
+        Initialize the MXM wrapper with API keys and Musixmatch client sessions.
+        
+        If `key` is omitted or falsy, the initializer will use configured defaults or attempt to retrieve live keys from Redis. Sets instance attributes `key`, `key2`, and `session`, and constructs two Asyncmxm.Musixmatch clients (one per key) that use the provided HTTP session.
+        
+        Parameters:
+            key (str | None): Primary Musixmatch API key. If None, the class will fall back to environment defaults or Redis-stored keys.
+            session: HTTP requests/session object to be passed to the underlying Musixmatch clients.
+        """
         self.key = key or self.DEFAULT_KEY
         self.key2 = key or self.DEFAULT_KEY2
         if not self.key:
@@ -35,9 +44,26 @@ class MXM:
         self.musixmatch2 = Asyncmxm.Musixmatch(self.key2, requests_session=session)
 
     def change_key(self, key):
+        """
+        Set the active Musixmatch API key for this MXM instance.
+        
+        Parameters:
+            key (str): The API key to assign as the instance's primary Musixmatch key.
+        """
         self.key = key
 
     async def track_get(self, isrc=None, commontrack_id=None, vanity_id=None) -> dict:
+        """
+        Fetch track data from Musixmatch using an identifier.
+        
+        Parameters:
+            isrc (str | None): International Standard Recording Code to look up.
+            commontrack_id (int | None): Musixmatch commontrack numeric identifier.
+            vanity_id (str | None): Musixmatch vanity/commontrack slug.
+        
+        Returns:
+            dict: The Musixmatch API response as a dictionary, or an error string if the Musixmatch client raised an MXMException.
+        """
         try:
             response = await self.musixmatch.track_get(
                 track_isrc=isrc,
@@ -49,6 +75,18 @@ class MXM:
             return str(e)
 
     async def matcher_track_text(self, title, artist, album=None):
+        """
+        Search Musixmatch for a track using title and artist, optionally narrowed by album.
+        
+        Parameters:
+            title (str): Track title to search for.
+            artist (str): Artist name to search for.
+            album (str | None): Optional album name to narrow the search.
+        
+        Returns:
+            dict: Musixmatch response object on success.
+            str: Error message when a Musixmatch exception occurs.
+        """
         try:
             response = await self.musixmatch2.matcher_track_get(
                 q_track=title, q_artist=artist, q_album=album
@@ -58,6 +96,15 @@ class MXM:
             return str(e)
 
     async def matcher_track(self, sp_id):
+        """
+        Retrieve Musixmatch matcher data for a Spotify track ID.
+        
+        Parameters:
+            sp_id (str): Spotify track identifier to use for the matcher lookup.
+        
+        Returns:
+            dict: The Musixmatch matcher response converted to a dictionary on success; a string containing the exception message if a Musixmatch error occurs.
+        """
         try:
             response = await self.musixmatch2.matcher_track_get(
                 q_track="null", track_spotify_id=sp_id
@@ -67,6 +114,17 @@ class MXM:
             return str(e)
 
     async def Track_links(self, sp_data):
+        """
+        Map Spotify-like track data to a Musixmatch track record, using ISRC lookup with a text-search fallback.
+        
+        Parameters:
+        	sp_data (dict | any): Spotify-style track object (preferred) or other payload; when a dict, it may contain "isrc", "track" (with "name" and "artists"), and "image".
+        
+        Returns:
+        	dict: A Musixmatch-style track dictionary with added keys ("isrc", "image", "beta") when a match is found.
+        	str: An error message or raw Musixmatch error string when lookup or text search fails.
+        	any: The original sp_data when no search is attempted (fallback path).
+        """
         if isinstance(sp_data, dict):
             track = await self.track_get(sp_data.get("isrc"))
             try:
@@ -155,6 +213,19 @@ class MXM:
             return sp_data
 
     async def matcher_links(self, sp_data):
+        """
+        Finds and returns a Musixmatch track matched to the provided Spotify-like data.
+        
+        Parameters:
+            sp_data (dict): Spotify-like payload containing at least a "track" object.
+                The "track" object may include "id" (Spotify track id), "name", and
+                "artists" (list of artist objects with "name"). Top-level fields
+                "isrc" and "image" are used to enrich the returned track.
+        
+        Returns:
+            dict: Musixmatch track object enriched with `isrc`, `image`, and `beta` (track share URL rewritten for beta).
+            str: An error message ("No matching data found.") or the raw matcher response when matching fails.
+        """
         if not sp_data.get("track"):
             return "No matching data found."
 
@@ -182,6 +253,20 @@ class MXM:
         return dict(track)
 
     async def Tracks_Data(self, sp_data, split_check=False):
+        """
+        Builds a reconciled list of Musixmatch track results aligned to the provided Spotify-style input data.
+        
+        Processes each input item by fetching Musixmatch track data and matcher results, then applies duck-typed merging and heuristic checks to decide which source to keep, annotate, or mark with a note about possible ISRC/Spotify mismatches. When split_check is true, the function returns the raw fetched track items without attempting to match them to matcher results.
+        
+        Parameters:
+            sp_data (list): List of Spotify-like track entries. Each element is typically a dict containing a "track" key with nested fields like "name", "album" (with "name"), "id", and "isrc". Elements may also be other types (e.g., strings) returned from upstream fetches.
+            split_check (bool): If true, skip matcher reconciliation and append fetched tracks directly to the result list.
+        
+        Returns:
+            list: A list where each element is either:
+              - a dict: an enriched track or matcher object (contains Musixmatch fields and possible annotations such as "matcher_album" or "note"), or
+              - a str: an error or informational message for that item (for example, a not-imported/404 message).
+        """
         links = []
         tracks = await self.tracks_get(sp_data)
 
@@ -280,18 +365,48 @@ class MXM:
         return links
 
     async def tracks_get(self, data):
+        """
+        Fetches Musixmatch track information for each entry in `data` by resolving them concurrently.
+        
+        Parameters:
+            data (iterable): Iterable of track inputs (e.g., Spotify-like track dicts or identifiers) to be resolved via Track_links.
+        
+        Returns:
+            list: A list of resolved track results; each item is typically a dict with track data or a string describing an error or lookup failure.
+        """
         coro = [self.Track_links(isrc) for isrc in data]
         tasks = [asyncio.create_task(c) for c in coro]
         tracks = await asyncio.gather(*tasks)
         return tracks
 
     async def tracks_matcher(self, data):
+        """
+        Dispatches matcher_links for each element in `data` and returns the collected results in input order.
+        
+        Parameters:
+            data (Iterable): An iterable of track-like items; each element is passed to `matcher_links` to perform a matching lookup.
+        
+        Returns:
+            list: A list of matcher results corresponding to each input element, in the same order as `data`.
+        """
         coro = [self.matcher_links(isrc) for isrc in data]
         tasks = [asyncio.create_task(c) for c in coro]
         tracks = await asyncio.gather(*tasks)
         return tracks
 
     async def album_sp_id(self, link):
+        """
+        Extract album information from a Musixmatch URL.
+        
+        Parses the provided Musixmatch link for a vanity album path, numeric album ID, or lyrics-based album reference and returns the corresponding album data fetched from Musixmatch. If the link is not a Musixmatch album/lyrics URL or if the Musixmatch client raises an MXMException, an error message is returned.
+        
+        Parameters:
+            link (str): URL or path expected to reference a Musixmatch album or lyrics page.
+        
+        Returns:
+            dict: On success, {"album": <album dict>} where <album dict> is the album object from the Musixmatch response.
+                  On failure, {"error": "<error message>"} describing either an unsupported link or the underlying MXMException.
+        """
         site = re.search(r"musixmatch.com", link)
         match = re.search(
             r"album/([^?]+/[^?]+)|album/(\d+)|lyrics/([^?]+/[^?]+)", unquote(link)
@@ -318,7 +433,15 @@ class MXM:
             return {"error": "Unsupported link."}
 
     async def abstrack(self, id: int) -> tuple[dict, dict]:
-        """Get the track and the album data from the abstrack."""
+        """
+        Retrieve the track and its album data for a Musixmatch commontrack ID.
+        
+        Parameters:
+            id (int): Musixmatch commontrack ID to fetch.
+        
+        Returns:
+            tuple[dict, dict]: A pair (track, album) where `track` is the track object and `album` is the album object extracted from the API response bodies. On Musixmatch errors returns ({"error": "<message>"}, {"error": "<message>"}).
+        """
         try:
             track = await self.musixmatch.track_get(commontrack_id=id)
             track = track["message"]["body"]["track"]

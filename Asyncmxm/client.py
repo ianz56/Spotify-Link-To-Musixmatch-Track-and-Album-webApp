@@ -25,12 +25,15 @@ class Musixmatch:
         backoff_factor=0.3,
     ):
         """
-        Create a Musixmatch Client.
-        :param api_key: The API key, Get one at https://developer.musixmatch.com/signup
-        :param requests_session: A Requests session object or a truthy value to create one.
-        :param retries: Total number of retries to allow
-        :param requests_timeout: Stop waiting for a response after a given number of seconds
-        :param backoff: Factor to apply between attempts after the second try
+        Initialize the Musixmatch client.
+        
+        Parameters:
+            API_key (str): Musixmatch API key obtained from https://developer.musixmatch.com/signup.
+            limit (int): Maximum concurrent TCP connections for the underlying HTTP session.
+            requests_session (aiohttp.ClientSession | None): Existing aiohttp ClientSession to use; if None, a new session is created.
+            retries (int): Maximum number of retry attempts for API requests.
+            requests_timeout (float | int): Timeout in seconds for individual HTTP requests.
+            backoff_factor (float): Multiplier used to compute sleep time between retry attempts.
         """
 
         self._url = "https://apic-desktop.musixmatch.com/ws/1.1/"
@@ -46,6 +49,11 @@ class Musixmatch:
             self._build_session()
 
     def _build_session(self):
+        """
+        Create and attach an aiohttp ClientSession configured with a TCPConnector using the client's concurrency limits.
+        
+        The created session is stored on self._session and uses the current event loop.
+        """
         connector = aiohttp.TCPConnector(limit=self.limit, limit_per_host=self.limit)
         self._session = aiohttp.ClientSession(
             connector=connector, loop=asyncio.get_event_loop()
@@ -58,6 +66,24 @@ class Musixmatch:
     '''
 
     async def _api_call(self, method, api_method, params=None):
+        """
+        Send an HTTP request to the Musixmatch API endpoint and return the parsed JSON response.
+        
+        Parameters:
+            method (str): HTTP method to use (e.g., "GET", "POST").
+            api_method (str): API method path appended to the client's base URL.
+            params (dict, optional): Query or body parameters to include; the client will add authentication and app identification.
+        
+        Returns:
+            dict: Parsed JSON response payload from the API.
+        
+        Raises:
+            MXMException: If the API responds with a non-200 status code; includes the API status and any hint.
+            Exception: If the request fails after the configured number of retries.
+        
+        Behavior:
+            Retries on network errors and timeouts up to self.max_retries, applying an incremental backoff between attempts.
+        """
         url = self._url + api_method
         if params:
             params["usertoken"] = self._key
@@ -106,14 +132,18 @@ class Musixmatch:
         track_itunes_id=None,
     ):
         """
-        Get a track info from their database by objects
-        Just one Parameter is required
-        :param commontrack_id: Musixmatch commontrack id
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param commontrack_vanity_id: Musixmatch vanity id ex "Imagine-Dragons/Demons"
-        :param track_spotify_id: Spotify Track ID
-        :param track_itunes_id: Apple track ID
+        Retrieve track information from Musixmatch using one of several track identifiers.
+        
+        Parameters:
+            commontrack_id: Musixmatch commontrack identifier.
+            track_id: Musixmatch track identifier.
+            track_isrc: ISRC (International Standard Recording Code) for the track.
+            commontrack_vanity_id: Musixmatch vanity id (e.g., "Imagine-Dragons/Demons").
+            track_spotify_id: Spotify track identifier.
+            track_itunes_id: Apple Music / iTunes track identifier.
+        
+        Returns:
+            dict: Parsed Musixmatch API response payload for the requested track.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -133,32 +163,24 @@ class Musixmatch:
         **filters,
     ):
         """
-        Match your song against Musixmatch database.
-
-        QUERYING: (At least one required)
-        :param q_track: search for a text string among song titles
-        :param q_artist: search for a text string among artist names
-        :param q_album: The song album
-
-        Objects: (optional)
-        :param commontrack_id: Musixmatch commontrack id
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param commontrack_vanity_id: Musixmatch vanity id ex "Imagine-Dragons/Demons"
-        :param track_spotify_id: Spotify Track ID
-        :param track_itunes_id: Apple track ID
-
-        FILTERING: (optional)
-        :param f_has_lyrics: Filter by objects with available lyrics
-        :param f_is_instrumental: Filter instrumental songs
-        :param f_has_subtitle: Filter by objects with available subtitles (1 or 0)
-        :param f_music_genre_id: Filter by objects with a specific music category
-        :param f_subtitle_length: Filter subtitles by a given duration in seconds
-        :param f_subtitle_length_max_deviation: Apply a deviation to a given subtitle duration (in seconds)
-        :param f_lyrics_language: Filter the tracks by lyrics language
-        :param f_artist_id: Filter by objects with a given Musixmatch artist_id
-        :param f_artist_mbid: Filter by objects with a given musicbrainz artist id
-
+        Match a song against the Musixmatch database.
+        
+        At least one of the query or identifier parameters must be provided (e.g., q_track, q_artist, q_album, commontrack_id, track_id, track_isrc, commontrack_vanity_id, track_spotify_id, or track_itunes_id).
+        
+        Parameters:
+            q_track (str, optional): Text to match against song titles.
+            q_artist (str, optional): Text to match against artist names.
+            q_album (str, optional): Text to match against album titles.
+            commontrack_id (int or str, optional): Musixmatch commontrack identifier.
+            track_id (int or str, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC code for the track.
+            commontrack_vanity_id (str, optional): Musixmatch vanity identifier (e.g., "Imagine-Dragons/Demons").
+            track_spotify_id (str, optional): Spotify track identifier.
+            track_itunes_id (str, optional): Apple (iTunes) track identifier.
+            **filters: Additional optional filtering parameters supported by the API (for example: f_has_lyrics, f_is_instrumental, f_has_subtitle, f_music_genre_id, f_subtitle_length, f_subtitle_length_max_deviation, f_lyrics_language, f_artist_id, f_artist_mbid).
+        
+        Returns:
+            dict: Parsed API response payload from the matcher.track.get endpoint.
         """
 
         params = {
@@ -171,11 +193,15 @@ class Musixmatch:
 
     async def chart_artists_get(self, page, page_size, country="US"):
         """
-        This api provides you the list of the top artists of a given country.
-
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
-        :param country: A valid country code (default US)
+        Retrieve the top artists chart for a specified country.
+        
+        Parameters:
+            page (int): Page number for paginated results.
+            page_size (int): Number of items per page (1 to 100).
+            country (str): Two-letter country code (default "US").
+        
+        Returns:
+            dict: Parsed API response payload containing the chart artists.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "chart.artists.get", params)
@@ -184,44 +210,51 @@ class Musixmatch:
         self, chart_name, page=1, page_size=100, f_has_lyrics=1, country="US"
     ):
         """
-        This api provides you the list of the top artists of a given country.
-
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
-        :param chart_name: Select among available charts:
-                            top : editorial chart
-                            hot : Most viewed lyrics in the last 2 hours
-                            mxmweekly : Most viewed lyrics in the last 7 days
-                            mxmweekly_new : Most viewed lyrics in the last 7 days limited to new releases only
-        :param f_has_lyrics: When set, filter only contents with lyrics, Takes (0 or 1)
-        :param country: A valid country code (default US)
+        Retrieve top tracks for a specified chart and country.
+        
+        Parameters:
+            chart_name (str): Chart identifier. Valid values include:
+                - "top": editorial chart
+                - "hot": most viewed lyrics in the last 2 hours
+                - "mxmweekly": most viewed lyrics in the last 7 days
+                - "mxmweekly_new": most viewed lyrics in the last 7 days limited to new releases only
+            page (int): Page number for paginated results.
+            page_size (int): Number of items per page (1 to 100).
+            f_has_lyrics (int): Filter by presence of lyrics: 1 to return only tracks with lyrics, 0 to include all.
+            country (str): ISO country code used to scope the chart (default "US").
+        
+        Returns:
+            dict: Parsed API response payload containing the requested chart tracks data.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "chart.tracks.get", params)
 
     async def track_search(self, page=1, page_size=100, **params):
         """
-        Search for track in Musixmatch database.
-
-        :param q_track: The song title
-        :param q_artist: The song artist
-        :param q_lyrics: Any word in the lyrics
-        :param q_track_artist: Any word in the song title or artist name
-        :param q_writer: Search among writers
-        :param q: Any word in the song title or artist name or lyrics
-        :param f_artist_id: When set, filter by this artist id
-        :param f_music_genre_id: When set, filter by this music category id
-        :param f_lyrics_language: Filter by the lyrics language (en,it,..)
-        :param f_has_lyrics: When set, filter only contents with lyrics
-        :param f_track_release_group_first_release_date_min:
-            When set, filter the tracks with release date newer than value, format is YYYYMMDD
-        :param f_track_release_group_first_release_date_max:
-            When set, filter the tracks with release date older than value, format is YYYYMMDD
-        :param s_artist_rating: Sort by our popularity index for artists (asc|desc)
-        :param s_track_rating: Sort by our popularity index for tracks (asc|desc)
-        :param quorum_factor: Search only a part of the given query string.Allowed range is (0.1 - 0.9)
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
+        Search for tracks in the Musixmatch database using query parameters and filters.
+        
+        Parameters:
+            page (int): Page number for paginated results.
+            page_size (int): Number of results per page (1–100).
+            **params: Additional query parameters and filters supported by the track.search endpoint. Common keys include:
+                q_track: Song title.
+                q_artist: Song artist.
+                q_lyrics: A word or phrase from the lyrics.
+                q_track_artist: Any word in the song title or artist name.
+                q_writer: Match by writer name.
+                q: Any word in title, artist, or lyrics.
+                f_artist_id: Filter results to the given artist id.
+                f_music_genre_id: Filter by music genre id.
+                f_lyrics_language: Filter by lyrics language code (e.g., "en", "it").
+                f_has_lyrics: Set to 1 to return only tracks with lyrics.
+                f_track_release_group_first_release_date_min: Minimum release date (YYYYMMDD).
+                f_track_release_group_first_release_date_max: Maximum release date (YYYYMMDD).
+                s_artist_rating: Sort by artist popularity ("asc" or "desc").
+                s_track_rating: Sort by track popularity ("asc" or "desc").
+                quorum_factor: Query matching threshold (0.1–0.9).
+        
+        Returns:
+            dict: Parsed JSON response payload from the Musixmatch track.search endpoint.
         """
         locs = locals().copy()
         locs.pop("params")
@@ -232,11 +265,15 @@ class Musixmatch:
         self, commontrack_id=None, track_id=None, track_spotify_id=None
     ):
         """
-        Get the lyrics of a track.
-
-        :param commontrack_id: Musixmatch commontrack id
-        :param track_id: Musixmatch track id
-        :param track_spotify_id: Spotify Track ID
+        Retrieve lyrics for a track from Musixmatch.
+        
+        Parameters:
+            commontrack_id (int, optional): Musixmatch commontrack identifier.
+            track_id (int, optional): Musixmatch track identifier.
+            track_spotify_id (str, optional): Spotify track identifier.
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the lyrics payload.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.lyrics.get", params)
@@ -245,23 +282,31 @@ class Musixmatch:
         self, lyrics: str, commontrack_id=None, track_isrc=None
     ):
         """
-        Submit a lyrics to Musixmatch database.
-
-        :param lyrics: The lyrics to be submitted
-        :param commontrack_id: The track commontrack
-        :param track_isrc: A valid ISRC identifier
+        Submit lyrics for a track to the Musixmatch catalog.
+        
+        Parameters:
+            lyrics (str): Lyrics text to submit.
+            commontrack_id (int | str, optional): Musixmatch commontrack identifier for the track.
+            track_isrc (str, optional): ISRC code identifying the track.
+        
+        Returns:
+            dict: Parsed Musixmatch API response payload.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("post", "track.lyrics.post", params)
 
     async def track_lyrics_mood_get(self, commontrack_id=None, track_isrc=None):
         """
-        Get the mood list (and raw value that generated it) of a lyrics
-
-        :note: Not available for the free plan
-
-        :param commontrack_id: The track commontrack
-        :param track_isrc: A valid ISRC identifier
+        Retrieve mood metadata for a track's lyrics.
+        
+        Not available for the free plan.
+        
+        Parameters:
+            commontrack_id (int | str): Musixmatch commontrack identifier for the track. At least one of `commontrack_id` or `track_isrc` must be provided.
+            track_isrc (str): Track ISRC code. At least one of `commontrack_id` or `track_isrc` must be provided.
+        
+        Returns:
+            dict: Parsed API response containing mood information for the lyrics (including mood tags and the underlying raw mood value).
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "track.lyrics.mood.get", params)
@@ -270,14 +315,16 @@ class Musixmatch:
         self, commontrack_id=None, track_id=None, track_isrc=None, track_spotify_id=None
     ):
         """
-        Get the snippet for a given track.
-            A lyrics snippet is a very short representation of a song lyrics.
-            It's usually twenty to a hundred characters long
-
-        :param commontrack_id: The track commontrack
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param track_spotify_id: Spotify Track ID
+        Retrieve a short lyrics snippet for a track.
+        
+        Parameters:
+            commontrack_id (int | str, optional): Musixmatch common track identifier.
+            track_id (int | str, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC (International Standard Recording Code) for the track.
+            track_spotify_id (str, optional): Spotify track identifier.
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the snippet and related metadata.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -293,15 +340,18 @@ class Musixmatch:
         f_subtitle_length_max_deviation=None,
     ):
         """
-        Retreive the subtitle of a track.
-        Return the subtitle of a track in LRC or DFXP format.
-
-        :param commontrack_id: The track commontrack
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param subtitle_format: The format of the subtitle (lrc,dfxp,stledu). Default to lrc
-        :param f_subtitle_length: The desired length of the subtitle (seconds)
-        :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
+        Retrieve a track's subtitle in the requested format.
+        
+        Parameters:
+            commontrack_id (int, optional): Musixmatch common track identifier.
+            track_id (int, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC identifier for the track.
+            subtitle_format (str, optional): Subtitle format to request (e.g., "lrc", "dfxp", "stledu"). Defaults to "lrc" when omitted.
+            f_subtitle_length (int|float, optional): Desired subtitle length in seconds.
+            f_subtitle_length_max_deviation (int|float, optional): Maximum allowed deviation from `f_subtitle_length` in seconds.
+        
+        Returns:
+            dict: Parsed API response containing subtitle content and associated metadata.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -317,14 +367,18 @@ class Musixmatch:
         f_richsync_length_max_deviation=None,
     ):
         """
-        A rich sync is an enhanced version of the standard sync.
-
-        :param commontrack_id: The track commontrack
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param track_spotify_id: Spotify Track ID
-        :param f_richsync_length: The desired length of the sync (seconds)
-        :param f_richsync_length_max_deviation: The maximum deviation allowed from the f_sync_length (seconds)
+        Retrieve the rich sync (enhanced timing/metadata) for a track from Musixmatch.
+        
+        Parameters:
+            commontrack_id (int | str, optional): Musixmatch commontrack identifier.
+            track_id (int | str, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC identifier for the track.
+            track_spotify_id (str, optional): Spotify track identifier.
+            f_richsync_length (int | float, optional): Desired rich sync length in seconds.
+            f_richsync_length_max_deviation (int | float, optional): Maximum allowed deviation from `f_richsync_length` in seconds.
+        
+        Returns:
+            dict: Parsed Musixmatch API response payload containing the rich sync data.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -340,18 +394,18 @@ class Musixmatch:
         min_completed=None,
     ):
         """
-        Get a translated lyrics for a given language
-
-        :param commontrack_id: The track commontrack
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param track_spotify_id: Spotify Track ID
-        :param selected_language: he language of the translated lyrics (ISO 639-1)
-        :param min_completed: Teal from 0 to 1. If present,
-            only the tracks with a translation ratio over this specific value,
-            for a given language, are returned Set it to 1 for completed translation only, to 0.7 for a mimimum of 70% complete translation.
-        :param f_subtitle_length: The desired length of the subtitle (seconds)
-        :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
+        Retrieve translated lyrics for a track in a specified language.
+        
+        Parameters:
+            commontrack_id (int | str, optional): Musixmatch common track identifier.
+            track_id (int | str, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC code for the track.
+            track_spotify_id (str, optional): Spotify track identifier.
+            selected_language (str, optional): Target translation language as an ISO 639-1 code (e.g., "en", "es").
+            min_completed (float, optional): Minimum translation completion ratio between 0 and 1. Only translations with a completion ratio greater than or equal to this value are returned.
+        
+        Returns:
+            dict: Parsed API response payload containing the translated lyrics and associated metadata.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -369,16 +423,20 @@ class Musixmatch:
         f_subtitle_length_max_deviation=None,
     ):
         """
-        Get a translated subtitle for a given language
-
-        :param commontrack_id: The track commontrack
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param track_spotify_id: Spotify Track ID
-        :param selected_language: he language of the translated lyrics (ISO 639-1)
-        :param min_completed: Teal from 0 to 1. If present,
-            only the tracks with a translation ratio over this specific value,
-            for a given language, are returned Set it to 1 for completed translation only, to 0.7 for a mimimum of 70% complete translation.
+        Retrieve a translated subtitle for a track in a specified language.
+        
+        Parameters:
+            commontrack_id (int, optional): Musixmatch commontrack identifier.
+            track_id (int, optional): Musixmatch track identifier.
+            track_isrc (str, optional): ISRC code for the track.
+            track_spotify_id (str, optional): Spotify track identifier.
+            selected_language (str, optional): Target language for the translation (ISO 639-1 code).
+            min_completed (float, optional): Minimum translation completion ratio between 0 and 1; set to 1.0 to require fully translated subtitles.
+            f_subtitle_length (int, optional): Filter for subtitle length (in units used by the API).
+            f_subtitle_length_max_deviation (int, optional): Allowed deviation for subtitle length when filtering.
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the translated subtitle data.
         """
 
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
@@ -386,7 +444,10 @@ class Musixmatch:
 
     async def music_genres_get(self):
         """
-        Get the list of the music genres of our catalogue.
+        Retrieve the list of music genres available in the catalog.
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the catalog's music genres.
         """
         return await self._api_call("get", "music.genres.get")
 
@@ -404,32 +465,17 @@ class Musixmatch:
         **filters,
     ):
         """
-        Get the lyrics for track based on title and artist
-
-        QUERYING: (At least one required)
-        :param q_track: search for a text string among song titles
-        :param q_artist: search for a text string among artist names
-        :param q_album: The song album
-
-        Objects: (optional)
-        :param commontrack_id: Musixmatch commontrack id
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param commontrack_vanity_id: Musixmatch vanity id ex "Imagine-Dragons/Demons"
-        :param track_spotify_id: Spotify Track ID
-        :param track_itunes_id: Apple track ID
-
-        FILTERING: (optional)
-        :param f_subtitle_length: The desired length of the subtitle (seconds)
-        :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
-        :param f_has_lyrics: Filter by objects with available lyrics
-        :param f_is_instrumental: Filter instrumental songs
-        :param f_has_subtitle: Filter by objects with available subtitles (1 or 0)
-        :param f_music_genre_id: Filter by objects with a specific music category
-        :param f_lyrics_language: Filter the tracks by lyrics language
-        :param f_artist_id: Filter by objects with a given Musixmatch artist_id
-        :param f_artist_mbid: Filter by objects with a given musicbrainz artist id
-
+        Retrieve lyrics for a track by title/artist or by identifiers.
+        
+        At least one of `q_track`, `q_artist`, or a track identifier (e.g., `commontrack_id`, `track_id`, `track_isrc`, `commontrack_vanity_id`, `track_spotify_id`, `track_itunes_id`) must be provided.
+        
+        Parameters:
+            q_track (str, optional): Track title to match.
+            q_artist (str, optional): Artist name to match.
+            **filters: Additional Musixmatch filter parameters (for example `f_has_lyrics`, `f_subtitle_length`, `f_lyrics_language`, `f_artist_id`, etc.).
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the matched lyrics payload.
         """
 
         params = {
@@ -454,34 +500,33 @@ class Musixmatch:
         **filters,
     ):
         """
-        Get the subtitles for a song given his title,artist and duration.
-        You can use the f_subtitle_length_max_deviation to fetch subtitles within a given duration range.
-
-
-        QUERYING: (At least one required)
-        :param q_track: search for a text string among song titles
-        :param q_artist: search for a text string among artist names
-        :param q_album: The song album
-
-        Objects: (optional)
-        :param commontrack_id: Musixmatch commontrack id
-        :param track_id: Musixmatch track id
-        :param track_isrc: A valid ISRC identifier
-        :param commontrack_vanity_id: Musixmatch vanity id ex "Imagine-Dragons/Demons"
-        :param track_spotify_id: Spotify Track ID
-        :param track_itunes_id: Apple track ID
-
-        FILTERING: (optional)
-        :param f_subtitle_length: The desired length of the subtitle (seconds)
-        :param f_subtitle_length_max_deviation: The maximum deviation allowed from the f_subtitle_length (seconds)
-        :param f_has_lyrics: Filter by objects with available lyrics
-        :param f_is_instrumental: Filter instrumental songs
-        :param f_has_subtitle: Filter by objects with available subtitles (1 or 0)
-        :param f_music_genre_id: Filter by objects with a specific music category
-        :param f_lyrics_language: Filter the tracks by lyrics language
-        :param f_artist_id: Filter by objects with a given Musixmatch artist_id
-        :param f_artist_mbid: Filter by objects with a given musicbrainz artist id
-
+        Retrieve subtitles for a song matching title, artist, album, or specific track identifiers, with optional filtering by subtitle length, language, genre, and other attributes.
+        
+        At least one of q_track, q_artist, q_album, commontrack_id, track_id, track_isrc, commontrack_vanity_id, track_spotify_id, or track_itunes_id must be provided.
+        
+        Parameters:
+            q_track (str): Track title to search for.
+            q_artist (str): Artist name to search for.
+            q_album (str): Album name to search for.
+            commontrack_id (int): Musixmatch commontrack identifier.
+            track_id (int): Musixmatch track identifier.
+            track_isrc (str): ISRC identifier for the track.
+            commontrack_vanity_id (str): Musixmatch vanity id (e.g., "Imagine-Dragons/Demons").
+            track_spotify_id (str): Spotify track identifier.
+            track_itunes_id (str): Apple/iTunes track identifier.
+            f_subtitle_length (int): Desired subtitle length in seconds.
+            f_subtitle_length_max_deviation (int): Maximum allowed deviation (seconds) from f_subtitle_length.
+            f_has_lyrics (int): Filter by presence of lyrics (1 or 0).
+            f_is_instrumental (int): Filter instrumental tracks (1 or 0).
+            f_has_subtitle (int): Filter by presence of subtitles (1 or 0).
+            f_music_genre_id (int): Filter by music genre identifier.
+            f_lyrics_language (str): Filter tracks by lyrics language code (e.g., "en").
+            f_artist_id (int): Filter by Musixmatch artist identifier.
+            f_artist_mbid (str): Filter by MusicBrainz artist MBID.
+            **filters: Additional Musixmatch API filter parameters.
+        
+        Returns:
+            dict: Parsed Musixmatch API response payload.
         """
 
         params = {
@@ -494,21 +539,28 @@ class Musixmatch:
 
     async def artist_get(self, artist_id):
         """
-        Get the artist data.
-
-        :param artist_id: Musixmatch artist id
-
+        Retrieve artist data from Musixmatch.
+        
+        Parameters:
+            artist_id (int | str): Musixmatch artist identifier.
+        
+        Returns:
+            response (dict): Parsed Musixmatch API response containing artist data.
         """
         return await self._api_call("get", "artist.get", locals())
 
     async def artist_search(self, q_artist, page=1, page_size=100, f_artist_id=None):
         """
-        Search for artists
-
-        :param q_artist: The song artist
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
-        :param f_artist_id: When set, filter by this artist id
+        Search for artists matching the given query.
+        
+        Parameters:
+            q_artist (str): Artist name or query to search for.
+            page (int): Page number of results.
+            page_size (int): Number of results per page; valid range is 1 to 100.
+            f_artist_id (int | None): If provided, restrict results to this artist ID.
+        
+        Returns:
+            dict: Parsed JSON response from the Musixmatch API containing the search results.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.search", params)
@@ -517,13 +569,17 @@ class Musixmatch:
         self, artist_id, page=1, page_size=100, g_album_name=1, s_release_date="desc"
     ):
         """
-        Get the album discography of an artist
-
-        :param q_artist: The song artist
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
-        :param g_album_name: Group by Album Name
-        :param s_release_date: Sort by release date (asc|desc)
+        Retrieve an artist's album discography from Musixmatch.
+        
+        Parameters:
+            artist_id (int | str): Musixmatch artist identifier.
+            page (int): Page number for paginated results.
+            page_size (int): Number of items per page (1 to 100).
+            g_album_name (int): Whether to group results by album name (1 to enable, 0 to disable).
+            s_release_date (str): Sort order for release date, either "asc" or "desc".
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the artist's album data.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.albums.get", params)
@@ -535,31 +591,44 @@ class Musixmatch:
         page_size=100,
     ):
         """
-        Get a list of artists somehow related to a given one.
-
-        :param q_artist: The song artist
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
+        Return related artists for a given artist.
+        
+        Parameters:
+            artist_id (int | str): Musixmatch artist identifier.
+            page (int): Page number for paginated results.
+            page_size (int): Number of results per page; valid range is 1 to 100.
+        
+        Returns:
+            response (dict): Parsed Musixmatch API response containing related artists data.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "artist.related.get", params)
 
     async def album_get(self, album_id=None, album_vanity_id=None):
         """
-        Get the album object using the musixmatch id.
-
-        :param album_id: The musixmatch album id.
+        Retrieve an album by Musixmatch album ID or by its vanity ID.
+        
+        Parameters:
+            album_id (int | str, optional): Musixmatch numeric album identifier.
+            album_vanity_id (str, optional): Musixmatch vanity (public-facing) album identifier.
+        
+        Returns:
+            dict: Parsed Musixmatch API response payload for the requested album.
         """
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "album.get", params)
 
     async def album_tracks_get(self, album_id, f_has_lyrics=0, page=1, page_size=100):
         """
-        This api provides you the list of the songs of an album.
-
-        :param album_id: The musixmatch album id.
-        :param f_has_lyrics: When set, filter only contents with lyrics.
-        :param page: Define the page number for paginated results
-        :param page_size: Define the page size for paginated results. Range is 1 to 100.
+        Retrieve the list of tracks for a Musixmatch album.
+        
+        Parameters:
+            album_id (int): Musixmatch album identifier.
+            f_has_lyrics (int): Set to 1 to return only tracks that have lyrics, 0 to include all (default 0).
+            page (int): Page number for paginated results (default 1).
+            page_size (int): Number of items per page; valid range is 1 to 100 (default 100).
+        
+        Returns:
+            dict: Parsed Musixmatch API response containing the album tracks payload.
         """
         return await self._api_call("get", "album.tracks.get", locals())

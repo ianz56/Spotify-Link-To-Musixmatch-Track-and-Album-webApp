@@ -7,6 +7,14 @@ from spotify import Spotify
 
 @pytest.fixture
 def mock_spotipy():
+    """
+    Patch spotify.spotipy.Spotify and provide a mock Spotify instance for tests.
+    
+    This fixture replaces the real Spotify class with a Mock and yields the mock instance so tests can configure return values and assertions without calling the external API.
+    
+    Returns:
+        mock_spotify (Mock): A Mock instance that stands in for spotify.spotipy.Spotify.
+    """
     with patch("spotify.spotipy.Spotify") as mock_sp_cls:
         mock_sp_instance = Mock()
         mock_sp_cls.return_value = mock_sp_instance
@@ -15,6 +23,15 @@ def mock_spotipy():
 
 @pytest.fixture
 def spotify_client(mock_spotipy):
+    """
+    Create a Spotify client instance configured to use mocked credentials and a mocked Spotify API.
+    
+    Parameters:
+        mock_spotipy: pytest fixture that provides a patched `spotify.Spotify` instance used by the returned client.
+    
+    Returns:
+        spotify_client (Spotify): A `Spotify` instance whose credential flow and environment variables are mocked for testing.
+    """
     with patch("spotify.SpotifyClientCredentials"):
         # Mock env vars to avoid Redis auth
         with patch.dict(

@@ -2,6 +2,11 @@ from babel.messages.frontend import CommandLineInterface
 
 
 def main():
+    """
+    Run the Babel CLI to update translation catalogs.
+    
+    Invokes a CommandLineInterface to perform a `pybabel update` using "messages.pot" as the input template and "translations" as the output directory, and prints a progress message to stdout. If an exception occurs during the update, the exception is printed.
+    """
     cli = CommandLineInterface()
     print("Updating translations...")
     try:

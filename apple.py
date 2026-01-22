@@ -7,6 +7,13 @@ from bs4 import BeautifulSoup
 
 class AppleMusic:
     def __init__(self):
+        """
+        Create a persistent HTTP session and set default headers that mimic a browser for Apple Music requests.
+        
+        The instance will have:
+        - self.session: a requests.Session() for reused connections.
+        - self.headers: a dict of default HTTP headers (User-Agent, Accept, Accept-Language) intended to imitate typical browser requests when fetching Apple Music pages.
+        """
         self.session = requests.Session()
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -15,6 +22,17 @@ class AppleMusic:
         }
 
     def get_apple_music_data(self, link):
+        """
+        Extract normalized track information from an Apple Music page URL.
+        
+        Parameters:
+            link (str): URL of the Apple Music page (track, album, or playlist) to parse.
+        
+        Returns:
+            list: A list of parsed track dictionaries when successful. Each dictionary contains keys such as
+            "isrc" (or None), "image" (or None), and "track" (with "name", "album" {"name"}, "artists" list, and "id").
+            If parsing or fetching fails, returns a single-element list with an error message string.
+        """
         try:
             response = self.session.get(link, headers=self.headers)
             if response.status_code != 200:
@@ -167,6 +185,27 @@ class AppleMusic:
             return [f"Error: {str(e)}"]
 
     def _parse_track(self, track_data, album_data=None, album_image=None):
+        """
+        Normalize a track JSON-LD object into the extractor's canonical track dictionary.
+        
+        Parameters:
+            track_data (dict): JSON-LD object representing a track (e.g., MusicRecording). May contain keys such as "isrc", "name", "image", "inAlbum", and "byArtist".
+            album_data (dict, optional): JSON-LD object representing the parent album/playlist; used to derive album name or artist when absent on the track.
+            album_image (str, optional): Fallback image URL to use when the track has no image.
+        
+        Returns:
+            dict: A normalized dictionary with the following structure:
+                {
+                    "isrc": <str or None>,
+                    "image": <str or None>,
+                    "track": {
+                        "name": <str or None>,
+                        "album": {"name": <str>},
+                        "artists": [{"name": <str>}],
+                        "id": None
+                    }
+                }
+        """
         isrc = track_data.get("isrc")
         name = track_data.get("name")
         image = track_data.get("image")

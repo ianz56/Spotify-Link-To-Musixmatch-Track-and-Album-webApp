@@ -4,6 +4,11 @@ from apple import AppleMusic
 
 
 def test():
+    """
+    Run a small reproduction that fetches and prints Apple Music data for two sample album links.
+    
+    Creates an AppleMusic instance, calls its get_apple_music_data method for two predefined Apple Music URLs, and prints each result as pretty-printed JSON to stdout.
+    """
     am = AppleMusic()
     links = [
         "https://music.apple.com/album/1844274179",
