@@ -104,8 +104,9 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-left">
-          <!-- <span>Version 1.0</span>
-        <span class="separator">•</span> -->
+          <a href="{{ url_for("credits") }}"
+             rel="noopener noreferrer"
+             class="credits">{{ _("Credits") }}</a>
         </div>
         <div class="footer-center">
           <span>{{ _("Coded with ❤️ for music") }}</span>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ _("Credits") }} - Spotify to Musixmatch Link{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>{{ _("Credits") }}</h1>
+    <h2>{{ _("Current Maintainer") }}</h2>
+    <div class="card">
+      <img src="https://github.com/ianz56.png" alt="ianz56" loading="lazy">
+      <div class="card-details">
+        <h3 class="card-title">ianz56</h3>
+        <p class="card-text">{{ _("Project Maintainer & Developer") }}</p>
+        <a href="https://github.com/ianz56"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="card-link">GitHub Profile</a>
+      </div>
+    </div>
+    <h2>{{ _("Original Creator") }}</h2>
+    <div class="card">
+      <img src="https://github.com/AdelHashem.png"
+           alt="AdelHashem"
+           loading="lazy">
+      <div class="card-details">
+        <h3 class="card-title">AdelHashem</h3>
+        <p class="card-text">{{ _("Original Project Creator") }}</p>
+        <a href="https://github.com/AdelHashem"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="card-link">GitHub Profile</a>
+      </div>
+    </div>
+    <h2>{{ _("Translators") }}</h2>
+    <div class="card">
+      <div class="card-details">
+        <p class="card-text">{{ _("Coming Soon") }}</p>
+      </div>
+    </div>
+    <div class="card" style="display: none;">
+      <div class="card-details">
+        <h3 class="card-title">{{ _("Indonesian") }}</h3>
+        <p class="card-text">MainSilent</p>
+      </div>
+    </div>
+    <div class="card" style="display: none;">
+      <div class="card-details">
+        <h3 class="card-title">{{ _("Sundanese") }}</h3>
+        <p class="card-text">{{ _("Community Contributors") }}</p>
+      </div>
+    </div>
+    <div class="card" style="display: none;">
+      <div class="card-details">
+        <h3 class="card-title">{{ _("English") }}</h3>
+        <p class="card-text">AdelHashem, ianz56</p>
+      </div>
+    </div>
+    <div style="margin-top: 20px; display: none;">
+      <p>
+        {{ _("And thanks to all contributors on") }} <a href="https://crowdin.com/project/spotmxm"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="color: var(--primary-color)">Crowdin</a>.
+      </p>
+    </div>
+    <h2>{{ _("License") }}</h2>
+    <div class="card">
+      <div class="card-details">
+        <h3 class="card-title">MIT License</h3>
+        <p class="card-text">{{ _("This project is licensed under the MIT License.") }}</p>
+        <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp/blob/main/LICENSE"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="card-link">{{ _("View License") }}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

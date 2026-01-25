@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-23 00:17+0700\n"
+"POT-Creation-Date: 2026-01-26 01:49+0700\n"
 "PO-Revision-Date: 2026-01-01 15:36+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,35 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:295
+#: app.py:296
 msgid "Wrong Spotify Link Or Wrong ISRC"
 msgstr ""
 
-#: app.py:323 app.py:330
+#: app.py:325 app.py:333
 msgid "An unexpected error occurred, please try again"
 msgstr ""
 
-#: app.py:405
+#: app.py:406
 msgid "Can not be splitted as they have the Same ISRC"
 msgstr ""
 
-#: app.py:407
+#: app.py:408
 msgid "They have different Pages"
 msgstr ""
 
-#: app.py:409
+#: app.py:411
 msgid "Something went wrong"
 msgstr ""
 
-#: app.py:417 app.py:437
+#: app.py:420 app.py:440
 msgid "Wrong Spotify Link"
 msgstr ""
 
-#: app.py:554
+#: app.py:557
 msgid "Please Enter A Valid Key"
 msgstr ""
 
-#: app.py:657
+#: app.py:660
 msgid "Invalid input!"
 msgstr ""
 
@@ -288,8 +288,68 @@ msgstr ""
 msgid "Contribute"
 msgstr ""
 
-#: templates/base.html:111
+#: templates/base.html:109 templates/credits.html:3 templates/credits.html:7
+msgid "Credits"
+msgstr ""
+
+#: templates/base.html:112
 msgid "Coded with ❤️ for music"
+msgstr ""
+
+#: templates/credits.html:9
+msgid "Current Maintainer"
+msgstr ""
+
+#: templates/credits.html:14
+msgid "Project Maintainer & Developer"
+msgstr ""
+
+#: templates/credits.html:19
+msgid "Original Creator"
+msgstr ""
+
+#: templates/credits.html:24
+msgid "Original Project Creator"
+msgstr ""
+
+#: templates/credits.html:29
+msgid "Translators"
+msgstr ""
+
+#: templates/credits.html:32
+msgid "Coming Soon"
+msgstr ""
+
+#: templates/credits.html:37
+msgid "Indonesian"
+msgstr ""
+
+#: templates/credits.html:43
+msgid "Sundanese"
+msgstr ""
+
+#: templates/credits.html:44
+msgid "Community Contributors"
+msgstr ""
+
+#: templates/credits.html:49
+msgid "English"
+msgstr ""
+
+#: templates/credits.html:55
+msgid "And thanks to all contributors on"
+msgstr ""
+
+#: templates/credits.html:58
+msgid "License"
+msgstr ""
+
+#: templates/credits.html:62
+msgid "This project is licensed under the MIT License."
+msgstr ""
+
+#: templates/credits.html:63
+msgid "View License"
 msgstr ""
 
 #: templates/index.html:6

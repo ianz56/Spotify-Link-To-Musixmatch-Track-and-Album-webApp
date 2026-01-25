@@ -5,12 +5,5 @@ services:
     build: .
     ports:
       - "8555:8000"
-    environment:
-      MXM_API: ${MXM_API}
-      MXM_API2: ${MXM_API2}
-      SPOTIPY_CLIENT_ID: ${SPOTIPY_CLIENT_ID}
-      SPOTIPY_CLIENT_SECRET: ${SPOTIPY_CLIENT_SECRET}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWD: ${REDIS_PASSWD}
-      SECRET_KEY: ${SECRET_KEY}
+    env_file:
+      - .env

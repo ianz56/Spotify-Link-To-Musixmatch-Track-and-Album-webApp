@@ -213,22 +213,6 @@ span.card-link:hover {
   align-items: center;
   top: 20px;
   z-index: 100;
-  /* max-width: 800px;
-  margin: 0 auto 40px auto;
-  background-color: var(--nav-bg);
-  padding: 16px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-color);
-  display: flex;
-  justify-content: center;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  position: sticky;
-  top: 20px;
-  z-index: 100;
-  box-shadow: var(--shadow-md);
-  overflow: visible; */
-  /* Changed from auto/hidden to visible for dropdown */
 }
 
 .navbar-container {
@@ -486,6 +470,80 @@ th:last-child {
   }
 }
 
+/* Footer */
+.footer {
+  margin-top: 30px;
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.footer-left,
+.footer-right,
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-left a.credits {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.footer-left a.credits:hover {
+  opacity: 1;
+}
+
+.footer-center {
+  font-weight: 500;
+}
+
+.footer-right a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.2s;
+  justify-content: center;
+  display: flex;
+  gap: 8px;
+}
+
+.footer a:hover {
+  color: var(--primary-color);
+}
+
+.github-link img {
+  width: 24px;
+  height: 24px;
+}
+
+.footer .icon:hover {
+  opacity: 1;
+}
+
+.footer .icon {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.separator {
+  color: var(--border-color);
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   body {
@@ -554,71 +612,6 @@ th:last-child {
     padding: 20px 16px 20px 12px;
     text-align: justify;
   }
-}
-
-/* Footer */
-.footer {
-  margin-top: 30px;
-  padding: 10px 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.footer-content {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  padding: 0 20px;
-  font-size: 0.9em;
-  color: var(--text-muted);
-}
-
-.footer-left,
-.footer-right,
-.footer-center {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.footer-center {
-  font-weight: 500;
-}
-
-.footer a {
-  color: var(--text-color);
-  text-decoration: none;
-  transition: color 0.2s;
-  justify-content: center;
-  display: flex;
-  gap: 8px;
-}
-
-.footer a:hover {
-  color: var(--primary-color);
-}
-
-.github-link img {
-  width: 24px;
-  height: 24px;
-}
-
-.footer .icon:hover {
-  opacity: 1;
-}
-
-.footer .icon {
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.separator {
-  color: var(--border-color);
 }
 
 @media (max-width: 600px) {

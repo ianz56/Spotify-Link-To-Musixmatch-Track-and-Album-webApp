@@ -670,6 +670,11 @@ async def abstrack() -> str:
         return render_template("abstrack.html")
 
 
+@app.route("/credits")
+def credits():
+    return render_template("credits.html")
+
+
 @app.route("/BingSiteAuth.xml")
 def bing_site_auth():
     return send_from_directory(app.static_folder, "BingSiteAuth.xml")
@@ -704,7 +709,16 @@ def sitemap():
     ]
 
     # List of endpoints to include in sitemap
-    pages = ["index", "isrc", "mxm_to_sp", "abstrack", "split", "setAPI", "apple"]
+    pages = [
+        "index",
+        "isrc",
+        "mxm_to_sp",
+        "abstrack",
+        "split",
+        "setAPI",
+        "apple",
+        "credits",
+    ]
 
     for page in pages:
         sitemap_xml.append("  <url>")
