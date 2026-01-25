@@ -14,3 +14,6 @@ services:
       - MXM_API
       - MXM_API2
       - REDIS_URL
+      - SPOTIPY_CLIENT_ID
+      - SPOTIPY_CLIENT_SECRET
+      - FLASK_DEBUG
