@@ -5,5 +5,5 @@ services:
     build: .
     ports:
       - "8555:8000"
-    environment:
-     env_file: .env
+    env_file:
+      - .env
