@@ -5,5 +5,12 @@ services:
     build: .
     ports:
       - "8555:8000"
-    env_file:
-      - .env
+    environment:
+      - secret_key
+      - FLASK_ENV
+      - REDIS_HOST
+      - REDIS_PORT
+      - REDIS_PASSWD
+      - MXM_API
+      - MXM_API2
+      - REDIS_URL
