@@ -16,3 +16,4 @@ ProviderMusixmatch.js
 test_check_request.py
 .cache
 .venv
+*.egg-info
