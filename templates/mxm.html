@@ -29,6 +29,20 @@
                      target="_blank">{{ album.album_name }}</a>
                 </p>
                 <p class="card-text">{{ _("Album ID:") }} {{ album.album_id }}</p>
+                {% if track and track.lyrics_published_status %}
+                  <p class="card-text">
+                    Status:
+                    {% if track.lyrics_published_status == 1 %}
+                      <span class="badge-status badge-mxm">Musixmatch</span>
+                    {% elif track.lyrics_published_status == 15 %}
+                      <span class="badge-status badge-curator">Curator</span>
+                    {% elif track.lyrics_published_status == 16 %}
+                      <span class="badge-status badge-community">Community</span>
+                    {% elif track.lyrics_published_status == 13 %}
+                      <span class="badge-status badge-artist">Artist</span>
+                    {% endif %}
+                  </p>
+                {% endif %}
                 {% if album.external_ids.spotify %}
                   <p class="card-text">{{ _("Spotify source:") }}</p>
                   <div class="list">

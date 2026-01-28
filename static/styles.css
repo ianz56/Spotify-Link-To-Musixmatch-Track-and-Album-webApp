@@ -173,6 +173,8 @@ button[type="submit"]:active {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-color);
+  display: flex;
+  align-items: center;
 }
 
 .card-text {
@@ -798,8 +800,53 @@ th:last-child {
   font-size: 50px;
   margin: 0;
   padding: 0;
-  color: #ff5900;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Badges for Lyrics Published Status */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badge-mxm {
+  background-color: rgba(
+    255,
+    96,
+    80,
+    0.1
+  ); /* Musixmatch brand color approximation */
+  color: #ff6050;
+  border: 1px solid rgba(255, 96, 80, 0.2);
+}
+
+.badge-curator {
+  background-color: rgba(16, 185, 129, 0.1); /* Green for Curator */
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-community {
+  background-color: rgba(59, 130, 246, 0.1); /* Blue for Community */
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.badge-artist {
+  background-color: rgba(147, 51, 234, 0.1); /* Purole for Verified Artist */
+  color: #9333ea;
+  border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.badge-unknown {
+  background-color: var(--input-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
 }
 
 #offline-div p {

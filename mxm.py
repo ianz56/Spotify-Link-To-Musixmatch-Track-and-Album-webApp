@@ -317,17 +317,24 @@ class MXM:
                     album = await self.musixmatch.album_get(
                         album_vanity_id=match.group(1)
                     )
+                    return {"album": album["message"]["body"]["album"]}
                 elif match.group(2):
                     album = await self.musixmatch.album_get(match.group(2))
+                    return {"album": album["message"]["body"]["album"]}
                 else:
                     track = await self.musixmatch.track_get(
                         commontrack_vanity_id=match.group(3),
                         part="track_lyrics_translation_status,publishing_info",
                     )
-                    album_id = track["message"]["body"]["track"]["album_id"]
+                    track_data = track["message"]["body"]["track"]
+                    album_id = track_data["album_id"]
                     album = await self.musixmatch.album_get(album_id)
+                    return {
+                        "album": album["message"]["body"]["album"],
+                        "track": track_data,
+                    }
                 # print(album)
-                return {"album": album["message"]["body"]["album"]}
+                # return {"album": album["message"]["body"]["album"]}
             except Asyncmxm.exceptions.MXMException as e:
                 return {"error": str(e)}
         else:
