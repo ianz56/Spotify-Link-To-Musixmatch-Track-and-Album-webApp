@@ -59,16 +59,16 @@
                     <p class="card-text">
                       <strong>{{ _("Contribute by:") }}</strong>
                       {% if track.lyrics_published_status == 1 %}
-                        <span class="badge-status badge-mxm">Musixmatch</span>
+                        <span class="badge-status badge-mxm">{{ _("Musixmatch") }}</span>
                       {% elif track.lyrics_published_status == 15 %}
-                        <span class="badge-status badge-curator">Curator</span>
+                        <span class="badge-status badge-curator">{{ _("Curator") }}</span>
                       {% elif track.lyrics_published_status == 16 %}
-                        <span class="badge-status badge-community">Community</span>
+                        <span class="badge-status badge-community">{{ _("Community") }}</span>
                       {% elif track.lyrics_published_status == 13 %}
-                        <span class="badge-status badge-artist">Artist</span>
+                        <span class="badge-status badge-artist">{{ _("Artist") }}</span>
                       {% else %}
                         <span class="badge-status badge-unknown"
-                              title="Status Code: {{ track.lyrics_published_status }}">Unknown</span>
+                              title="Status Code: {{ track.lyrics_published_status }}">{{ _("Unknown") }}</span>
                       {% endif %}
                     </p>
                   {% endif %}
