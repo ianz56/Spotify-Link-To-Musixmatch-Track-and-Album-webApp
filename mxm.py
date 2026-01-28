@@ -49,6 +49,7 @@ class MXM:
                 track_isrc=isrc,
                 commontrack_id=commontrack_id,
                 commontrack_vanity_id=vanity_id,
+                part="track_lyrics_translation_status,publishing_info",
             )
             return response
         except Asyncmxm.exceptions.MXMException as e:
@@ -57,7 +58,10 @@ class MXM:
     async def matcher_track_text(self, title, artist, album=None):
         try:
             response = await self.musixmatch2.matcher_track_get(
-                q_track=title, q_artist=artist, q_album=album
+                q_track=title,
+                q_artist=artist,
+                q_album=album,
+                part="track_lyrics_translation_status,publishing_info",
             )
             return response
         except Asyncmxm.exceptions.MXMException as e:
@@ -66,7 +70,9 @@ class MXM:
     async def matcher_track(self, sp_id):
         try:
             response = await self.musixmatch2.matcher_track_get(
-                q_track="null", track_spotify_id=sp_id
+                q_track="null",
+                track_spotify_id=sp_id,
+                part="track_lyrics_translation_status,publishing_info",
             )
             return dict(response)
         except Asyncmxm.exceptions.MXMException as e:
@@ -315,7 +321,8 @@ class MXM:
                     album = await self.musixmatch.album_get(match.group(2))
                 else:
                     track = await self.musixmatch.track_get(
-                        commontrack_vanity_id=match.group(3)
+                        commontrack_vanity_id=match.group(3),
+                        part="track_lyrics_translation_status,publishing_info",
                     )
                     album_id = track["message"]["body"]["track"]["album_id"]
                     album = await self.musixmatch.album_get(album_id)
@@ -329,7 +336,10 @@ class MXM:
     async def abstrack(self, id: int) -> tuple[dict, dict]:
         """Get the track and the album data from the abstrack."""
         try:
-            track = await self.musixmatch.track_get(commontrack_id=id)
+            track = await self.musixmatch.track_get(
+                commontrack_id=id,
+                part="track_lyrics_translation_status,publishing_info",
+            )
             track = track["message"]["body"]["track"]
             album = await self.musixmatch.album_get(track["album_id"])
             album = album["message"]["body"]["album"]

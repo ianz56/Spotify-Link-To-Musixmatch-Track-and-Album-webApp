@@ -104,6 +104,7 @@ class Musixmatch:
         commontrack_vanity_id=None,
         track_spotify_id=None,
         track_itunes_id=None,
+        **kwargs,
     ):
         """
         Get a track info from their database by objects
@@ -116,7 +117,12 @@ class Musixmatch:
         :param track_itunes_id: Apple track ID
         """
 
-        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "kwargs"
+        }
+        params.update(kwargs)
         return await self._api_call("get", "track.get", params)
 
     async def matcher_track_get(
