@@ -15,6 +15,8 @@ def main():
                 "messages.pot",
                 "-d",
                 "translations",
+                "-l",
+                "en",
                 "--width=2500",
             ]
         )

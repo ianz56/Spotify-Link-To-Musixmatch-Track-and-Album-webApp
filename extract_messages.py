@@ -1,5 +1,7 @@
 from babel.messages.frontend import CommandLineInterface
 
+import update_translations
+
 
 def main():
     cli = CommandLineInterface()
@@ -17,6 +19,7 @@ def main():
             ".",
         ]
     )
+    update_translations.main()
 
 
 if __name__ == "__main__":
