@@ -3,7 +3,7 @@ name: Crowdin Upload Source
 on:
   push:
     paths:
-      - 'messages.pot'
+      - 'translations/en/LC_MESSAGES/messages.po'
     branches: [ main ]
   workflow_dispatch:
 
