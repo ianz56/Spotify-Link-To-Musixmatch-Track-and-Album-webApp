@@ -40,6 +40,9 @@
                       <span class="badge-status badge-community">Community</span>
                     {% elif track.lyrics_published_status == 13 %}
                       <span class="badge-status badge-artist">Artist</span>
+                    {% else %}
+                      <span class="badge-status badge-unknown"
+                            title="Status Code: {{ track.lyrics_published_status }}">Unknown</span>
                     {% endif %}
                   </p>
                 {% endif %}
