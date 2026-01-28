@@ -636,6 +636,7 @@ async def mxm_to_sp():
         return render_template(
             "mxm.html",
             album=album.get("album"),
+            track=album.get("track"),
             error=album.get("error"),
             is_cached=is_cached,
             cached_timestamp=cached_timestamp,
