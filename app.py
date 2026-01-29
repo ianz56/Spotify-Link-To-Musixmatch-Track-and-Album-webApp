@@ -8,9 +8,8 @@ import os
 import re
 import time
 
-from markupsafe import escape as html_escape
-
 from dotenv import load_dotenv
+from markupsafe import escape as html_escape
 
 load_dotenv()
 
