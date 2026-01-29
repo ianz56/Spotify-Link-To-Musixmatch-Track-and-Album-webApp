@@ -91,7 +91,11 @@
       {% for album in artist %}
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card">
+          {% if album.images %}
           <img src="{{ album.images[0].url }}" alt="{{ album.name }}" />
+          {% else %}
+          <div class="img-placeholder" aria-label="{{ album.name }}"></div>
+          {% endif %}
           <div class="card-details">
             <h5 class="card-title">{{ album.name }}</h5>
             <p class="card-text">type: {{ album.album_type }}</p>
