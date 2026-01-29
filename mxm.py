@@ -209,9 +209,9 @@ class MXM:
             # Fetch all tracks for this album
             try:
                 album_tracks_response = await self.musixmatch.album_tracks_get(
-                    album_id, 
+                    album_id,
                     page_size=100,
-                    part="track_lyrics_translation_status,publishing_info"
+                    part="track_lyrics_translation_status,publishing_info",
                 )
                 if (
                     album_tracks_response["message"]["header"]["status_code"] == 200
@@ -223,31 +223,34 @@ class MXM:
                 return None
         return None
 
-
     async def Tracks_Data(self, sp_data, split_check=False):
         links = []
-        
+
         # Check if it looks like an album (more than 1 track)
         album_tracks_mxm = None
-        if len(sp_data) > 1 and isinstance(sp_data[0], dict) and sp_data[0].get("track"):
-             # Heuristic: check if first and second track have same album name (if available)
-             # Or just try to fetch album tracks and see if we can match them
-             album_tracks_mxm = await self.get_album_tracks_by_first_track(sp_data)
+        if (
+            len(sp_data) > 1
+            and isinstance(sp_data[0], dict)
+            and sp_data[0].get("track")
+        ):
+            # Heuristic: check if first and second track have same album name (if available)
+            # Or just try to fetch album tracks and see if we can match them
+            album_tracks_mxm = await self.get_album_tracks_by_first_track(sp_data)
 
         if album_tracks_mxm:
             # We have the album tracks from MXM. Now we need to match them to sp_data
             # sp_data is ordered. album_tracks_mxm might be ordered by track_index.
             # Let's try to match by ISRC first, then by title/fuzzy.
-            
+
             # Create a map of MXM tracks for easier lookup
             mxm_map_by_isrc = {}
-            mxm_map_by_title = {} # (title_normalized, artist_normalized) -> track
-            
+            mxm_map_by_title = {}  # (title_normalized, artist_normalized) -> track
+
             for item in album_tracks_mxm:
                 t = item["track"]
                 if t.get("track_isrc"):
-                     mxm_map_by_isrc[t["track_isrc"]] = t
-                
+                    mxm_map_by_isrc[t["track_isrc"]] = t
+
                 # Normalize for fuzzy matching prep
                 t_title = re.sub(r"[()-.]", "", t.get("track_name", "")).lower()
                 # artist might be in t['artist_name']
@@ -255,64 +258,64 @@ class MXM:
                 mxm_map_by_title[t_title] = t
 
             tracks = []
-            
+
             # Since we are confident these tracks belong to the album, we can use them as matchers too.
             # We'll build the matchers list in parallel to avoid the second API loop.
-            matchers = [] 
-            
+            matchers = []
+
             for sp_track in sp_data:
                 found_mxm = None
                 sp_isrc = sp_track.get("isrc")
-                
+
                 # Try ISRC
                 if sp_isrc in mxm_map_by_isrc:
                     found_mxm = mxm_map_by_isrc[sp_isrc]
-                
+
                 if not found_mxm:
                     # Try Title
                     sp_title = sp_track["track"]["name"]
                     sp_title_norm = re.sub(r"[()-.]", "", sp_title).lower()
-                    
+
                     # Direct match
                     if sp_title_norm in mxm_map_by_title:
                         found_mxm = mxm_map_by_title[sp_title_norm]
                     else:
-                         # Fuzzy match against all mxm titles
-                         best_score = 0
-                         best_match = None
-                         for mt_title, mt_track in mxm_map_by_title.items():
-                             score = jellyfish.jaro_similarity(sp_title_norm, mt_title)
-                             if score > 0.85 and score > best_score:
-                                 best_score = score
-                                 best_match = mt_track
-                         if best_match:
-                             found_mxm = best_match
+                        # Fuzzy match against all mxm titles
+                        best_score = 0
+                        best_match = None
+                        for mt_title, mt_track in mxm_map_by_title.items():
+                            score = jellyfish.jaro_similarity(sp_title_norm, mt_title)
+                            if score > 0.85 and score > best_score:
+                                best_score = score
+                                best_match = mt_track
+                        if best_match:
+                            found_mxm = best_match
 
                 if found_mxm:
-                     # Format it as expected
+                    # Format it as expected
                     found_mxm["isrc"] = sp_isrc or found_mxm.get("track_isrc")
                     found_mxm["image"] = sp_track.get("image")
                     found_mxm["beta"] = str(found_mxm["track_share_url"]).replace(
                         "www.", "com-beta.", 1
                     )
                     tracks.append(dict(found_mxm))
-                    matchers.append(dict(found_mxm)) # Use same data for matcher
+                    matchers.append(dict(found_mxm))  # Use same data for matcher
                 else:
                     # Fallback to individual fetch for this specific track
                     individual_res = await self.Track_links(sp_track)
                     if isinstance(individual_res, dict):
-                         tracks.append(individual_res)
+                        tracks.append(individual_res)
                     else:
-                         tracks.append(individual_res) # likely error string
-                    
+                        tracks.append(individual_res)  # likely error string
+
                     # For matcher fallback, we need to call matcher logic individually too
                     # Or just use the individual_res if it's good?
                     # Original logic pairs tracks_get() result with tracks_matcher() result to compare.
                     # tracks_matcher() does more loose matching (by text).
                     # But Track_links (which is tracks_get fallback) already does text matching fallback!
                     # So individual_res is likely already the best match.
-                    matchers.append(individual_res) 
-                    
+                    matchers.append(individual_res)
+
         else:
             tracks = await self.tracks_get(sp_data)
             # Only run matchers loop if we took the old path

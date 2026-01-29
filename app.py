@@ -391,13 +391,28 @@ async def split():
                         track1["isrc"] != track2["isrc"]
                         and track1["commontrack_id"] == track2["commontrack_id"]
                     ):
-                        message = f"""Can be splitted </br>
-                            you can c/p:</br>
+                        message = f"""{_("Can be splitted")}</br>
+                            {_("you can copy and paste this:")}</br>
+                            <div id="copy-target" class="copy-target">
                             :mxm: <a href="{track1["track_share_url"]}" target="_blank">MXM Page</a> </br>
                             :spotify: <a href="{link}" target="_blank">{track1["track"]["name"]}</a>,
                             :isrc: {track1["isrc"]} </br>
                             :spotify: <a href="{link2}" target="_blank">{track2["track"]["name"]}</a>,
                             :isrc: {track2["isrc"]}
+                            </div>
+                            <br>
+                            <button onclick="copyToClipboard()" class="btn-copy">{_("Copy Template")}</button>
+                            <script>
+                            function copyToClipboard() {{
+                                const range = document.createRange();
+                                range.selectNode(document.getElementById("copy-target"));
+                                window.getSelection().removeAllRanges();
+                                window.getSelection().addRange(range);
+                                document.execCommand("copy");
+                                window.getSelection().removeAllRanges();
+                                alert({json.dumps(_('Copied to clipboard!'))});
+                            }}
+                            </script>
                             """
                     elif (
                         track1["isrc"] == track2["isrc"]
