@@ -292,14 +292,15 @@ class MXM:
                             found_mxm = best_match
 
                 if found_mxm:
-                    # Format it as expected
-                    found_mxm["isrc"] = sp_isrc or found_mxm.get("track_isrc")
-                    found_mxm["image"] = sp_track.get("image")
-                    found_mxm["beta"] = str(found_mxm["track_share_url"]).replace(
+                    # Make a shallow copy to avoid mutating the original in lookup maps
+                    new_mxm = dict(found_mxm)
+                    new_mxm["isrc"] = sp_isrc or new_mxm.get("track_isrc")
+                    new_mxm["image"] = sp_track.get("image")
+                    new_mxm["beta"] = str(new_mxm["track_share_url"]).replace(
                         "www.", "com-beta.", 1
                     )
-                    tracks.append(dict(found_mxm))
-                    matchers.append(dict(found_mxm))  # Use same data for matcher
+                    tracks.append(new_mxm)
+                    matchers.append(dict(new_mxm))  # Use same data for matcher
                 else:
                     # Fallback to individual fetch for this specific track
                     individual_res = await self.Track_links(sp_track)
@@ -317,6 +318,9 @@ class MXM:
                     matchers.append(individual_res)
 
         else:
+            # Safety check: ensure sp_data is non-empty before accessing sp_data[0]
+            if not sp_data or not isinstance(sp_data, list) or len(sp_data) == 0:
+                return []
             tracks = await self.tracks_get(sp_data)
             # Only run matchers loop if we took the old path
             if isinstance(sp_data[0], dict) and sp_data[0].get("track"):

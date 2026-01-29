@@ -8,6 +8,8 @@ import os
 import re
 import time
 
+from markupsafe import escape as html_escape
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -391,14 +393,22 @@ async def split():
                         track1["isrc"] != track2["isrc"]
                         and track1["commontrack_id"] == track2["commontrack_id"]
                     ):
-                        message = f"""{_("Can be splitted")}</br>
-                            {_("you can copy and paste this:")}</br>
+                        # Escape user-controlled values to prevent XSS
+                        safe_link = html_escape(link)
+                        safe_link2 = html_escape(link2)
+                        safe_track1_url = html_escape(track1["track_share_url"])
+                        safe_track1_name = html_escape(track1["track"]["name"])
+                        safe_track1_isrc = html_escape(track1["isrc"])
+                        safe_track2_name = html_escape(track2["track"]["name"])
+                        safe_track2_isrc = html_escape(track2["isrc"])
+                        message = f"""{_("Can be split")}</br>
+                            {_("You can copy and paste this:")}</br>
                             <div id="copy-target" class="copy-target">
-                            :mxm: <a href="{track1["track_share_url"]}" target="_blank">MXM Page</a> </br>
-                            :spotify: <a href="{link}" target="_blank">{track1["track"]["name"]}</a>,
-                            :isrc: {track1["isrc"]} </br>
-                            :spotify: <a href="{link2}" target="_blank">{track2["track"]["name"]}</a>,
-                            :isrc: {track2["isrc"]}
+                            :mxm: <a href="{safe_track1_url}" target="_blank">MXM Page</a> </br>
+                            :spotify: <a href="{safe_link}" target="_blank">{safe_track1_name}</a>,
+                            :isrc: {safe_track1_isrc} </br>
+                            :spotify: <a href="{safe_link2}" target="_blank">{safe_track2_name}</a>,
+                            :isrc: {safe_track2_isrc}
                             </div>
                             <br>
                             <button onclick="copyToClipboard()" class="btn-copy">{_("Copy Template")}</button>

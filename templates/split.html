@@ -2,86 +2,80 @@
 
 {% block title %}Split Checker{% endblock %}
 {% block content %}
-  <div class="container">
-    <h1>{{ _("Split Checker") }}</h1>
-    <form action="/split" method="GET">
-      <label for="input_link_1">{{ _("Track 1:") }}</label>
-      <input type="text"
-             id="input_link_1"
-             name="link"
-             placeholder="{{ _(" E.g.:") }} https://open.spotify.com/intl-id/track/3wGL3DfKTQ4IM9dHk0IyS0?si=deaea5bbe85a4c0c" />
-      <label for="input_link_2">{{ _("Track 2:") }}</label>
-      <input type="text"
-             id="input_link_2"
-             name="link2"
-             placeholder="{{ _(" E.g.:") }} https://open.spotify.com/intl-id/track/5o6StwqqVfG3vRLx8UP310?si=2e1d189310524de6" />
-      <button type="submit" id="split_button">{{ _("Check") }}</button>
-      <div class="loading" id="loading"></div>
-    </form>
-    <div class="output" id="output">
-      <div class="row">
-        {% if split_result %}
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card split-card">
-              <div class="split-tracks-container">
-                <!-- Track 1 Card -->
-                <div class="track-card">
-                  <h3>{{ _("Track 1") }}</h3>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("ISRC") }}</span>
-                    <span class="track-value">{{ split_result.track1.isrc }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("Name") }}</span>
-                    <span class="track-value">{{ split_result.track1.track.name }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("Track ID") }}</span>
-                    <span class="track-value">{{ split_result.track1.commontrack_id }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("MXM Link") }}</span>
-                    <span class="track-value">
-                      <a href="{{ split_result.track1.track_share_url.split(" ?")[0] }}"
-                         target="_blank">Musixmatch</a>
-                    </span>
-                  </div>
-                </div>
-                <!-- Track 2 Card -->
-                <div class="track-card">
-                  <h3>{{ _("Track 2") }}</h3>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("ISRC") }}</span>
-                    <span class="track-value">{{ split_result.track2.isrc }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("Name") }}</span>
-                    <span class="track-value">{{ split_result.track2.track.name }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("Track ID") }}</span>
-                    <span class="track-value">{{ split_result.track2.commontrack_id }}</span>
-                  </div>
-                  <div class="track-field">
-                    <span class="track-label">{{ _("MXM Link") }}</span>
-                    <span class="track-value">
-                      <a href="{{ split_result.track2.track_share_url.split(" ?")[0] }}"
-                         target="_blank">Musixmatch</a>
-                    </span>
-                  </div>
-                </div>
+<div class="container">
+  <h1>{{ _("Split Checker") }}</h1>
+  <form action="/split" method="GET">
+    <label for="input_link_1">{{ _("Track 1:") }}</label>
+    <input type="text" id="input_link_1" name="link" placeholder="{{ _(" E.g.:") }}
+      https://open.spotify.com/intl-id/track/3wGL3DfKTQ4IM9dHk0IyS0?si=deaea5bbe85a4c0c" />
+    <label for="input_link_2">{{ _("Track 2:") }}</label>
+    <input type="text" id="input_link_2" name="link2" placeholder="{{ _(" E.g.:") }}
+      https://open.spotify.com/intl-id/track/5o6StwqqVfG3vRLx8UP310?si=2e1d189310524de6" />
+    <button type="submit" id="split_button">{{ _("Check") }}</button>
+    <div class="loading" id="loading"></div>
+  </form>
+  <div class="output" id="output">
+    <div class="row">
+      {% if split_result %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card split-card">
+          <div class="split-tracks-container">
+            <!-- Track 1 Card -->
+            <div class="track-card">
+              <h3>{{ _("Track 1") }}</h3>
+              <div class="track-field">
+                <span class="track-label">{{ _("ISRC") }}</span>
+                <span class="track-value">{{ split_result.track1.isrc }}</span>
               </div>
-              <div class="result-message-container">{{ message|safe }}</div>
+              <div class="track-field">
+                <span class="track-label">{{ _("Name") }}</span>
+                <span class="track-value">{{ split_result.track1.track.name }}</span>
+              </div>
+              <div class="track-field">
+                <span class="track-label">{{ _("Track ID") }}</span>
+                <span class="track-value">{{ split_result.track1.commontrack_id }}</span>
+              </div>
+              <div class="track-field">
+                <span class="track-label">{{ _("MXM Link") }}</span>
+                <span class="track-value">
+                  <a href="{{ split_result.track1.track_share_url.split(" ?")[0] }}" target="_blank">Musixmatch</a>
+                </span>
+              </div>
+            </div>
+            <!-- Track 2 Card -->
+            <div class="track-card">
+              <h3>{{ _("Track 2") }}</h3>
+              <div class="track-field">
+                <span class="track-label">{{ _("ISRC") }}</span>
+                <span class="track-value">{{ split_result.track2.isrc }}</span>
+              </div>
+              <div class="track-field">
+                <span class="track-label">{{ _("Name") }}</span>
+                <span class="track-value">{{ split_result.track2.track.name }}</span>
+              </div>
+              <div class="track-field">
+                <span class="track-label">{{ _("Track ID") }}</span>
+                <span class="track-value">{{ split_result.track2.commontrack_id }}</span>
+              </div>
+              <div class="track-field">
+                <span class="track-label">{{ _("MXM Link") }}</span>
+                <span class="track-value">
+                  <a href="{{ split_result.track2.track_share_url.split(" ?")[0] }}" target="_blank">Musixmatch</a>
+                </span>
+              </div>
             </div>
           </div>
-        {% else %}
-          {% if error %}
-            <div class="card">
-              <p class="card-text">{{ error }}</p>
-            </div>
-          {% endif %}
-        {% endif %}
+          <div class="result-message-container">{{ message|safe }}</div>
+        </div>
       </div>
+      {% else %}
+      {% if error %}
+      <div class="card">
+        <p class="card-text">{{ error }}</p>
+      </div>
+      {% endif %}
+      {% endif %}
     </div>
   </div>
+</div>
 {% endblock %}
