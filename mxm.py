@@ -209,7 +209,9 @@ class MXM:
             # Fetch all tracks for this album
             try:
                 album_tracks_response = await self.musixmatch.album_tracks_get(
-                    album_id, page_size=100
+                    album_id, 
+                    page_size=100,
+                    part="track_lyrics_translation_status,publishing_info"
                 )
                 if (
                     album_tracks_response["message"]["header"]["status_code"] == 200
