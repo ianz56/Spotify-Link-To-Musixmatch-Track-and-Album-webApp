@@ -169,6 +169,33 @@ class MXM:
 
             return sp_data
 
+    async def matcher_links(self, sp_data):
+        if not sp_data.get("track"):
+            return "No matching data found."
+
+        if not sp_data["track"].get("id"):
+            # If no Spotify ID (e.g. Apple Music), use text search for matcher as well
+            track_name = sp_data["track"]["name"]
+            artist_name = (
+                sp_data["track"]["artists"][0]["name"]
+                if sp_data["track"]["artists"]
+                else ""
+            )
+            track = await self.matcher_track_text(track_name, artist_name)
+        else:
+            id = sp_data["track"]["id"]
+            track = await self.matcher_track(id)
+        try:
+            id = track["message"]["body"]["track"]["commontrack_id"]
+        except TypeError:
+            return track
+
+        track = track["message"]["body"]["track"]
+        track["isrc"] = sp_data["isrc"]
+        track["image"] = sp_data["image"]
+        track["beta"] = str(track["track_share_url"]).replace("www.", "beta.", 1)
+        return dict(track)
+
     async def get_album_tracks_by_first_track(self, sp_data):
         if not sp_data or not sp_data[0].get("track"):
             return None
@@ -226,6 +253,11 @@ class MXM:
                 mxm_map_by_title[t_title] = t
 
             tracks = []
+            
+            # Since we are confident these tracks belong to the album, we can use them as matchers too.
+            # We'll build the matchers list in parallel to avoid the second API loop.
+            matchers = [] 
+            
             for sp_track in sp_data:
                 found_mxm = None
                 sp_isrc = sp_track.get("isrc")
@@ -262,26 +294,30 @@ class MXM:
                         "www.", "com-beta.", 1
                     )
                     tracks.append(dict(found_mxm))
+                    matchers.append(dict(found_mxm)) # Use same data for matcher
                 else:
                     # Fallback to individual fetch for this specific track
-                    # or mark as not found. Let's fallback to individual fetch.
-                    # This might be mixed success.
-                    # For now, let's just append a placeholder or try individual in next pass?
-                    # To keep it simple, if not found in album, we might want to run the old logic for this one.
-                    # But since we are replacing the whole list logic, we can just call Track_links for this one.
                     individual_res = await self.Track_links(sp_track)
                     if isinstance(individual_res, dict):
                          tracks.append(individual_res)
                     else:
                          tracks.append(individual_res) # likely error string
-
+                    
+                    # For matcher fallback, we need to call matcher logic individually too
+                    # Or just use the individual_res if it's good?
+                    # Original logic pairs tracks_get() result with tracks_matcher() result to compare.
+                    # tracks_matcher() does more loose matching (by text).
+                    # But Track_links (which is tracks_get fallback) already does text matching fallback!
+                    # So individual_res is likely already the best match.
+                    matchers.append(individual_res) 
+                    
         else:
             tracks = await self.tracks_get(sp_data)
-
-        if isinstance(sp_data[0], dict) and sp_data[0].get("track"):
-            matchers = await self.tracks_matcher(sp_data)
-        else:
-            return tracks
+            # Only run matchers loop if we took the old path
+            if isinstance(sp_data[0], dict) and sp_data[0].get("track"):
+                matchers = await self.tracks_matcher(sp_data)
+            else:
+                return tracks
 
         for i in range(len(tracks)):
             track = tracks[i]

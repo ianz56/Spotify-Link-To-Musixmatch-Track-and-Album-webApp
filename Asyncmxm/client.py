@@ -568,4 +568,5 @@ class Musixmatch:
         :param page: Define the page number for paginated results
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         """
-        return await self._api_call("get", "album.tracks.get", locals())
+        params = {k: v for k, v in locals().items() if v is not None and k != "self"}
+        return await self._api_call("get", "album.tracks.get", params)
