@@ -196,14 +196,137 @@ class MXM:
         track["beta"] = str(track["track_share_url"]).replace("www.", "beta.", 1)
         return dict(track)
 
+    async def get_album_tracks_by_first_track(self, sp_data):
+        if not sp_data or not sp_data[0].get("track"):
+            return None
+
+        # Use the first track to find the album
+        first_track = sp_data[0]
+        mxm_track = await self.matcher_links(first_track)
+
+        if isinstance(mxm_track, dict) and "album_id" in mxm_track:
+            album_id = mxm_track["album_id"]
+            # Fetch all tracks for this album
+            try:
+                album_tracks_response = await self.musixmatch.album_tracks_get(
+                    album_id,
+                    page_size=100,
+                    part="track_lyrics_translation_status,publishing_info",
+                )
+                if (
+                    album_tracks_response["message"]["header"]["status_code"] == 200
+                    and "track_list" in album_tracks_response["message"]["body"]
+                ):
+                    return album_tracks_response["message"]["body"]["track_list"]
+            except Exception as e:
+                print(f"Error fetching album tracks: {e}")
+                return None
+        return None
+
     async def Tracks_Data(self, sp_data, split_check=False):
         links = []
-        tracks = await self.tracks_get(sp_data)
 
-        if isinstance(sp_data[0], dict) and sp_data[0].get("track"):
-            matchers = await self.tracks_matcher(sp_data)
+        # Check if it looks like an album (more than 1 track)
+        album_tracks_mxm = None
+        if (
+            len(sp_data) > 1
+            and isinstance(sp_data[0], dict)
+            and sp_data[0].get("track")
+        ):
+            # Heuristic: check if first and second track have same album name (if available)
+            # Or just try to fetch album tracks and see if we can match them
+            album_tracks_mxm = await self.get_album_tracks_by_first_track(sp_data)
+
+        if album_tracks_mxm:
+            # We have the album tracks from MXM. Now we need to match them to sp_data
+            # sp_data is ordered. album_tracks_mxm might be ordered by track_index.
+            # Let's try to match by ISRC first, then by title/fuzzy.
+
+            # Create a map of MXM tracks for easier lookup
+            mxm_map_by_isrc = {}
+            mxm_map_by_title = {}  # (title_normalized, artist_normalized) -> track
+
+            for item in album_tracks_mxm:
+                t = item["track"]
+                if t.get("track_isrc"):
+                    mxm_map_by_isrc[t["track_isrc"]] = t
+
+                # Normalize for fuzzy matching prep
+                t_title = re.sub(r"[()-.]", "", t.get("track_name", "")).lower()
+                # artist might be in t['artist_name']
+                # But for now let's just use title if artist matches album artist roughly
+                mxm_map_by_title[t_title] = t
+
+            tracks = []
+
+            # Since we are confident these tracks belong to the album, we can use them as matchers too.
+            # We'll build the matchers list in parallel to avoid the second API loop.
+            matchers = []
+
+            for sp_track in sp_data:
+                found_mxm = None
+                sp_isrc = sp_track.get("isrc")
+
+                # Try ISRC
+                if sp_isrc in mxm_map_by_isrc:
+                    found_mxm = mxm_map_by_isrc[sp_isrc]
+
+                if not found_mxm:
+                    # Try Title
+                    sp_title = sp_track["track"]["name"]
+                    sp_title_norm = re.sub(r"[()-.]", "", sp_title).lower()
+
+                    # Direct match
+                    if sp_title_norm in mxm_map_by_title:
+                        found_mxm = mxm_map_by_title[sp_title_norm]
+                    else:
+                        # Fuzzy match against all mxm titles
+                        best_score = 0
+                        best_match = None
+                        for mt_title, mt_track in mxm_map_by_title.items():
+                            score = jellyfish.jaro_similarity(sp_title_norm, mt_title)
+                            if score > 0.85 and score > best_score:
+                                best_score = score
+                                best_match = mt_track
+                        if best_match:
+                            found_mxm = best_match
+
+                if found_mxm:
+                    # Make a shallow copy to avoid mutating the original in lookup maps
+                    new_mxm = dict(found_mxm)
+                    new_mxm["isrc"] = sp_isrc or new_mxm.get("track_isrc")
+                    new_mxm["image"] = sp_track.get("image")
+                    new_mxm["beta"] = str(new_mxm["track_share_url"]).replace(
+                        "www.", "com-beta.", 1
+                    )
+                    tracks.append(new_mxm)
+                    matchers.append(dict(new_mxm))  # Use same data for matcher
+                else:
+                    # Fallback to individual fetch for this specific track
+                    individual_res = await self.Track_links(sp_track)
+                    if isinstance(individual_res, dict):
+                        tracks.append(individual_res)
+                    else:
+                        tracks.append(individual_res)  # likely error string
+
+                    # For matcher fallback, we need to call matcher logic individually too
+                    # Or just use the individual_res if it's good?
+                    # Original logic pairs tracks_get() result with tracks_matcher() result to compare.
+                    # tracks_matcher() does more loose matching (by text).
+                    # But Track_links (which is tracks_get fallback) already does text matching fallback!
+                    # So individual_res is likely already the best match.
+                    matchers.append(individual_res)
+
         else:
-            return tracks
+            # Safety check: ensure sp_data is non-empty before accessing sp_data[0]
+            if not sp_data or not isinstance(sp_data, list) or len(sp_data) == 0:
+                return []
+            tracks = await self.tracks_get(sp_data)
+            # Only run matchers loop if we took the old path
+            if isinstance(sp_data[0], dict) and sp_data[0].get("track"):
+                matchers = await self.tracks_matcher(sp_data)
+            else:
+                return tracks
 
         for i in range(len(tracks)):
             track = tracks[i]

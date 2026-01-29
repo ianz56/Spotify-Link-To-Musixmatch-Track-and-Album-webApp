@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8556
 
-ENTRYPOINT [ "hypercorn", "--bind", "0.0.0.0:8000" , "app:asgi_app" ]
+ENTRYPOINT [ "hypercorn", "--bind", "0.0.0.0:8556" , "app:asgi_app" ]

@@ -9,7 +9,7 @@
       <input type="text"
              id="input_link"
              name="link"
-             placeholder="{{ _("E.g.:") }} https://www.musixmatch.com/album/123456789" />
+             placeholder="{{ _(" E.g.:") }} https://www.musixmatch.com/album/123456789" />
       <button type="submit" id="process_button">{{ _("Get links") }}</button>
       <div class="loading" id="loading"></div>
     </form>
@@ -31,7 +31,7 @@
                 <p class="card-text">{{ _("Album ID:") }} {{ album.album_id }}</p>
                 {% if track and track.lyrics_published_status %}
                   <p class="card-text">
-                    Status:
+                    {{ _("Verified by") }}:
                     {% if track.lyrics_published_status == 1 %}
                       <span class="badge-status badge-mxm">{{ _("Musixmatch") }}</span>
                     {% elif track.lyrics_published_status == 15 %}
@@ -80,7 +80,7 @@
                 {% endif %}
                 {% if is_cached %}
                   <div class="cached-info">
-                    <span class="badge-cached" title="{{ _("Data fetched from cache") }}">
+                    <span class="badge-cached" title="{{ _(" Data fetched from cache") }}">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            width="12"
                            height="12"

@@ -12,7 +12,6 @@ key.json
 *.ipynb
 app.log
 ProviderMusixmatch.js
-.env.example
 test_check_request.py
 .cache
 .venv
