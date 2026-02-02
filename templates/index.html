@@ -26,8 +26,12 @@
                       {{ track.track_name }}
                       {% if track.lyrics_published_status == 1 %}
                         <span class="badge-status badge-mxm">{{ _("Musixmatch") }}</span>
+                      {% elif track.lyrics_published_status == 3 %}
+                        <span class="badge-status badge-mxm">{{ _("Musixmatch (Stricted)") }}</span>
                       {% elif track.lyrics_published_status == 15 %}
                         <span class="badge-status badge-curator">{{ _("Curator") }}</span>
+                      {% elif track.lyrics_published_status == 5 %}
+                        <span class="badge-status badge-curator">{{ _("Curator (Locked)") }}</span>
                       {% elif track.lyrics_published_status == 16 %}
                         <span class="badge-status badge-community">{{ _("Community") }}</span>
                       {% elif track.lyrics_published_status == 13 %}

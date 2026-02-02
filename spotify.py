@@ -23,20 +23,58 @@ class Spotify:
         # if client_id is not None:
 
     def RRAuth(self):
-        r = redis.Redis(
-            host=environ.get("REDIS_HOST"),
-            port=environ.get("REDIS_PORT"),
-            password=environ.get("REDIS_PASSWD"),
-        )
+        try:
+            r = redis.Redis(
+                host=environ.get("REDIS_HOST"),
+                port=environ.get("REDIS_PORT"),
+                password=environ.get("REDIS_PASSWD"),
+            )
 
-        doc = r.json().get("spotify", "$")
-        doc = doc[0]
-        cred = doc["cred"][doc["rr"]]
-        logging.info(f"Spotify Cred: {cred}")
-        r.json().set("spotify", "$.rr", (doc["rr"] + 1) % len(doc["cred"]))
-        r.close()
-        cred = SpotifyClientCredentials(cred[0], cred[1])
-        self.sp = spotipy.Spotify(client_credentials_manager=cred, retries=3)
+            # Use 'spotify' key directly instead of json path if possible, or handle missing key
+            doc = r.json().get("spotify", "$")
+
+            if not doc:
+                logging.warning(
+                    "No Spotify credentials found in Redis (key: 'spotify'). Using environment variables or failing."
+                )
+                # Fallback to env vars if Redis fails to provide credentials
+                if environ.get("SPOTIPY_CLIENT_ID") and environ.get(
+                    "SPOTIPY_CLIENT_SECRET"
+                ):
+                    cred = SpotifyClientCredentials(
+                        environ.get("SPOTIPY_CLIENT_ID"),
+                        environ.get("SPOTIPY_CLIENT_SECRET"),
+                    )
+                    self.sp = spotipy.Spotify(
+                        client_credentials_manager=cred, retries=3
+                    )
+                    r.close()
+                    return
+                else:
+                    raise ValueError(
+                        "Spotify credentials not found in Redis or Environment variables."
+                    )
+
+            doc = doc[0]
+            cred = doc["cred"][doc["rr"]]
+            logging.info(f"Spotify Cred: {cred}")
+            r.json().set("spotify", "$.rr", (doc["rr"] + 1) % len(doc["cred"]))
+            r.close()
+            cred = SpotifyClientCredentials(cred[0], cred[1])
+            self.sp = spotipy.Spotify(client_credentials_manager=cred, retries=3)
+        except Exception as e:
+            logging.error(f"Failed to initialize Spotify via RRAuth: {e}")
+            # Final fallback attempt
+            if environ.get("SPOTIPY_CLIENT_ID") and environ.get(
+                "SPOTIPY_CLIENT_SECRET"
+            ):
+                cred = SpotifyClientCredentials(
+                    environ.get("SPOTIPY_CLIENT_ID"),
+                    environ.get("SPOTIPY_CLIENT_SECRET"),
+                )
+                self.sp = spotipy.Spotify(client_credentials_manager=cred, retries=3)
+            else:
+                raise
 
     def get_track(self, link=None, track=None) -> dict:
         if link is not None:

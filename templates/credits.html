@@ -31,30 +31,36 @@
       </div>
     </div>
     <h2>{{ _("Translators") }}</h2>
-    <div class="card">
-      <div class="card-details">
-        <p class="card-text">{{ _("Coming Soon") }}</p>
+    {% if contributors %}
+      <div style="display: flex;
+                  flex-wrap: wrap;
+                  gap: 20px;
+                  justify-content: center">
+        {% for contributor in contributors %}
+          <div class="card" style="width: 300px;">
+            <img src="{{ contributor.avatar_url }}"
+                 alt="{{ contributor.username }}"
+                 loading="lazy"
+                 style="border-radius: 50%;
+                        width: 100px;
+                        height: 100px;
+                        object-fit: cover;
+                        margin: 0 auto">
+            <div class="card-details">
+              <h3 class="card-title">{{ contributor.full_name or contributor.username }}</h3>
+              <p class="card-text">{{ contributor.username }}</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    </div>
-    <div class="card" style="display: none;">
-      <div class="card-details">
-        <h3 class="card-title">{{ _("Indonesian") }}</h3>
-        <p class="card-text">MainSilent</p>
+    {% else %}
+      <div class="card">
+        <div class="card-details">
+          <p class="card-text">{{ _("Coming Soon") }}</p>
+        </div>
       </div>
-    </div>
-    <div class="card" style="display: none;">
-      <div class="card-details">
-        <h3 class="card-title">{{ _("Sundanese") }}</h3>
-        <p class="card-text">{{ _("Community Contributors") }}</p>
-      </div>
-    </div>
-    <div class="card" style="display: none;">
-      <div class="card-details">
-        <h3 class="card-title">{{ _("English") }}</h3>
-        <p class="card-text">AdelHashem, ianz56</p>
-      </div>
-    </div>
-    <div style="margin-top: 20px; display: none;">
+    {% endif %}
+    <div style="margin-top: 20px;">
       <p>
         {{ _("And thanks to all contributors on") }} <a href="https://crowdin.com/project/spotmxm"
     target="_blank"
