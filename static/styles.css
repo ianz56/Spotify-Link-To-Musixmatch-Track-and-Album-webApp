@@ -177,6 +177,10 @@ button[type="submit"]:active {
   align-items: center;
 }
 
+.crowdin-contributor .card-title {
+  width: fit-content;
+}
+
 .card-text {
   margin: 0 0 4px 0;
   color: var(--text-muted);

@@ -37,7 +37,7 @@
                   gap: 20px;
                   justify-content: center">
         {% for contributor in contributors %}
-          <div class="card" style="width: 300px;">
+          <div class="card crowdin-contributor" style="max-width: 300px; flex: 1">
             <img src="{{ contributor.avatar_url }}"
                  alt="{{ contributor.username }}"
                  loading="lazy"
@@ -45,10 +45,16 @@
                         width: 100px;
                         height: 100px;
                         object-fit: cover;
-                        margin: 0 auto">
+                        margin: auto 20px">
             <div class="card-details">
               <h3 class="card-title">{{ contributor.full_name or contributor.username }}</h3>
               <p class="card-text">{{ contributor.username }}</p>
+              <p class="card-text">
+                {% for role in contributor.roles %}
+                  {{ role.name }}
+                  {% if not loop.last %},{% endif %}
+                {% endfor %}
+              </p>
             </div>
           </div>
         {% endfor %}
@@ -60,7 +66,7 @@
         </div>
       </div>
     {% endif %}
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px; display: none;">
       <p>
         {{ _("And thanks to all contributors on") }} <a href="https://crowdin.com/project/spotmxm"
     target="_blank"
