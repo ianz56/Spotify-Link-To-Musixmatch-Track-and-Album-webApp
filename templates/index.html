@@ -25,9 +25,13 @@
                     <h5 class="card-title">
                       {{ track.track_name }}
                       {% if track.lyrics_published_status == 1 %}
-                        <span class="badge-status badge-mxm">{{ _("Verified by Musixmatch") }}</span>
+                        <span class="badge-status badge-mxm">{{ _("Musixmatch") }}</span>
+                      {% elif track.lyrics_published_status == 3 %}
+                        <span class="badge-status badge-mxm">{{ _("Musixmatch (Restricted)") }}</span>
                       {% elif track.lyrics_published_status == 15 %}
-                        <span class="badge-status badge-curator">{{ _("Verified by Curator") }}</span>
+                        <span class="badge-status badge-curator">{{ _("Curator") }}</span>
+                      {% elif track.lyrics_published_status == 5 %}
+                        <span class="badge-status badge-curator">{{ _("Curator (Locked)") }}</span>
                       {% elif track.lyrics_published_status == 16 %}
                         <span class="badge-status badge-community">{{ _("Verified by Community") }}</span>
                       {% elif track.lyrics_published_status == 13 %}

@@ -697,7 +697,15 @@ async def abstrack() -> str:
 
 @app.route("/credits")
 def credits():
-    return render_template("credits.html")
+    contributors = []
+    try:
+        contributors_path = os.path.join(app.root_path, "contributors.json")
+        with open(contributors_path, encoding="utf-8") as f:
+            contributors = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        app.logger.error(f"Error loading contributors: {e}")
+
+    return render_template("credits.html", contributors=contributors)
 
 
 @app.route("/BingSiteAuth.xml")
