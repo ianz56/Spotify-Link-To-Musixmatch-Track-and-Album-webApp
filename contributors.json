@@ -1,0 +1,33 @@
+[
+  {
+    "username": "ianperd__",
+    "full_name": "Ian Perdiansah",
+    "avatar_url": "https://crowdin-static.cf-downloads.crowdin.com/avatar/13991727/medium/319be60e6a8b838b3abafc99fb66e546.jpg",
+    "roles": [
+      {
+        "name": "owner"
+      }
+    ]
+  },
+  {
+    "username": "rikoprn",
+    "full_name": "Riko Purnomo",
+    "avatar_url": "https://crowdin-static.cf-downloads.crowdin.com/avatar/14762646/medium/30ccdc2feab5809d2778aa09869b970a.png",
+    "roles": [
+      {
+        "name": "translator",
+        "permissions": {
+          "allLanguages": true,
+          "languagesAccess": []
+        }
+      },
+      {
+        "name": "proofreader",
+        "permissions": {
+          "allLanguages": true,
+          "languagesAccess": []
+        }
+      }
+    ]
+  }
+]
