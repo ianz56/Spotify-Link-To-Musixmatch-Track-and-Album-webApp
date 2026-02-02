@@ -559,7 +559,9 @@ class Musixmatch:
         params = {k: v for k, v in locals().items() if v is not None and k != "self"}
         return await self._api_call("get", "album.get", params)
 
-    async def album_tracks_get(self, album_id, f_has_lyrics=0, page=1, page_size=100):
+    async def album_tracks_get(
+        self, album_id, f_has_lyrics=0, page=1, page_size=100, **kwargs
+    ):
         """
         This api provides you the list of the songs of an album.
 
@@ -568,4 +570,10 @@ class Musixmatch:
         :param page: Define the page number for paginated results
         :param page_size: Define the page size for paginated results. Range is 1 to 100.
         """
-        return await self._api_call("get", "album.tracks.get", locals())
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "kwargs"
+        }
+        params.update(kwargs)
+        return await self._api_call("get", "album.tracks.get", params)

@@ -326,32 +326,64 @@ span.card-link:hover {
   transform: rotate(15deg);
 }
 
-table {
+/* Split Page Tracks */
+
+.split-card {
+  flex-wrap: wrap;
+}
+
+.split-tracks-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 24px;
+  margin-bottom: 20px;
 }
 
-th,
-td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
-}
-
-th {
+.track-card {
+  flex: 1;
   background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: left;
+}
+
+.track-card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.track-field {
+  margin-bottom: 12px;
+}
+
+.track-label {
   font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.85em;
+  margin-bottom: 4px;
+}
+
+.track-value {
   color: var(--text-color);
+  overflow-wrap: anywhere;
+  font-weight: 500;
 }
 
-th:first-child {
-  border-top-left-radius: var(--radius-md);
-}
-
-th:last-child {
-  border-top-right-radius: var(--radius-md);
+.result-message-container {
+  margin-top: 24px;
+  padding: 20px;
+  background-color: var(--bg-color);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  flex: 1;
 }
 
 .container .output {
@@ -551,6 +583,7 @@ th:last-child {
   body {
     padding: 0 20px;
   }
+
   .container {
     padding: 24px;
   }
@@ -565,6 +598,20 @@ th:last-child {
     width: 100%;
     max-width: 200px;
     height: auto;
+  }
+
+  /* Stack tracks on mobile */
+  .split-card {
+    padding: 2px;
+  }
+
+  .split-tracks-container {
+    flex-direction: column;
+  }
+
+  .track-card {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .navbar {
@@ -671,6 +718,38 @@ th:last-child {
 
 .dropbtn {
   cursor: pointer;
+}
+
+.copy-target {
+  background-color: var(--bg-color);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  border: 1px solid var(--primary-color);
+  cursor: text;
+  margin: 10px;
+  overflow-wrap: anywhere;
+}
+
+.btn-copy {
+  border-radius: var(--radius-md);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--primary-color);
+  background: var(--card-bg);
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.btn-copy:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: var(--bg-color);
+}
+
+.btn-copy:active {
+  transform: translateY(0);
 }
 
 /* Mobile Dropdown Fix */
@@ -795,6 +874,7 @@ th:last-child {
     margin-top: 10px;
   }
 }
+
 /* Offline Message */
 #offline-div h3 {
   font-size: 50px;
@@ -815,30 +895,29 @@ th:last-child {
 }
 
 .badge-mxm {
-  background-color: rgba(
-    255,
-    96,
-    80,
-    0.1
-  ); /* Musixmatch brand color approximation */
+  background-color: rgba(255, 96, 80, 0.1);
+  /* Musixmatch brand color approximation */
   color: #ff6050;
   border: 1px solid rgba(255, 96, 80, 0.2);
 }
 
 .badge-curator {
-  background-color: rgba(16, 185, 129, 0.1); /* Green for Curator */
+  background-color: rgba(16, 185, 129, 0.1);
+  /* Green for Curator */
   color: #10b981;
   border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .badge-community {
-  background-color: rgba(59, 130, 246, 0.1); /* Blue for Community */
+  background-color: rgba(59, 130, 246, 0.1);
+  /* Blue for Community */
   color: #3b82f6;
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .badge-artist {
-  background-color: rgba(147, 51, 234, 0.1); /* Purole for Verified Artist */
+  background-color: rgba(147, 51, 234, 0.1);
+  /* Purole for Verified Artist */
   color: #9333ea;
   border: 1px solid rgba(147, 51, 234, 0.2);
 }
@@ -893,8 +972,10 @@ body.preload {
 }
 
 .badge-cached {
-  background-color: rgba(245, 158, 11, 0.1); /* Amber/Orange tint */
-  color: #d97706; /* Amber-600 */
+  background-color: rgba(245, 158, 11, 0.1);
+  /* Amber/Orange tint */
+  color: #d97706;
+  /* Amber-600 */
   padding: 2px 8px;
   border-radius: var(--radius-full);
   font-weight: 600;
@@ -923,6 +1004,7 @@ body.preload {
 @media (prefers-color-scheme: dark) {
   .badge-cached {
     background-color: rgba(245, 158, 11, 0.2);
-    color: #fbbf24; /* Amber-400 */
+    color: #fbbf24;
+    /* Amber-400 */
   }
 }

@@ -4,7 +4,7 @@ services:
   app:
     build: .
     ports:
-      - "8555:8000"
+      - "8556:8556"
     environment:
       - secret_key
       - FLASK_ENV
