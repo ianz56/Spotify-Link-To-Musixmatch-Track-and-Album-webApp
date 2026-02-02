@@ -57,7 +57,7 @@ class Spotify:
 
             doc = doc[0]
             cred = doc["cred"][doc["rr"]]
-            logging.info(f"Spotify Cred: {cred}")
+            logging.info(f"Using Spotify credential set index: {doc['rr']}")
             r.json().set("spotify", "$.rr", (doc["rr"] + 1) % len(doc["cred"]))
             r.close()
             cred = SpotifyClientCredentials(cred[0], cred[1])
