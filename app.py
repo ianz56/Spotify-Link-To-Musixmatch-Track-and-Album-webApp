@@ -699,10 +699,12 @@ async def abstrack() -> str:
 def credits():
     contributors = []
     try:
-        with open("contributors.json", encoding="utf-8") as f:
+        contributors_path = os.path.join(app.root_path, "contributors.json")
+        with open(contributors_path, encoding="utf-8") as f:
             contributors = json.load(f)
-    except FileNotFoundError:
-        pass
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        app.logger.error(f"Error loading contributors: {e}")
+
     return render_template("credits.html", contributors=contributors)
 
 
