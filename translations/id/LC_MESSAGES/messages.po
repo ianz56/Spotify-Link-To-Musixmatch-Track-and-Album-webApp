@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-01-30 01:37+0700\n"
-"PO-Revision-Date: 2026-01-30 02:38\n"
+"PO-Revision-Date: 2026-02-02 02:48\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
@@ -28,23 +28,23 @@ msgstr "Terdapat kesalahan yang tak terduga, silakan coba lagi"
 
 #: app.py:404
 msgid "Can be split"
-msgstr ""
+msgstr "Bisa dipisahkan"
 
 #: app.py:405
 msgid "You can copy and paste this:"
-msgstr ""
+msgstr "Kamu bisa salin dan tempel ini:"
 
 #: app.py:414
 msgid "Copy Template"
-msgstr ""
+msgstr "Salin Templat"
 
 #: app.py:423
 msgid "Copied to clipboard!"
-msgstr ""
+msgstr "Disalin ke papan klip!"
 
 #: app.py:431
 msgid "Can not be splitted as they have the Same ISRC"
-msgstr "Tidak bisa di-split karena memiliki ISRC yang sama"
+msgstr "Tidak bisa dipisahkan karena memiliki ISRC yang sama"
 
 #: app.py:433
 msgid "They have different Pages"
@@ -94,7 +94,7 @@ msgstr "Abstrak Musixmatch:"
 
 #: templates/abstrack.html:9 templates/apple.html:9 templates/index.html:9 templates/mxm.html:12 templates/split.html:9 templates/split.html:12
 msgid " E.g.:"
-msgstr ""
+msgstr " Mis.:"
 
 #: templates/abstrack.html:10 templates/apple.html:11 templates/index.html:11 templates/isrc.html:13 templates/mxm.html:13
 msgid "Get links"
@@ -138,27 +138,27 @@ msgstr "Link:"
 
 #: templates/abstrack.html:55
 msgid "Verified by:"
-msgstr ""
+msgstr "Terverifikasi oleh:"
 
 #: templates/abstrack.html:57 templates/mxm.html:36
 msgid "Musixmatch"
-msgstr ""
+msgstr "Musixmatch"
 
 #: templates/abstrack.html:59 templates/mxm.html:38
 msgid "Curator"
-msgstr ""
+msgstr "Kurator"
 
 #: templates/abstrack.html:61 templates/mxm.html:40
 msgid "Community"
-msgstr ""
+msgstr "Komunitas"
 
 #: templates/abstrack.html:63 templates/mxm.html:42
 msgid "Artist"
-msgstr ""
+msgstr "Artis"
 
 #: templates/abstrack.html:66 templates/apple.html:36 templates/index.html:35 templates/mxm.html:45
 msgid "Unknown"
-msgstr ""
+msgstr "Tidak dikenal"
 
 #: templates/abstrack.html:70
 msgid "Album Info:"
@@ -270,19 +270,19 @@ msgstr "Link Trek Apple Music:"
 
 #: templates/apple.html:27
 msgid "Verified By Musixmatch"
-msgstr ""
+msgstr "Terverifikasi oleh Musixmatch"
 
 #: templates/apple.html:29
 msgid "Verified By Curator"
-msgstr ""
+msgstr "Terverifikasi oleh Kurator"
 
 #: templates/apple.html:31
 msgid "Verified By Community"
-msgstr ""
+msgstr "Terverifikasi oleh Komunitas"
 
 #: templates/apple.html:33
 msgid "Verified By Artist"
-msgstr ""
+msgstr "Terverifikasi oleh Artis"
 
 #: templates/apple.html:54 templates/index.html:44 templates/index.html:51
 msgid "Artist:"
@@ -294,7 +294,7 @@ msgstr "Catatan:"
 
 #: templates/apple.html:64 templates/index.html:63 templates/mxm.html:83
 msgid " Data fetched from cache"
-msgstr ""
+msgstr " Data diambil dari cache"
 
 #: templates/apple.html:69 templates/index.html:68 templates/mxm.html:95
 msgid "Cached"
@@ -418,19 +418,19 @@ msgstr "Link Lagu|Album|Artis Spotify atau ISRC:"
 
 #: templates/index.html:26
 msgid "Verified by Musixmatch"
-msgstr ""
+msgstr "Terverifikasi oleh Musixmatch"
 
 #: templates/index.html:28
 msgid "Verified by Curator"
-msgstr ""
+msgstr "Terverifikasi oleh Kurator"
 
 #: templates/index.html:30
 msgid "Verified by Community"
-msgstr ""
+msgstr "Terverifikasi oleh Komunitas"
 
 #: templates/index.html:32
 msgid "Verified by Artist"
-msgstr ""
+msgstr "Terverifikasi oleh Artis"
 
 #: templates/index.html:111
 msgid "How to Use?"
@@ -474,7 +474,7 @@ msgstr "Jika halaman trek terhubung ke banyak album, silakan gunakan link album.
 
 #: templates/mxm.html:34
 msgid "Verified by"
-msgstr ""
+msgstr "Terverifikasi oleh"
 
 #: templates/split.html:8
 msgid "Track 1:"
@@ -494,19 +494,19 @@ msgstr "Trek 1"
 
 #: templates/split.html:27 templates/split.html:49
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: templates/split.html:31 templates/split.html:53
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: templates/split.html:35 templates/split.html:57
 msgid "Track ID"
-msgstr ""
+msgstr "ID Lagu"
 
 #: templates/split.html:39 templates/split.html:61
 msgid "MXM Link"
-msgstr ""
+msgstr "Link MXM"
 
 #: templates/split.html:47
 msgid "Track 2"
