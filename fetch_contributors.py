@@ -26,7 +26,7 @@ def fetch_contributors():
         params = {"limit": limit, "offset": offset}
 
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params, timeout=30)
             response.raise_for_status()
             data = response.json()
 
