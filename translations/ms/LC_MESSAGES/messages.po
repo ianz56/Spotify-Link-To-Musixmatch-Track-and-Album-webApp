@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-30 01:37+0700\n"
-"PO-Revision-Date: 2026-01-30 02:38\n"
+"POT-Creation-Date: 2026-02-02 20:31+0700\n"
+"PO-Revision-Date: 2026-02-03 02:44\n"
 "Last-Translator: \n"
 "Language: ms\n"
 "Language-Team: Malay\n"
@@ -18,51 +18,51 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 12\n"
 
-#: app.py:298
+#: app.py:297
 msgid "Wrong Spotify Link Or Wrong ISRC"
 msgstr ""
 
-#: app.py:327 app.py:335
+#: app.py:326 app.py:334
 msgid "An unexpected error occurred, please try again"
 msgstr ""
 
-#: app.py:404
+#: app.py:403
 msgid "Can be split"
 msgstr ""
 
-#: app.py:405
+#: app.py:404
 msgid "You can copy and paste this:"
 msgstr ""
 
-#: app.py:414
+#: app.py:413
 msgid "Copy Template"
 msgstr ""
 
-#: app.py:423
+#: app.py:422
 msgid "Copied to clipboard!"
 msgstr ""
 
-#: app.py:431
+#: app.py:430
 msgid "Can not be splitted as they have the Same ISRC"
 msgstr ""
 
-#: app.py:433
+#: app.py:432
 msgid "They have different Pages"
 msgstr ""
 
-#: app.py:436
+#: app.py:435
 msgid "Something went wrong"
 msgstr ""
 
-#: app.py:445 app.py:465
+#: app.py:444 app.py:464
 msgid "Wrong Spotify Link"
 msgstr ""
 
-#: app.py:582
+#: app.py:581
 msgid "Please Enter A Valid Key"
 msgstr ""
 
-#: app.py:686
+#: app.py:685
 msgid "Invalid input!"
 msgstr ""
 
@@ -92,103 +92,111 @@ msgstr ""
 msgid "Musixmatch abstrack:"
 msgstr ""
 
-#: templates/abstrack.html:9 templates/apple.html:9 templates/index.html:9 templates/mxm.html:12 templates/split.html:9 templates/split.html:12
+#: templates/abstrack.html:12 templates/apple.html:12 templates/index.html:12 templates/mxm.html:12 templates/split.html:12 templates/split.html:17
 msgid " E.g.:"
 msgstr ""
 
-#: templates/abstrack.html:10 templates/apple.html:11 templates/index.html:11 templates/isrc.html:13 templates/mxm.html:13
+#: templates/abstrack.html:13 templates/apple.html:13 templates/index.html:13 templates/isrc.html:13 templates/mxm.html:13
 msgid "Get links"
 msgstr ""
 
-#: templates/abstrack.html:19 templates/abstrack.html:143
+#: templates/abstrack.html:22 templates/abstrack.html:159
 msgid "Error:"
 msgstr ""
 
-#: templates/abstrack.html:30
+#: templates/abstrack.html:33
 msgid "Track Info:"
 msgstr ""
 
-#: templates/abstrack.html:32
+#: templates/abstrack.html:35
 msgid "Track Name:"
 msgstr ""
 
-#: templates/abstrack.html:35
+#: templates/abstrack.html:38
 msgid "Album Name:"
 msgstr ""
 
-#: templates/abstrack.html:38
+#: templates/abstrack.html:41
 msgid "Artist Name:"
 msgstr ""
 
-#: templates/abstrack.html:41
+#: templates/abstrack.html:44
 msgid "Explicit:"
 msgstr ""
 
-#: templates/abstrack.html:44
+#: templates/abstrack.html:47
 msgid "Has Lyrics:"
 msgstr ""
 
-#: templates/abstrack.html:47
+#: templates/abstrack.html:50
 msgid "Has Subtitles:"
 msgstr ""
 
-#: templates/abstrack.html:50
+#: templates/abstrack.html:53
 msgid "Link:"
 msgstr ""
 
-#: templates/abstrack.html:55
+#: templates/abstrack.html:60
 msgid "Verified by:"
 msgstr ""
 
-#: templates/abstrack.html:57 templates/mxm.html:36
+#: templates/abstrack.html:62 templates/apple.html:29 templates/index.html:28 templates/mxm.html:36
 msgid "Musixmatch"
 msgstr ""
 
-#: templates/abstrack.html:59 templates/mxm.html:38
+#: templates/abstrack.html:64 templates/apple.html:31 templates/index.html:30 templates/mxm.html:38
+msgid "Musixmatch (Restricted)"
+msgstr ""
+
+#: templates/abstrack.html:66 templates/apple.html:33 templates/index.html:32 templates/mxm.html:40
 msgid "Curator"
 msgstr ""
 
-#: templates/abstrack.html:61 templates/mxm.html:40
+#: templates/abstrack.html:68 templates/apple.html:35 templates/index.html:34 templates/mxm.html:42
+msgid "Curator (Locked)"
+msgstr ""
+
+#: templates/abstrack.html:70 templates/mxm.html:44
 msgid "Community"
 msgstr ""
 
-#: templates/abstrack.html:63 templates/mxm.html:42
+#: templates/abstrack.html:72 templates/mxm.html:46
 msgid "Artist"
 msgstr ""
 
-#: templates/abstrack.html:66 templates/apple.html:36 templates/index.html:35 templates/mxm.html:45
+#: templates/abstrack.html:75 templates/apple.html:42 templates/index.html:41 templates/mxm.html:49
 msgid "Unknown"
 msgstr ""
 
-#: templates/abstrack.html:70
+#: templates/abstrack.html:79
 msgid "Album Info:"
 msgstr ""
 
-#: templates/abstrack.html:72 templates/isrc.html:27 templates/mxm.html:26
+#: templates/abstrack.html:81 templates/isrc.html:27 templates/mxm.html:26
 msgid "Album:"
 msgstr ""
 
-#: templates/abstrack.html:77 templates/mxm.html:31
+#: templates/abstrack.html:87 templates/mxm.html:31
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:81 templates/abstrack.html:94 templates/mxm.html:50 templates/mxm.html:63
+#: templates/abstrack.html:91 templates/abstrack.html:106 templates/mxm.html:54 templates/mxm.html:67
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:94 templates/abstrack.html:112 templates/abstrack.html:130 templates/mxm.html:63 templates/mxm.html:79
+#: templates/abstrack.html:106 templates/abstrack.html:126 templates/abstrack.html:146 templates/mxm.html:67 templates/mxm.html:83
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:99 templates/abstrack.html:112 templates/mxm.html:66 templates/mxm.html:79
+#: templates/abstrack.html:111 templates/abstrack.html:126 templates/mxm.html:70 templates/mxm.html:83
 msgid "Apple Music source:"
 msgstr ""
 
-#: templates/abstrack.html:117 templates/abstrack.html:130
+#: templates/abstrack.html:131 templates/abstrack.html:146
 msgid "Amazon Music source:"
 msgstr ""
 
-#: templates/abstrack.html:156 templates/isrc.html:125 templates/mxm.html:127
+#: templates/abstrack.html:172 templates/isrc.html:125 templates/mxm.html:131
 msgid "Countries"
 msgstr ""
 
@@ -268,39 +276,31 @@ msgstr ""
 msgid "Apple Music Track Link:"
 msgstr ""
 
-#: templates/apple.html:27
-msgid "Verified By Musixmatch"
-msgstr ""
-
-#: templates/apple.html:29
-msgid "Verified By Curator"
-msgstr ""
-
-#: templates/apple.html:31
+#: templates/apple.html:37
 msgid "Verified By Community"
 msgstr ""
 
-#: templates/apple.html:33
+#: templates/apple.html:39
 msgid "Verified By Artist"
 msgstr ""
 
-#: templates/apple.html:54 templates/index.html:44 templates/index.html:51
+#: templates/apple.html:61 templates/index.html:51 templates/index.html:59
 msgid "Artist:"
 msgstr ""
 
-#: templates/apple.html:61 templates/index.html:60
+#: templates/apple.html:70 templates/index.html:70
 msgid "Note:"
 msgstr ""
 
-#: templates/apple.html:64 templates/index.html:63 templates/mxm.html:83
+#: templates/apple.html:73 templates/index.html:73 templates/mxm.html:87
 msgid " Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:69 templates/index.html:68 templates/mxm.html:95
+#: templates/apple.html:85 templates/index.html:85 templates/mxm.html:99
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:76 templates/index.html:75 templates/mxm.html:102
+#: templates/apple.html:92 templates/index.html:92 templates/mxm.html:106
 msgid "Refresh"
 msgstr ""
 
@@ -372,39 +372,23 @@ msgstr ""
 msgid "Translators"
 msgstr ""
 
-#: templates/credits.html:36
+#: templates/credits.html:65
 msgid "Coming Soon"
 msgstr ""
 
-#: templates/credits.html:41
-msgid "Indonesian"
-msgstr ""
-
-#: templates/credits.html:47
-msgid "Sundanese"
-msgstr ""
-
-#: templates/credits.html:48
-msgid "Community Contributors"
-msgstr ""
-
-#: templates/credits.html:53
-msgid "English"
-msgstr ""
-
-#: templates/credits.html:59
+#: templates/credits.html:71
 msgid "And thanks to all contributors on"
 msgstr ""
 
-#: templates/credits.html:65
+#: templates/credits.html:77
 msgid "License"
 msgstr ""
 
-#: templates/credits.html:69
+#: templates/credits.html:81
 msgid "This project is licensed under the MIT License."
 msgstr ""
 
-#: templates/credits.html:73
+#: templates/credits.html:85
 msgid "View License"
 msgstr ""
 
@@ -416,23 +400,15 @@ msgstr ""
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr ""
 
-#: templates/index.html:26
-msgid "Verified by Musixmatch"
-msgstr ""
-
-#: templates/index.html:28
-msgid "Verified by Curator"
-msgstr ""
-
-#: templates/index.html:30
+#: templates/index.html:36
 msgid "Verified by Community"
 msgstr ""
 
-#: templates/index.html:32
+#: templates/index.html:38
 msgid "Verified by Artist"
 msgstr ""
 
-#: templates/index.html:111
+#: templates/index.html:132
 msgid "How to Use?"
 msgstr ""
 
@@ -480,35 +456,35 @@ msgstr ""
 msgid "Track 1:"
 msgstr ""
 
-#: templates/split.html:11
+#: templates/split.html:13
 msgid "Track 2:"
 msgstr ""
 
-#: templates/split.html:14
+#: templates/split.html:18
 msgid "Check"
 msgstr ""
 
-#: templates/split.html:25
+#: templates/split.html:29
 msgid "Track 1"
 msgstr ""
 
-#: templates/split.html:27 templates/split.html:49
+#: templates/split.html:31 templates/split.html:54
 msgid "ISRC"
 msgstr ""
 
-#: templates/split.html:31 templates/split.html:53
+#: templates/split.html:35 templates/split.html:58
 msgid "Name"
 msgstr ""
 
-#: templates/split.html:35 templates/split.html:57
+#: templates/split.html:39 templates/split.html:62
 msgid "Track ID"
 msgstr ""
 
-#: templates/split.html:39 templates/split.html:61
+#: templates/split.html:43 templates/split.html:66
 msgid "MXM Link"
 msgstr ""
 
-#: templates/split.html:47
+#: templates/split.html:52
 msgid "Track 2"
 msgstr ""
 
@@ -558,5 +534,29 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Musixmatch Link:"
+#~ msgstr ""
+
+#~ msgid "Verified By Musixmatch"
+#~ msgstr ""
+
+#~ msgid "Verified By Curator"
+#~ msgstr ""
+
+#~ msgid "Indonesian"
+#~ msgstr ""
+
+#~ msgid "Sundanese"
+#~ msgstr ""
+
+#~ msgid "Community Contributors"
+#~ msgstr ""
+
+#~ msgid "English"
+#~ msgstr ""
+
+#~ msgid "Verified by Musixmatch"
+#~ msgstr ""
+
+#~ msgid "Verified by Curator"
 #~ msgstr ""
 
