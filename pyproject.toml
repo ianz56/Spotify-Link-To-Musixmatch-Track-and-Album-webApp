@@ -20,7 +20,7 @@ dependencies = [
     "hypercorn",
     "aiohttp==3.13.3",
     "click==8.3.1",
-    "gunicorn==24.1.1",
+    "gunicorn==25.0.1",
     "importlib-metadata==8.7.1",
     "itsdangerous==2.2.0",
     "Jinja2==3.1.6",
