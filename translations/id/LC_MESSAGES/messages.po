@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-02 20:31+0700\n"
-"PO-Revision-Date: 2026-02-03 02:44\n"
+"PO-Revision-Date: 2026-02-04 02:39\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
@@ -146,7 +146,7 @@ msgstr "Musixmatch"
 
 #: templates/abstrack.html:64 templates/apple.html:31 templates/index.html:30 templates/mxm.html:38
 msgid "Musixmatch (Restricted)"
-msgstr ""
+msgstr "Musixmatch (Terbatas)"
 
 #: templates/abstrack.html:66 templates/apple.html:33 templates/index.html:32 templates/mxm.html:40
 msgid "Curator"
@@ -154,7 +154,7 @@ msgstr "Kurator"
 
 #: templates/abstrack.html:68 templates/apple.html:35 templates/index.html:34 templates/mxm.html:42
 msgid "Curator (Locked)"
-msgstr ""
+msgstr "Kurator (Terkunci)"
 
 #: templates/abstrack.html:70 templates/mxm.html:44
 msgid "Community"
@@ -310,7 +310,7 @@ msgstr "Tidak Ada Koneksi Internet"
 
 #: templates/base.html:48
 msgid "Make sure you're connected to the internet."
-msgstr "Pastikan Anda terhubung ke internet."
+msgstr "Pastikan kamu terhubung ke internet."
 
 #: templates/base.html:56
 msgid "Home Page"
