@@ -16,3 +16,4 @@ test_check_request.py
 .cache
 .venv
 *.egg-info
+venv
