@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% from 'layout/published_map.html' import status_map %}
 {% block title %}{{ _("Apple Music to Musixmatch Link") }}{% endblock %}
 {% block content %}
   <div class="container">
@@ -24,23 +25,11 @@
                   <div class="card-details">
                     <h5 class="card-title">
                       {{ track.track_name }}
-                      {% if track.lyrics_published_status %}
-                        {% if track.lyrics_published_status == 1 %}
-                          <span class="badge-status badge-mxm">{{ _("Musixmatch") }}</span>
-                        {% elif track.lyrics_published_status == 3 %}
-                          <span class="badge-status badge-mxm">{{ _("Musixmatch (Restricted)") }}</span>
-                        {% elif track.lyrics_published_status == 15 %}
-                          <span class="badge-status badge-curator">{{ _("Curator") }}</span>
-                        {% elif track.lyrics_published_status == 5 %}
-                          <span class="badge-status badge-curator">{{ _("Curator (Locked)") }}</span>
-                        {% elif track.lyrics_published_status == 16 %}
-                          <span class="badge-status badge-community">{{ _("Verified By Community") }}</span>
-                        {% elif track.lyrics_published_status == 13 %}
-                          <span class="badge-status badge-artist">{{ _("Verified By Artist") }}</span>
-                        {% else %}
-                          <span class="badge-status badge-unknown"
-                                title="Status Code: {{ track.lyrics_published_status }}">{{ _("Unknown") }}</span>
-                        {% endif %}
+                      {% if track.lyrics_published_status in status_map %}
+                        <span class="badge-status {{ status_map[track.lyrics_published_status].class }}">{{ _("Verified by ") }}{{
+                        status_map[track.lyrics_published_status].label }}</span>
+                      {% else %}
+                        <span class="badge-status badge-unknown">{{ _("Verified by ") }}{{ _("Unknown") }}</span>
                       {% endif %}
                     </h5>
                     {% if track.matcher_album %}
