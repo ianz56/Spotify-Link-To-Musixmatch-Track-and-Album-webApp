@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-02 20:31+0700\n"
-"PO-Revision-Date: 2026-02-03 02:44\n"
+"POT-Creation-Date: 2026-02-07 15:29+0700\n"
+"PO-Revision-Date: 2026-02-07 13:04\n"
 "Last-Translator: \n"
 "Language: ms\n"
 "Language-Team: Malay\n"
@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 "X-Crowdin-Project: spotmxm\n"
 "X-Crowdin-Project-ID: 858512\n"
 "X-Crowdin-Language: ms\n"
@@ -84,119 +84,99 @@ msgstr ""
 msgid "This track may missing its Spotify id"
 msgstr ""
 
-#: templates/abstrack.html:6
+#: templates/abstrack.html:7
 msgid "Musixmatch Abstrack"
 msgstr ""
 
-#: templates/abstrack.html:8
+#: templates/abstrack.html:9
 msgid "Musixmatch abstrack:"
 msgstr ""
 
-#: templates/abstrack.html:12 templates/apple.html:12 templates/index.html:12 templates/mxm.html:12 templates/split.html:12 templates/split.html:17
+#: templates/abstrack.html:13 templates/apple.html:13 templates/index.html:13 templates/mxm.html:13 templates/split.html:12 templates/split.html:17
 msgid " E.g.:"
 msgstr ""
 
-#: templates/abstrack.html:13 templates/apple.html:13 templates/index.html:13 templates/isrc.html:13 templates/mxm.html:13
+#: templates/abstrack.html:14 templates/apple.html:14 templates/index.html:14 templates/isrc.html:13 templates/mxm.html:14
 msgid "Get links"
 msgstr ""
 
-#: templates/abstrack.html:22 templates/abstrack.html:159
+#: templates/abstrack.html:23 templates/abstrack.html:150
 msgid "Error:"
 msgstr ""
 
-#: templates/abstrack.html:33
+#: templates/abstrack.html:34
 msgid "Track Info:"
 msgstr ""
 
-#: templates/abstrack.html:35
+#: templates/abstrack.html:36
 msgid "Track Name:"
 msgstr ""
 
-#: templates/abstrack.html:38
+#: templates/abstrack.html:39
 msgid "Album Name:"
 msgstr ""
 
-#: templates/abstrack.html:41
+#: templates/abstrack.html:42
 msgid "Artist Name:"
 msgstr ""
 
-#: templates/abstrack.html:44
+#: templates/abstrack.html:45
 msgid "Explicit:"
 msgstr ""
 
-#: templates/abstrack.html:47
+#: templates/abstrack.html:48
 msgid "Has Lyrics:"
 msgstr ""
 
-#: templates/abstrack.html:50
+#: templates/abstrack.html:51
 msgid "Has Subtitles:"
 msgstr ""
 
-#: templates/abstrack.html:53
+#: templates/abstrack.html:54
 msgid "Link:"
 msgstr ""
 
-#: templates/abstrack.html:60
+#: templates/abstrack.html:61
 msgid "Verified by:"
 msgstr ""
 
-#: templates/abstrack.html:62 templates/apple.html:29 templates/index.html:28 templates/mxm.html:36
-msgid "Musixmatch"
+#: templates/abstrack.html:63 templates/abstrack.html:66 templates/apple.html:29 templates/apple.html:32 templates/index.html:29 templates/index.html:32 templates/mxm.html:40
+msgid "Verified by "
 msgstr ""
 
-#: templates/abstrack.html:64 templates/apple.html:31 templates/index.html:30 templates/mxm.html:38
-msgid "Musixmatch (Restricted)"
-msgstr ""
-
-#: templates/abstrack.html:66 templates/apple.html:33 templates/index.html:32 templates/mxm.html:40
-msgid "Curator"
-msgstr ""
-
-#: templates/abstrack.html:68 templates/apple.html:35 templates/index.html:34 templates/mxm.html:42
-msgid "Curator (Locked)"
-msgstr ""
-
-#: templates/abstrack.html:70 templates/mxm.html:44
-msgid "Community"
-msgstr ""
-
-#: templates/abstrack.html:72 templates/mxm.html:46
-msgid "Artist"
-msgstr ""
-
-#: templates/abstrack.html:75 templates/apple.html:42 templates/index.html:41 templates/mxm.html:49
+#: templates/abstrack.html:66 templates/apple.html:32 templates/index.html:32 templates/mxm.html:40
 msgid "Unknown"
 msgstr ""
 
-#: templates/abstrack.html:79
+#: templates/abstrack.html:70
 msgid "Album Info:"
 msgstr ""
 
-#: templates/abstrack.html:81 templates/isrc.html:27 templates/mxm.html:26
+#: templates/abstrack.html:72 templates/isrc.html:27 templates/mxm.html:27
 msgid "Album:"
 msgstr ""
 
-#: templates/abstrack.html:87 templates/mxm.html:31
+#: templates/abstrack.html:78 templates/mxm.html:32
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:91 templates/abstrack.html:106 templates/mxm.html:54 templates/mxm.html:67
+#: templates/abstrack.html:82 templates/abstrack.html:97 templates/mxm.html:45 templates/mxm.html:58
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:106 templates/abstrack.html:126 templates/abstrack.html:146 templates/mxm.html:67 templates/mxm.html:83
+#: templates/abstrack.html:97 templates/abstrack.html:117 templates/abstrack.html:137 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:111 templates/abstrack.html:126 templates/mxm.html:70 templates/mxm.html:83
+#: templates/abstrack.html:102 templates/abstrack.html:117 templates/mxm.html:61 templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr ""
 
-#: templates/abstrack.html:131 templates/abstrack.html:146
+#: templates/abstrack.html:122 templates/abstrack.html:137
 msgid "Amazon Music source:"
 msgstr ""
 
-#: templates/abstrack.html:172 templates/isrc.html:125 templates/mxm.html:131
+#: templates/abstrack.html:163 templates/isrc.html:125 templates/mxm.html:122
 msgid "Countries"
 msgstr ""
 
@@ -268,39 +248,31 @@ msgstr ""
 msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
 msgstr ""
 
-#: templates/apple.html:3 templates/apple.html:6
+#: templates/apple.html:4 templates/apple.html:7
 msgid "Apple Music to Musixmatch Link"
 msgstr ""
 
-#: templates/apple.html:8
+#: templates/apple.html:9
 msgid "Apple Music Track Link:"
 msgstr ""
 
-#: templates/apple.html:37
-msgid "Verified By Community"
-msgstr ""
-
-#: templates/apple.html:39
-msgid "Verified By Artist"
-msgstr ""
-
-#: templates/apple.html:61 templates/index.html:51 templates/index.html:59
+#: templates/apple.html:50 templates/index.html:42 templates/index.html:50
 msgid "Artist:"
 msgstr ""
 
-#: templates/apple.html:70 templates/index.html:70
+#: templates/apple.html:59 templates/index.html:61
 msgid "Note:"
 msgstr ""
 
-#: templates/apple.html:73 templates/index.html:73 templates/mxm.html:87
+#: templates/apple.html:62 templates/index.html:64 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:85 templates/index.html:85 templates/mxm.html:99
+#: templates/apple.html:74 templates/index.html:76 templates/mxm.html:90
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:92 templates/index.html:92 templates/mxm.html:106
+#: templates/apple.html:81 templates/index.html:83 templates/mxm.html:97
 msgid "Refresh"
 msgstr ""
 
@@ -392,23 +364,15 @@ msgstr ""
 msgid "View License"
 msgstr ""
 
-#: templates/index.html:6
+#: templates/index.html:7
 msgid "Spotify to Musixmatch Link"
 msgstr ""
 
-#: templates/index.html:8
+#: templates/index.html:9
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr ""
 
-#: templates/index.html:36
-msgid "Verified by Community"
-msgstr ""
-
-#: templates/index.html:38
-msgid "Verified by Artist"
-msgstr ""
-
-#: templates/index.html:132
+#: templates/index.html:123
 msgid "How to Use?"
 msgstr ""
 
@@ -432,23 +396,23 @@ msgstr ""
 msgid "No countries found."
 msgstr ""
 
-#: templates/mxm.html:6
+#: templates/mxm.html:7
 msgid "Musixmatch Album source"
 msgstr ""
 
-#: templates/mxm.html:8
+#: templates/mxm.html:9
 msgid "Musixmatch Album|track Link:"
 msgstr ""
 
-#: templates/mxm.html:17
+#: templates/mxm.html:18
 msgid "The tool can only get the source of the album."
 msgstr ""
 
-#: templates/mxm.html:18
+#: templates/mxm.html:19
 msgid "If a track matches multiple albums, please use the album link."
 msgstr ""
 
-#: templates/mxm.html:34
+#: templates/mxm.html:35
 msgid "Verified by"
 msgstr ""
 
@@ -486,6 +450,34 @@ msgstr ""
 
 #: templates/split.html:52
 msgid "Track 2"
+msgstr ""
+
+#: templates/layout/published_map.html:2
+msgid "Musixmatch"
+msgstr ""
+
+#: templates/layout/published_map.html:3
+msgid "Musixmatch (Restricted)"
+msgstr ""
+
+#: templates/layout/published_map.html:4
+msgid "Curator"
+msgstr ""
+
+#: templates/layout/published_map.html:5 templates/layout/published_map.html:6
+msgid "Curator (Locked)"
+msgstr ""
+
+#: templates/layout/published_map.html:7
+msgid "Community"
+msgstr ""
+
+#: templates/layout/published_map.html:8
+msgid "Artist"
+msgstr ""
+
+#: templates/layout/published_map.html:9
+msgid "Artist (Edited by Specialist)"
 msgstr ""
 
 #~ msgid "Language"
@@ -558,5 +550,17 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Verified by Curator"
+#~ msgstr ""
+
+#~ msgid "Verified By Community"
+#~ msgstr ""
+
+#~ msgid "Verified By Artist"
+#~ msgstr ""
+
+#~ msgid "Verified by Community"
+#~ msgstr ""
+
+#~ msgid "Verified by Artist"
 #~ msgstr ""
 
