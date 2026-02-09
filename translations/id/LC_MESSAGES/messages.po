@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-07 15:29+0700\n"
-"PO-Revision-Date: 2026-02-07 13:04\n"
+"POT-Creation-Date: 2026-02-09 08:16+0700\n"
+"PO-Revision-Date: 2026-02-09 02:49\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
+"Generated-By: Babel 2.17.0\n"
 "X-Crowdin-Project: spotmxm\n"
 "X-Crowdin-Project-ID: 858512\n"
 "X-Crowdin-Language: id\n"
@@ -100,7 +100,7 @@ msgstr " Mis.:"
 msgid "Get links"
 msgstr "Dapatkan Link"
 
-#: templates/abstrack.html:23 templates/abstrack.html:150
+#: templates/abstrack.html:23 templates/abstrack.html:154
 msgid "Error:"
 msgstr "Error:"
 
@@ -124,6 +124,14 @@ msgstr "Nama Artis:"
 msgid "Explicit:"
 msgstr "Eksplisit:"
 
+#: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
+msgid "Yes"
+msgstr ""
+
+#: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
+msgid "No"
+msgstr ""
+
 #: templates/abstrack.html:48
 msgid "Has Lyrics:"
 msgstr "Memiliki Lirik:"
@@ -136,47 +144,47 @@ msgstr "Memiliki Subtitle:"
 msgid "Link:"
 msgstr "Link:"
 
-#: templates/abstrack.html:61
+#: templates/abstrack.html:65
 msgid "Verified by:"
 msgstr "Terverifikasi oleh:"
 
-#: templates/abstrack.html:63 templates/abstrack.html:66 templates/apple.html:29 templates/apple.html:32 templates/index.html:29 templates/index.html:32 templates/mxm.html:40
+#: templates/abstrack.html:67 templates/abstrack.html:70 templates/apple.html:29 templates/apple.html:32 templates/index.html:29 templates/index.html:32 templates/mxm.html:40
 msgid "Verified by "
-msgstr ""
+msgstr "Terverifikasi oleh "
 
-#: templates/abstrack.html:66 templates/apple.html:32 templates/index.html:32 templates/mxm.html:40
+#: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:32 templates/mxm.html:40
 msgid "Unknown"
 msgstr "Tidak dikenal"
 
-#: templates/abstrack.html:70
+#: templates/abstrack.html:74
 msgid "Album Info:"
 msgstr "Info Album:"
 
-#: templates/abstrack.html:72 templates/isrc.html:27 templates/mxm.html:27
+#: templates/abstrack.html:76 templates/isrc.html:27 templates/mxm.html:27
 msgid "Album:"
 msgstr "Album:"
 
-#: templates/abstrack.html:78 templates/mxm.html:32
+#: templates/abstrack.html:82 templates/mxm.html:32
 msgid "Album ID:"
 msgstr "ID Album:"
 
-#: templates/abstrack.html:82 templates/abstrack.html:97 templates/mxm.html:45 templates/mxm.html:58
+#: templates/abstrack.html:86 templates/abstrack.html:101 templates/mxm.html:45 templates/mxm.html:58
 msgid "Spotify source:"
 msgstr "Sumber Spotify:"
 
-#: templates/abstrack.html:97 templates/abstrack.html:117 templates/abstrack.html:137 templates/mxm.html:58 templates/mxm.html:74
+#: templates/abstrack.html:101 templates/abstrack.html:121 templates/abstrack.html:141 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr "Tidak Ada Sumber Terhubung"
 
-#: templates/abstrack.html:102 templates/abstrack.html:117 templates/mxm.html:61 templates/mxm.html:74
+#: templates/abstrack.html:106 templates/abstrack.html:121 templates/mxm.html:61 templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr "Sumber Apple Music:"
 
-#: templates/abstrack.html:122 templates/abstrack.html:137
+#: templates/abstrack.html:126 templates/abstrack.html:141
 msgid "Amazon Music source:"
 msgstr "Sumber Amazon Music:"
 
-#: templates/abstrack.html:163 templates/isrc.html:125 templates/mxm.html:122
+#: templates/abstrack.html:167 templates/isrc.html:125 templates/mxm.html:122
 msgid "Countries"
 msgstr "Negara"
 
@@ -260,19 +268,19 @@ msgstr "Link Trek Apple Music:"
 msgid "Artist:"
 msgstr "Artis:"
 
-#: templates/apple.html:59 templates/index.html:61
+#: templates/apple.html:64 templates/index.html:64
 msgid "Note:"
 msgstr "Catatan:"
 
-#: templates/apple.html:62 templates/index.html:64 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:67 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr " Data diambil dari cache"
 
-#: templates/apple.html:74 templates/index.html:76 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:79 templates/mxm.html:90
 msgid "Cached"
 msgstr "Di-cache"
 
-#: templates/apple.html:81 templates/index.html:83 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:86 templates/mxm.html:97
 msgid "Refresh"
 msgstr "Segarkan"
 
@@ -372,7 +380,7 @@ msgstr "Link Spotify ke Musixmatch"
 msgid "Spotify Track|Album|Artist Link Or ISRC:"
 msgstr "Link Lagu|Album|Artis Spotify atau ISRC:"
 
-#: templates/index.html:123
+#: templates/index.html:126
 msgid "How to Use?"
 msgstr "Cara Penggunaan?"
 
