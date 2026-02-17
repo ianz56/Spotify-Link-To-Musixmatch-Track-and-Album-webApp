@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-11 10:58+0700\n"
-"PO-Revision-Date: 2026-02-11 13:26\n"
+"PO-Revision-Date: 2026-02-17 13:19\n"
 "Last-Translator: \n"
 "Language: su\n"
 "Language-Team: Sundanese\n"
@@ -126,11 +126,11 @@ msgstr "Kasar:"
 
 #: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
 msgid "Yes"
-msgstr ""
+msgstr "Enya"
 
 #: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
 msgid "No"
-msgstr ""
+msgstr "Henteu"
 
 #: templates/abstrack.html:48
 msgid "Has Lyrics:"
@@ -150,7 +150,7 @@ msgstr "Divérifikasi ku:"
 
 #: templates/abstrack.html:67 templates/abstrack.html:70 templates/apple.html:29 templates/apple.html:32 templates/index.html:29 templates/index.html:32 templates/mxm.html:40
 msgid "Verified by "
-msgstr ""
+msgstr "Divérifikasi ku "
 
 #: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:32 templates/mxm.html:40
 msgid "Unknown"

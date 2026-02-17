@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-11 10:58+0700\n"
-"PO-Revision-Date: 2026-02-11 13:26\n"
+"PO-Revision-Date: 2026-02-17 13:19\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
@@ -126,11 +126,11 @@ msgstr "Eksplisit:"
 
 #: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 #: templates/abstrack.html:45 templates/abstrack.html:48 templates/abstrack.html:51
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: templates/abstrack.html:48
 msgid "Has Lyrics:"
@@ -482,7 +482,7 @@ msgstr "Komunitas"
 
 #: templates/layout/published_map.html:8
 msgid "Community (Published)"
-msgstr ""
+msgstr "Komunitas (Terpublikasi)"
 
 #: templates/layout/published_map.html:9
 msgid "Artist"
@@ -490,7 +490,7 @@ msgstr "Artis"
 
 #: templates/layout/published_map.html:10
 msgid "Artist (Edited by Specialist)"
-msgstr ""
+msgstr "Artis (Diedit oleh Spesialis)"
 
 #~ msgid "Language"
 #~ msgstr "Language"
