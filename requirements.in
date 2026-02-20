@@ -1,0 +1,15 @@
+flask
+mxmapi
+requests[security]
+spotipy
+hypercorn
+aiohttp
+gunicorn
+asgiref
+jellyfish
+redis[hiredis]
+python-dotenv
+Flask-Babel
+Flask-Caching
+beautifulsoup4
+urllib3
