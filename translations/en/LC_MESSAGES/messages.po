@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-11 10:58+0700\n"
+"POT-Creation-Date: 2026-02-20 19:14+0700\n"
 "PO-Revision-Date: 2026-01-01 15:36+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -485,10 +485,14 @@ msgid "Community (Published)"
 msgstr ""
 
 #: templates/layout/published_map.html:9
-msgid "Artist"
+msgid "Community (Locked/Published)"
 msgstr ""
 
 #: templates/layout/published_map.html:10
+msgid "Artist"
+msgstr ""
+
+#: templates/layout/published_map.html:11
 msgid "Artist (Edited by Specialist)"
 msgstr ""
 
