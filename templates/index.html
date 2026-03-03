@@ -190,7 +190,7 @@
                            class="card-link"
                            target="_blank">{{ _("Studio") }}</a>
                       </p>
-                      {% if track.note %}<p class="card-text">{{ _("Note:") }} {{ track.note|e }}</p>{% endif %}
+                      {% if track.note %}<p class="card-text">{{ _("Note:") }} {{ track.note|safe }}</p>{% endif %}
                       {% if is_cached %}
                         <div class="cached-info">
                           <span class="badge-cached" title="{{ _(" Data fetched from cache") }}">
