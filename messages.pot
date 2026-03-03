@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-03 20:52+0700\n"
+"POT-Creation-Date: 2026-03-03 20:58+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Has Subtitles:"
 msgstr ""
 
-#: templates/abstrack.html:54 templates/index.html:185
+#: templates/abstrack.html:54 templates/index.html:184
 msgid "Link:"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Verified by "
 msgstr ""
 
-#: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:70 templates/index.html:162 templates/mxm.html:40
+#: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:70 templates/index.html:161 templates/mxm.html:40
 msgid "Unknown"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgstr ""
 msgid "Album Info:"
 msgstr ""
 
-#: templates/abstrack.html:76 templates/index.html:26 templates/index.html:57 templates/index.html:167 templates/index.html:175 templates/isrc.html:27 templates/mxm.html:27
+#: templates/abstrack.html:76 templates/index.html:26 templates/index.html:57 templates/index.html:166 templates/index.html:174 templates/isrc.html:27 templates/mxm.html:27
 msgid "Album:"
 msgstr ""
 
@@ -263,23 +263,23 @@ msgstr ""
 msgid "Apple Music Track Link:"
 msgstr ""
 
-#: templates/apple.html:50 templates/index.html:172 templates/index.html:180
+#: templates/apple.html:50 templates/index.html:171 templates/index.html:179
 msgid "Artist:"
 msgstr ""
 
-#: templates/apple.html:64 templates/index.html:194
+#: templates/apple.html:64 templates/index.html:193
 msgid "Note:"
 msgstr ""
 
-#: templates/apple.html:67 templates/index.html:197 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:196 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:79 templates/index.html:120 templates/index.html:209 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:120 templates/index.html:208 templates/mxm.html:90
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:86 templates/index.html:127 templates/index.html:216 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:127 templates/index.html:215 templates/mxm.html:97
 msgid "Refresh"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Get Musixmatch album source and connected platforms."
 msgstr ""
 
-#: templates/index.html:28 templates/index.html:182
+#: templates/index.html:28 templates/index.html:181
 msgid "ISRC:"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 msgid "If a track matches multiple albums, please use the album link."
 msgstr ""
 
-#: templates/index.html:65 templates/index.html:157 templates/mxm.html:35
+#: templates/index.html:65 templates/index.html:158 templates/mxm.html:35
 msgid "Verified by"
 msgstr ""
 
@@ -411,35 +411,35 @@ msgstr ""
 msgid "Data fetched from cache"
 msgstr ""
 
-#: templates/index.html:183
+#: templates/index.html:182
 msgid "Track ID:"
 msgstr ""
 
-#: templates/index.html:188 templates/layout/published_map.html:2 templates/layout/published_map.html:3
+#: templates/index.html:187 templates/layout/published_map.html:2 templates/layout/published_map.html:3
 msgid "Musixmatch"
 msgstr ""
 
-#: templates/index.html:192
+#: templates/index.html:191
 msgid "Studio"
 msgstr ""
 
-#: templates/index.html:242
+#: templates/index.html:241
 msgid "Type:"
 msgstr ""
 
-#: templates/index.html:244
+#: templates/index.html:243
 msgid "Spotify:"
 msgstr ""
 
-#: templates/index.html:245
+#: templates/index.html:244
 msgid "Album link"
 msgstr ""
 
-#: templates/index.html:247
+#: templates/index.html:246
 msgid "Get MXM Links"
 msgstr ""
 
-#: templates/index.html:257
+#: templates/index.html:256
 msgid "How to Use?"
 msgstr ""
 
