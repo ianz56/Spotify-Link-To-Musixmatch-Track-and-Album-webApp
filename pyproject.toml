@@ -30,7 +30,7 @@ dependencies = [
     "asgiref",
     "jellyfish",
     "redis[hiredis]",
-    "python-dotenv==1.2.1",
+    "python-dotenv==1.2.2",
     "Flask-Babel",
     "Flask-Caching",
     "requests",
