@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-20 19:14+0700\n"
-"PO-Revision-Date: 2026-02-20 13:13\n"
+"POT-Creation-Date: 2026-03-03 20:58+0700\n"
+"PO-Revision-Date: 2026-03-03 14:08\n"
 "Last-Translator: \n"
 "Language: su\n"
 "Language-Team: Sundanese\n"
@@ -18,51 +18,51 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 12\n"
 
-#: app.py:297
+#: app.py:322
 msgid "Wrong Spotify Link Or Wrong ISRC"
 msgstr "Salah Link Spotify atawa ISRC"
 
-#: app.py:326 app.py:334
+#: app.py:370 app.py:390 app.py:397
 msgid "An unexpected error occurred, please try again"
 msgstr "Aya kasalahan teu diduga, mangga cobi deui"
 
-#: app.py:403
+#: app.py:468
 msgid "Can be split"
 msgstr "Tiasa dipisahkeun"
 
-#: app.py:404
+#: app.py:469
 msgid "You can copy and paste this:"
 msgstr "Anjeun tiasa salin sareng témpél ieu:"
 
-#: app.py:413
+#: app.py:478
 msgid "Copy Template"
 msgstr "Salin Template"
 
-#: app.py:422
+#: app.py:487
 msgid "Copied to clipboard!"
 msgstr "Disalin ka clipboard!"
 
-#: app.py:430
+#: app.py:495
 msgid "Can not be splitted as they have the Same ISRC"
 msgstr "Teu tiasa di-split sabab ISRC-na sami"
 
-#: app.py:432
+#: app.py:497
 msgid "They have different Pages"
 msgstr "Duanana gaduh Kaca nu béda"
 
-#: app.py:435
+#: app.py:500
 msgid "Something went wrong"
 msgstr "Aya kasalahan"
 
-#: app.py:444 app.py:464
+#: app.py:509 app.py:529
 msgid "Wrong Spotify Link"
 msgstr "Salah Link Spotify"
 
-#: app.py:581
+#: app.py:571
 msgid "Please Enter A Valid Key"
 msgstr "Mangga lebetkeun konci anu valid"
 
-#: app.py:685
+#: app.py:623
 msgid "Invalid input!"
 msgstr "Teu valid input!"
 
@@ -92,11 +92,11 @@ msgstr "Abstrak Musixmatch"
 msgid "Musixmatch abstrack:"
 msgstr "Abstrak Musixmatch:"
 
-#: templates/abstrack.html:13 templates/apple.html:13 templates/index.html:13 templates/mxm.html:13 templates/split.html:12 templates/split.html:17
+#: templates/abstrack.html:13 templates/apple.html:13 templates/mxm.html:13 templates/split.html:12 templates/split.html:17
 msgid " E.g.:"
 msgstr " Mis.:"
 
-#: templates/abstrack.html:14 templates/apple.html:14 templates/index.html:14 templates/isrc.html:13 templates/mxm.html:14
+#: templates/abstrack.html:14 templates/apple.html:14 templates/index.html:43 templates/isrc.html:13 templates/mxm.html:14
 msgid "Get links"
 msgstr "Téang link"
 
@@ -140,7 +140,7 @@ msgstr "Aya Lirik:"
 msgid "Has Subtitles:"
 msgstr "Aya Subtitel:"
 
-#: templates/abstrack.html:54
+#: templates/abstrack.html:54 templates/index.html:184
 msgid "Link:"
 msgstr "Link:"
 
@@ -148,11 +148,11 @@ msgstr "Link:"
 msgid "Verified by:"
 msgstr "Divérifikasi ku:"
 
-#: templates/abstrack.html:67 templates/abstrack.html:70 templates/apple.html:29 templates/apple.html:32 templates/index.html:29 templates/index.html:32 templates/mxm.html:40
+#: templates/abstrack.html:67 templates/abstrack.html:70 templates/apple.html:29 templates/apple.html:32 templates/mxm.html:40
 msgid "Verified by "
 msgstr "Divérifikasi ku "
 
-#: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:32 templates/mxm.html:40
+#: templates/abstrack.html:70 templates/apple.html:32 templates/index.html:70 templates/index.html:161 templates/mxm.html:40
 msgid "Unknown"
 msgstr "Teu dikenal"
 
@@ -160,23 +160,23 @@ msgstr "Teu dikenal"
 msgid "Album Info:"
 msgstr "Info Album:"
 
-#: templates/abstrack.html:76 templates/isrc.html:27 templates/mxm.html:27
+#: templates/abstrack.html:76 templates/index.html:26 templates/index.html:57 templates/index.html:166 templates/index.html:174 templates/isrc.html:27 templates/mxm.html:27
 msgid "Album:"
 msgstr "Album:"
 
-#: templates/abstrack.html:82 templates/mxm.html:32
+#: templates/abstrack.html:82 templates/index.html:62 templates/mxm.html:32
 msgid "Album ID:"
 msgstr "ID Album:"
 
-#: templates/abstrack.html:86 templates/abstrack.html:101 templates/mxm.html:45 templates/mxm.html:58
+#: templates/abstrack.html:86 templates/abstrack.html:101 templates/index.html:75 templates/index.html:88 templates/mxm.html:45 templates/mxm.html:58
 msgid "Spotify source:"
 msgstr "Sumber Spotify:"
 
-#: templates/abstrack.html:101 templates/abstrack.html:121 templates/abstrack.html:141 templates/mxm.html:58 templates/mxm.html:74
+#: templates/abstrack.html:101 templates/abstrack.html:121 templates/abstrack.html:141 templates/index.html:88 templates/index.html:104 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr "Taya Sumber Kahubung"
 
-#: templates/abstrack.html:106 templates/abstrack.html:121 templates/mxm.html:61 templates/mxm.html:74
+#: templates/abstrack.html:106 templates/abstrack.html:121 templates/index.html:91 templates/index.html:104 templates/mxm.html:61 templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr "Sumber Apple Music:"
 
@@ -264,71 +264,63 @@ msgstr "Apple Music ka Link Musixmatch"
 msgid "Apple Music Track Link:"
 msgstr "Link Lagu Apple Music:"
 
-#: templates/apple.html:50 templates/index.html:42 templates/index.html:50
+#: templates/apple.html:50 templates/index.html:171 templates/index.html:179
 msgid "Artist:"
 msgstr "Artis:"
 
-#: templates/apple.html:64 templates/index.html:64
+#: templates/apple.html:64 templates/index.html:193
 msgid "Note:"
 msgstr "Catetan:"
 
-#: templates/apple.html:67 templates/index.html:67 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:196 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr " Data dicandak tina cache"
 
-#: templates/apple.html:79 templates/index.html:79 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:120 templates/index.html:208 templates/mxm.html:90
 msgid "Cached"
 msgstr "Di-cache"
 
-#: templates/apple.html:86 templates/index.html:86 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:127 templates/index.html:215 templates/mxm.html:97
 msgid "Refresh"
 msgstr "Anyarkeun"
 
-#: templates/base.html:47
+#: templates/base.html:48
 msgid "No Internet Connection"
 msgstr "Taya Sambungan Internet"
 
-#: templates/base.html:48
+#: templates/base.html:49
 msgid "Make sure you're connected to the internet."
 msgstr "Pastikeun anjeun kahubung kana internet."
 
-#: templates/base.html:56
+#: templates/base.html:57
 msgid "Home Page"
 msgstr "Kaca Imah"
 
-#: templates/base.html:59
+#: templates/base.html:60
 msgid "Spotify Data"
 msgstr "Data Spotify"
 
-#: templates/base.html:62
-msgid "Apple Music Source"
-msgstr "Sumber Apple Music"
-
-#: templates/base.html:65
-msgid "MXM Source"
-msgstr "Sumber MXM"
-
-#: templates/base.html:68
+#: templates/base.html:69
 msgid "MXM Abstrack"
 msgstr "Abstrak MXM"
 
-#: templates/base.html:71 templates/split.html:6
+#: templates/base.html:72 templates/split.html:6
 msgid "Split Checker"
 msgstr "Split Checker"
 
-#: templates/base.html:74
+#: templates/base.html:75
 msgid "Set Token"
 msgstr "Atur Token"
 
-#: templates/base.html:97
+#: templates/base.html:98
 msgid "Contribute"
 msgstr "Kontribusi"
 
-#: templates/base.html:109 templates/credits.html:3 templates/credits.html:6
+#: templates/base.html:110 templates/credits.html:3 templates/credits.html:6
 msgid "Credits"
 msgstr "Krédit"
 
-#: templates/base.html:112
+#: templates/base.html:113
 msgid "Coded with ❤️ for music"
 msgstr "Dikodeu ku ❤️ pikeun musik"
 
@@ -372,15 +364,83 @@ msgstr "Proyék ieu dinaungan ku lisensina Lisensi MIT."
 msgid "View License"
 msgstr "Tingali Lisensi"
 
-#: templates/index.html:7
-msgid "Spotify to Musixmatch Link"
-msgstr "Link Spotify ka Musixmatch"
+#: templates/index.html:6 templates/index.html:17
+msgid "MXM Album Source"
+msgstr ""
 
-#: templates/index.html:9
-msgid "Spotify Track|Album|Artist Link Or ISRC:"
-msgstr "ISRC atawa Link Lagu|Album|Artis Spotify:"
+#: templates/index.html:10
+msgid "Artist Albums"
+msgstr ""
 
-#: templates/index.html:126
+#: templates/index.html:12 templates/index.html:35
+msgid "Spotify, Apple Music, or Musixmatch Link"
+msgstr ""
+
+#: templates/index.html:26
+msgid "Get Musixmatch album source and connected platforms."
+msgstr ""
+
+#: templates/index.html:28 templates/index.html:181
+msgid "ISRC:"
+msgstr ""
+
+#: templates/index.html:28
+msgid "Get Musixmatch link, Track ID, and Album info."
+msgstr ""
+
+#: templates/index.html:37
+msgid "Spotify, Apple Music, or Musixmatch Link (or ISRC):"
+msgstr ""
+
+#: templates/index.html:41 templates/isrc.html:12
+msgid "E.g.:"
+msgstr "Mis.:"
+
+#: templates/index.html:48 templates/mxm.html:18
+msgid "The tool can only get the source of the album."
+msgstr "Alat ieu ngan tiasa nyandak sumber pikeun album."
+
+#: templates/index.html:49 templates/mxm.html:19
+msgid "If a track matches multiple albums, please use the album link."
+msgstr "Upami lagu cocog sareng sababaraha album, mangga anggo tautan albumna."
+
+#: templates/index.html:65 templates/index.html:158 templates/mxm.html:35
+msgid "Verified by"
+msgstr "Divérifikasi ku"
+
+#: templates/index.html:108
+msgid "Data fetched from cache"
+msgstr ""
+
+#: templates/index.html:182
+msgid "Track ID:"
+msgstr ""
+
+#: templates/index.html:187 templates/layout/published_map.html:2 templates/layout/published_map.html:3
+msgid "Musixmatch"
+msgstr "Musixmatch"
+
+#: templates/index.html:191
+msgid "Studio"
+msgstr ""
+
+#: templates/index.html:241
+msgid "Type:"
+msgstr ""
+
+#: templates/index.html:243
+msgid "Spotify:"
+msgstr ""
+
+#: templates/index.html:244
+msgid "Album link"
+msgstr ""
+
+#: templates/index.html:246
+msgid "Get MXM Links"
+msgstr ""
+
+#: templates/index.html:256
 msgid "How to Use?"
 msgstr "Cara Ngagunakeun?"
 
@@ -391,10 +451,6 @@ msgstr "Candak Data Spotify"
 #: templates/isrc.html:8
 msgid "Spotify Track|Album Link or ISRC:"
 msgstr "ISRC atawa Link Lagu|Album Spotify:"
-
-#: templates/isrc.html:12
-msgid "E.g.:"
-msgstr "Mis.:"
 
 #: templates/isrc.html:41
 msgid "No Available Markets"
@@ -411,18 +467,6 @@ msgstr "Sumber Album Musixmatch"
 #: templates/mxm.html:9
 msgid "Musixmatch Album|track Link:"
 msgstr "Link Album|lagu Musixmatch:"
-
-#: templates/mxm.html:18
-msgid "The tool can only get the source of the album."
-msgstr "Alat ieu ngan tiasa nyandak sumber pikeun album."
-
-#: templates/mxm.html:19
-msgid "If a track matches multiple albums, please use the album link."
-msgstr "Upami lagu cocog sareng sababaraha album, mangga anggo tautan albumna."
-
-#: templates/mxm.html:35
-msgid "Verified by"
-msgstr "Divérifikasi ku"
 
 #: templates/split.html:8
 msgid "Track 1:"
@@ -460,25 +504,17 @@ msgstr "Link MXM"
 msgid "Track 2"
 msgstr "Lagu 2"
 
-#: templates/layout/published_map.html:2
-msgid "Musixmatch"
-msgstr "Musixmatch"
-
-#: templates/layout/published_map.html:3
+#: templates/layout/published_map.html:4
 msgid "Musixmatch (Restricted)"
 msgstr "Musixmatch (Dibatasan)"
 
-#: templates/layout/published_map.html:4
-msgid "Curator"
-msgstr "Kurator"
+#: templates/layout/published_map.html:5
+msgid "Musixmatch (Non-mission/Ghost)"
+msgstr ""
 
-#: templates/layout/published_map.html:5 templates/layout/published_map.html:6
+#: templates/layout/published_map.html:6 templates/layout/published_map.html:7
 msgid "Curator (Locked)"
 msgstr "Kurator (Dikonci)"
-
-#: templates/layout/published_map.html:7
-msgid "Community"
-msgstr "Komunitas"
 
 #: templates/layout/published_map.html:8
 msgid "Community (Published)"
@@ -495,6 +531,14 @@ msgstr "Artis"
 #: templates/layout/published_map.html:11
 msgid "Artist (Edited by Specialist)"
 msgstr ""
+
+#: templates/layout/published_map.html:12
+msgid "Curator"
+msgstr "Kurator"
+
+#: templates/layout/published_map.html:13
+msgid "Community"
+msgstr "Komunitas"
 
 #~ msgid "Language"
 #~ msgstr "Language"
@@ -578,5 +622,17 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Verified by Artist"
+#~ msgstr ""
+
+#~ msgid "Spotify to Musixmatch Link"
+#~ msgstr ""
+
+#~ msgid "Spotify Track|Album|Artist Link Or ISRC:"
+#~ msgstr ""
+
+#~ msgid "Apple Music Source"
+#~ msgstr ""
+
+#~ msgid "MXM Source"
 #~ msgstr ""
 
