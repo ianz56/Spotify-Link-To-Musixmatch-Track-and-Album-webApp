@@ -259,6 +259,12 @@ async def index():
             if payload:
                 key = payload.get("mxm-key")
 
+        platform = "spotify"
+        if "music.apple.com" in link:
+            platform = "apple"
+        elif "musixmatch.com" in link:
+            platform = "mxm"
+
         # Manual Cache Check
         cache_key = f"search_data:{link}:{get_locale()}"
         cached_data = None
@@ -291,32 +297,67 @@ async def index():
             async with aiohttp.ClientSession() as session:
                 try:
                     mxm = MXM(key, session=session)
-                    if len(link) < 12:
-                        return render_template(
-                            "index.html",
-                            tracks_data=[_("Wrong Spotify Link Or Wrong ISRC")],
-                        )
-                    elif re.search(r"artist/(\w+)", link):
-                        artist_albums = await asyncio.to_thread(
-                            sp.artist_albums, link, []
-                        )
-                        return render_template("index.html", artist=artist_albums)
-                    else:
-                        sp_data = (
-                            await asyncio.to_thread(sp.get_isrc, link)
-                            if len(link) > 12
-                            else [{"isrc": link, "image": None}]
-                        )
 
-                    mxmLinks = await mxm.Tracks_Data(sp_data)
+                    if platform == "apple":
+                        tracks_data = await asyncio.to_thread(
+                            apple_music.get_apple_music_data, link
+                        )
+                        if (
+                            isinstance(tracks_data, list)
+                            and tracks_data
+                            and isinstance(tracks_data[0], str)
+                        ):
+                            return render_template(
+                                "index.html", tracks_data=tracks_data, platform=platform
+                            )
+                        mxmLinks = await mxm.Tracks_Data(tracks_data)
+
+                    elif platform == "mxm":
+                        album_data = await mxm.album_sp_id(link)
+                        # Ensure we don't cache errors
+                        if album_data and not album_data.get("error"):
+                            mxmLinks = album_data
+                        else:
+                            mxmLinks = album_data
+
+                    else:
+                        if len(link) < 12:
+                            return render_template(
+                                "index.html",
+                                tracks_data=[_("Wrong Spotify Link Or Wrong ISRC")],
+                                platform=platform,
+                            )
+                        elif re.search(r"artist/(\w+)", link):
+                            artist_albums = await asyncio.to_thread(
+                                sp.artist_albums, link, []
+                            )
+                            return render_template(
+                                "index.html", artist=artist_albums, platform=platform
+                            )
+                        else:
+                            sp_data = (
+                                await asyncio.to_thread(sp.get_isrc, link)
+                                if len(link) > 12
+                                else [{"isrc": link, "image": None}]
+                            )
+
+                        mxmLinks = await mxm.Tracks_Data(sp_data)
 
                     # Cache the result if valid
-                    if isinstance(mxmLinks, list):
-                        cache_value = {
-                            "data": mxmLinks,
-                            "timestamp": datetime.datetime.now().isoformat(),
-                        }
-                        cache.set(cache_key, cache_value, timeout=3600)
+                    if platform == "mxm":
+                        if isinstance(mxmLinks, dict) and not mxmLinks.get("error"):
+                            cache_value = {
+                                "data": mxmLinks,
+                                "timestamp": datetime.datetime.now().isoformat(),
+                            }
+                            cache.set(cache_key, cache_value, timeout=3600)
+                    else:
+                        if isinstance(mxmLinks, list):
+                            cache_value = {
+                                "data": mxmLinks,
+                                "timestamp": datetime.datetime.now().isoformat(),
+                            }
+                            cache.set(cache_key, cache_value, timeout=3600)
 
                 except Exception as e:
                     app.logger.exception(e)
@@ -325,13 +366,33 @@ async def index():
                         tracks_data=[
                             _("An unexpected error occurred, please try again")
                         ],
+                        platform=platform,
                     )
+
+        if platform == "mxm":
+            if mxmLinks and isinstance(mxmLinks, dict):
+                return render_template(
+                    "index.html",
+                    platform=platform,
+                    mxm_album=mxmLinks.get("album"),
+                    mxm_track=mxmLinks.get("track"),
+                    mxm_error=mxmLinks.get("error"),
+                    is_cached=is_cached,
+                    cached_timestamp=cached_timestamp,
+                )
+            else:
+                return render_template(
+                    "index.html",
+                    platform=platform,
+                    tracks_data=[_("An unexpected error occurred, please try again")],
+                )
 
         if isinstance(mxmLinks, str):
             app.logger.error(f"Error fetching tracks: {mxmLinks}")
             return render_template(
                 "index.html",
                 tracks_data=[_("An unexpected error occurred, please try again")],
+                platform=platform,
             )
 
         return render_template(
@@ -339,6 +400,7 @@ async def index():
             tracks_data=mxmLinks,
             is_cached=is_cached,
             cached_timestamp=cached_timestamp,
+            platform=platform,
         )
 
     # refresh the token every time the user enter the site
@@ -469,84 +531,9 @@ def isrc():
 @app.route("/apple", methods=["GET"])
 async def apple():
     link = request.args.get("link")
-    refresh = request.args.get("refresh")
-    key = None
-    token = request.cookies.get("api_token")
     if link:
-        if token:
-            payload = verify_token(token)
-            if payload:
-                key = payload.get("mxm-key")
-
-        cache_key = f"apple_search:{link}:{get_locale()}"
-
-        cached_data = None
-        if not refresh:
-            cached_data = cache.get(cache_key)
-
-        mxmLinks = None
-        is_cached = False
-        cached_timestamp = None
-
-        if cached_data:
-            if isinstance(cached_data, dict) and "data" in cached_data:
-                mxmLinks = cached_data["data"]
-                cached_timestamp = cached_data.get("timestamp")
-                # Parse timestamp if it's a string
-                if isinstance(cached_timestamp, str):
-                    try:
-                        cached_timestamp = datetime.datetime.fromisoformat(
-                            cached_timestamp
-                        )
-                    except ValueError:
-                        pass
-            else:
-                mxmLinks = cached_data
-            is_cached = True
-        else:
-            async with aiohttp.ClientSession() as session:
-                mxm = MXM(key, session=session)
-                # Fetch Apple Music data (run in thread to avoid blocking)
-                tracks_data = await asyncio.to_thread(
-                    apple_music.get_apple_music_data, link
-                )
-
-                if (
-                    isinstance(tracks_data, list)
-                    and tracks_data
-                    and isinstance(tracks_data[0], str)
-                ):
-                    # Error or message
-                    return render_template("apple.html", tracks_data=tracks_data)
-
-                mxmLinks = await mxm.Tracks_Data(tracks_data)
-
-                if isinstance(mxmLinks, list):
-                    cache_value = {
-                        "data": mxmLinks,
-                        "timestamp": datetime.datetime.now().isoformat(),
-                    }
-                    cache.set(cache_key, cache_value, timeout=3600)
-
-        if isinstance(mxmLinks, str):
-            return mxmLinks
-
-        return render_template(
-            "apple.html",
-            tracks_data=mxmLinks,
-            is_cached=is_cached,
-            cached_timestamp=cached_timestamp,
-        )
-
-    # refresh the token every time the user enter the site
-    if token:
-        payload = verify_token(token)
-        if payload:
-            resp = make_response(render_template("apple.html"))
-            resp = jwt_ref(resp, payload)
-            return resp
-
-    return render_template("apple.html")
+        return redirect(url_for("index", link=link))
+    return redirect(url_for("index"))
 
 
 @app.route("/api", methods=["GET"])
@@ -612,61 +599,9 @@ async def setAPI():
 @app.route("/mxm", methods=["GET"])
 async def mxm_to_sp():
     link = request.args.get("link")
-    refresh = request.args.get("refresh")
-    key = None
-
     if link:
-        token = request.cookies.get("api_token")
-        if token:
-            payload = verify_token(token)
-            if payload:
-                key = payload.get("mxm-key")
-
-        cache_key = f"mxm_search:{link}:{get_locale()}"
-        cached_data = None
-        if not refresh:
-            cached_data = cache.get(cache_key)
-
-        album = None
-        is_cached = False
-        cached_timestamp = None
-
-        if cached_data:
-            if isinstance(cached_data, dict) and "data" in cached_data:
-                album = cached_data["data"]
-                cached_timestamp = cached_data.get("timestamp")
-                if isinstance(cached_timestamp, str):
-                    try:
-                        cached_timestamp = datetime.datetime.fromisoformat(
-                            cached_timestamp
-                        )
-                    except ValueError:
-                        pass
-            else:
-                album = cached_data
-            is_cached = True
-        else:
-            async with aiohttp.ClientSession() as session:
-                mxm = MXM(key, session=session)
-                album = await mxm.album_sp_id(link)
-
-                if album and not album.get("error"):
-                    cache_value = {
-                        "data": album,
-                        "timestamp": datetime.datetime.now().isoformat(),
-                    }
-                    cache.set(cache_key, cache_value, timeout=3600)
-
-        return render_template(
-            "mxm.html",
-            album=album.get("album"),
-            track=album.get("track"),
-            error=album.get("error"),
-            is_cached=is_cached,
-            cached_timestamp=cached_timestamp,
-        )
-    else:
-        return render_template("mxm.html")
+        return redirect(url_for("index", link=link))
+    return redirect(url_for("index"))
 
 
 @app.route("/abstrack", methods=["GET"])
