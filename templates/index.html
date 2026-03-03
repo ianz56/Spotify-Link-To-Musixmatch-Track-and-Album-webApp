@@ -1,7 +1,35 @@
 {% extends 'base.html' %}
 
 {% from 'layout/published_map.html' import status_map %}
-{% block title %}Unified to Musixmatch Link{% endblock %}
+{% block title %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ mxm_album.album_name }} — {{ _("MXM Album Source") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }} | Spotify to MXM
+  {% elif artist %}
+    {{ _("Artist Albums") }} | Spotify to MXM
+  {% else %}
+    {{ _("Spotify, Apple Music, or Musixmatch Link") }} | SpotMXM
+  {% endif %}
+{% endblock %}
+{% block og_title %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ mxm_album.album_name }} — {{ _("MXM Album Source") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }}
+  {% else %}
+    Spotify To Mxm
+  {% endif %}
+{% endblock %}
+{% block og_description %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ _("Album:") }} {{ mxm_album.album_name }} — {{ _("Get Musixmatch album source and connected platforms.") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} — {{ _("ISRC:") }} {{ tracks_data[0].isrc or tracks_data[0].track_isrc }} | {{ _("Get Musixmatch link, Track ID, and Album info.") }}
+  {% else %}
+    Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link
+  {% endif %}
+{% endblock %}
 {% block content %}
   <div class="container">
     <h1>{{ _("Spotify, Apple Music, or Musixmatch Link") }}</h1>
@@ -91,7 +119,7 @@
                         </svg>
                         {{ _("Cached") }}
                       </span>
-                      {% if cached_timestamp %}
+                      {% if cached_timestamp and cached_timestamp.strftime is defined %}
                         <span>{{ cached_timestamp.strftime("%H:%M") }}</span>
                       {% endif %}
                       <span>&bull;</span>
@@ -126,16 +154,17 @@
                     <div class="card-details">
                       <h5 class="card-title">
                         {{ track.track_name }}
+                        {{ _("Verified by") }}:
                         {% if track.lyrics_published_status in status_map %}
-                          <span class="badge-status {{ status_map[track.lyrics_published_status].class }}">{{ _("Verified by ") }}{{
+                          <span class="badge-status {{ status_map[track.lyrics_published_status].class }}">{{
                           status_map[track.lyrics_published_status].label }}</span>
                         {% else %}
-                          <span class="badge-status badge-unknown">{{ _("Verified by ") }}{{ _("Unknown") }}</span>
+                          <span class="badge-status badge-unknown">{{ _("Unknown") }}</span>
                         {% endif %}
                       </h5>
                       {% if track.matcher_album %}
                         <p class="card-text">
-                          Album:
+                          {{ _("Album:") }}
                           <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.matcher_album[0] }}"
                              class="card-link"
                              target="_blank">{{ track.matcher_album[1] }}</a>
@@ -143,24 +172,24 @@
                         <p class="card-text">{{ _("Artist:") }} {{ track.artist_name }}</p>
                       {% else %}
                         <p class="card-text">
-                          Album:
+                          {{ _("Album:") }}
                           <a href="https://www.musixmatch.com/album/{{ track.artist_id }}/{{ track.album_id }}"
                              class="card-link"
                              target="_blank">{{ track.album_name }}</a>
                         </p>
                         <p class="card-text">{{ _("Artist:") }} {{ track.artist_name }}</p>
                       {% endif %}
-                      <p class="card-text">ISRC: {{ track.isrc or track.track_isrc }}</p>
-                      <p class="card-text">Track ID: {{ track.commontrack_id }}</p>
+                      <p class="card-text">{{ _("ISRC:") }} {{ track.isrc or track.track_isrc }}</p>
+                      <p class="card-text">{{ _("Track ID:") }} {{ track.commontrack_id }}</p>
                       <p class="card-text">
-                        Link:
+                        {{ _("Link:") }}
                         <a href="{{ track.track_share_url.split(" ?")[0] }}"
                            class="card-link"
-                           target="_blank">Musixmatch</a> |
+                           target="_blank">{{ _("Musixmatch") }}</a> |
                         {# <span href="{{ track.beta.split('?')[0] }}" class="card-link" target="_blank">Beta Musixmatch</span> #}
                         <a href="https://curators.musixmatch.com/tool?commontrack_id={{ track.commontrack_id }}"
                            class="card-link"
-                           target="_blank">Studio</a>
+                           target="_blank">{{ _("Studio") }}</a>
                       </p>
                       {% if track.note %}<p class="card-text">{{ _("Note:") }} {{ track.note|e }}</p>{% endif %}
                       {% if is_cached %}
@@ -179,7 +208,7 @@
                             </svg>
                             {{ _("Cached") }}
                           </span>
-                          {% if cached_timestamp %}
+                          {% if cached_timestamp and cached_timestamp.strftime is defined %}
                             <span>{{ cached_timestamp.strftime("%H:%M") }}</span>
                           {% endif %}
                           <span>&bull;</span>
@@ -210,12 +239,12 @@
                   {% endif %}
                   <div class="card-details">
                     <h5 class="card-title">{{ album.name }}</h5>
-                    <p class="card-text">type: {{ album.album_type }}</p>
+                    <p class="card-text">{{ _("Type:") }} {{ album.album_type }}</p>
                     <p class="card-text">
-                      Spotify:
-                      <a href="{{ album.external_urls.spotify }}" target="_blank">Album link</a>
+                      {{ _("Spotify:") }}
+                      <a href="{{ album.external_urls.spotify }}" target="_blank">{{ _("Album link") }}</a>
                     </p>
-                    <a href="/?link={{ album.external_urls.spotify }}" target="_blank">Get MXM Links</a>
+                    <a href="/?link={{ album.external_urls.spotify }}" target="_blank">{{ _("Get MXM Links") }}</a>
                   </div>
                 </div>
               </div>

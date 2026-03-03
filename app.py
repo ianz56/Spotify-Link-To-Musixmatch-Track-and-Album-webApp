@@ -313,12 +313,7 @@ async def index():
                         mxmLinks = await mxm.Tracks_Data(tracks_data)
 
                     elif platform == "mxm":
-                        album_data = await mxm.album_sp_id(link)
-                        # Ensure we don't cache errors
-                        if album_data and not album_data.get("error"):
-                            mxmLinks = album_data
-                        else:
-                            mxmLinks = album_data
+                        mxmLinks = await mxm.album_sp_id(link)
 
                     else:
                         if len(link) < 12:
@@ -339,6 +334,14 @@ async def index():
                                 await asyncio.to_thread(sp.get_isrc, link)
                                 if len(link) > 12
                                 else [{"isrc": link, "image": None}]
+                            )
+
+                        # Handle string error from get_isrc
+                        if isinstance(sp_data, str):
+                            return render_template(
+                                "index.html",
+                                tracks_data=[sp_data],
+                                platform=platform,
                             )
 
                         mxmLinks = await mxm.Tracks_Data(sp_data)
