@@ -35,7 +35,7 @@ jobs:
 
       - name: Compile Translations
         run: |
-          python compile_translations.py
+          python scripts/translations/compile_translations.py
 
       - name: Commit Compilation Artifacts
         uses: stefanzweifel/git-auto-commit-action@v7

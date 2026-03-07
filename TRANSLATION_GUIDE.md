@@ -15,7 +15,7 @@ Jika Anda ingin mengubah kata-kata dalam bahasa Indonesia (atau bahasa lain yang
 3.  **Compile**:
     Jalankan script untuk menerapkan perubahan:
     ```bash
-    python compile_translations.py
+    python scripts/translations/compile_translations.py
     ```
 4.  **Restart Server**:
     Restart Flask server agar perubahan terlihat.
@@ -29,7 +29,7 @@ Misal Anda ingin menambah Bahasa Jepang (kode: `ja`).
 1.  **Inisialisasi Bahasa Baru**:
     Jalankan perintah berikut:
     ```bash
-    python add_language.py ja
+    python scripts/translations/add_language.py ja
     ```
     *(Ganti `ja` dengan kode bahasa yang diinginkan)*
 
@@ -38,7 +38,7 @@ Misal Anda ingin menambah Bahasa Jepang (kode: `ja`).
 
 3.  **Compile**:
     ```bash
-    python compile_translations.py
+    python scripts/translations/compile_translations.py
     ```
 
 4.  **Update `app.py`**:
@@ -67,13 +67,13 @@ Jika Anda menambahkan teks baru di file HTML (misal tombol baru):
     ```
 2.  **Ekstrak Pesan**:
     ```bash
-    python extract_messages.py
+    python scripts/translations/extract_messages.py
     ```
-    *(Ini akan mengupdate `messages.pot`)*
+    *(Ini akan mengupdate `translations/messages.pot`)*
 3.  **Update Terjemahan**:
     Jalankan perintah ini untuk mengupdate file `.po` yang ada dengan kata-kata baru (tanpa menghapus terjemahan lama):
     ```bash
-    pybabel update -i messages.pot -d translations
+    pybabel update -i translations/messages.pot -d translations
     ```
 4.  **Terjemahkan & Compile**:
-    Edit file `.po` untuk menerjemahkan kata baru tersebut, lalu jalankan `python compile_translations.py`.
+    Edit file `.po` untuk menerjemahkan kata baru tersebut, lalu jalankan `python scripts/translations/compile_translations.py`.

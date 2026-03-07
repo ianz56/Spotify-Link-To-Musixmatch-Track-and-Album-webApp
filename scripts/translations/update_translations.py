@@ -12,7 +12,7 @@ def main():
                 "pybabel",
                 "update",
                 "-i",
-                "messages.pot",
+                "translations/messages.pot",
                 "-d",
                 "translations",
                 "-l",

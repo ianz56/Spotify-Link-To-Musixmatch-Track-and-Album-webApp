@@ -1,6 +1,6 @@
-from babel.messages.frontend import CommandLineInterface
+import os
 
-import update_translations
+from babel.messages.frontend import CommandLineInterface
 
 
 def main():
@@ -14,12 +14,12 @@ def main():
             "-F",
             "babel.cfg",
             "-o",
-            "messages.pot",
+            "translations/messages.pot",
             "--width=2500",
             ".",
         ]
     )
-    update_translations.main()
+    os.system("python scripts/translations/update_translations.py")
 
 
 if __name__ == "__main__":
