@@ -1,4 +1,5 @@
 import os
+
 from babel.messages.frontend import CommandLineInterface
 
 
