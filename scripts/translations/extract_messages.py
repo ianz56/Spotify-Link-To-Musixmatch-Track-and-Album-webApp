@@ -1,6 +1,5 @@
+import os
 from babel.messages.frontend import CommandLineInterface
-
-import update_translations
 
 
 def main():
@@ -19,7 +18,7 @@ def main():
             ".",
         ]
     )
-    update_translations.main()
+    os.system("python scripts/translations/update_translations.py")
 
 
 if __name__ == "__main__":
