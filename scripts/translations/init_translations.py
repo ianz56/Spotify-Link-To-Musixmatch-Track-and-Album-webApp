@@ -8,7 +8,7 @@ def main():
     print("Initializing ID...")
     try:
         cli.run(
-            ["pybabel", "init", "-i", "messages.pot", "-d", "translations", "-l", "id"]
+            ["pybabel", "init", "-i", "translations/messages.pot", "-d", "translations", "-l", "id"]
         )
     except Exception as e:
         print(e)
@@ -17,7 +17,7 @@ def main():
     print("Initializing EN...")
     try:
         cli.run(
-            ["pybabel", "init", "-i", "messages.pot", "-d", "translations", "-l", "en"]
+            ["pybabel", "init", "-i", "translations/messages.pot", "-d", "translations", "-l", "en"]
         )
     except Exception as e:
         print(e)

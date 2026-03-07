@@ -34,6 +34,6 @@
 - For local dev, set `FLASK_ENV=development`; production requires `secret_key`.
 
 ## Translations
-- Update existing locales in `translations/<lang>/LC_MESSAGES/messages.po` and run `python compile_translations.py`.
-- Add languages via `python add_language.py <lang>` and update `app.py` + templates.
-- When adding new strings, run `python extract_messages.py` then `pybabel update -i messages.pot -d translations`.
+- Update existing locales in `translations/<lang>/LC_MESSAGES/messages.po` and run `python scripts/translations/compile_translations.py`.
+- Add languages via `python scripts/translations/add_language.py <lang>` and update `app.py` + templates.
+- When adding new strings, run `python scripts/translations/extract_messages.py` then `pybabel update -i translations/messages.pot -d translations`.

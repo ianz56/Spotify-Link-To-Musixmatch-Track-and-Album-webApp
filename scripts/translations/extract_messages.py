@@ -14,7 +14,7 @@ def main():
             "-F",
             "babel.cfg",
             "-o",
-            "messages.pot",
+            "translations/messages.pot",
             "--width=2500",
             ".",
         ]
