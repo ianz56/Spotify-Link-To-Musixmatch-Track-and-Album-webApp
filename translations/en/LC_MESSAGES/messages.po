@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-15 04:53+0700\n"
+"POT-Creation-Date: 2026-03-15 05:09+0700\n"
 "PO-Revision-Date: 2026-01-01 15:36+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -112,7 +112,7 @@ msgstr ""
 msgid " E.g.:"
 msgstr ""
 
-#: templates/abstrack.html:21 templates/apple.html:14 templates/index.html:131 templates/isrc.html:20 templates/mxm.html:14
+#: templates/abstrack.html:21 templates/apple.html:14 templates/index.html:130 templates/isrc.html:20 templates/mxm.html:14
 msgid "Get links"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Has Subtitles:"
 msgstr ""
 
-#: templates/abstrack.html:61 templates/apple.html:54 templates/index.html:272
+#: templates/abstrack.html:61 templates/apple.html:54 templates/index.html:271
 msgid "Link:"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Verified by "
 msgstr ""
 
-#: templates/abstrack.html:77 templates/apple.html:32 templates/index.html:158 templates/index.html:249 templates/mxm.html:40
+#: templates/abstrack.html:77 templates/apple.html:32 templates/index.html:157 templates/index.html:248 templates/mxm.html:40
 msgid "Unknown"
 msgstr ""
 
@@ -176,23 +176,23 @@ msgstr ""
 msgid "Album Info:"
 msgstr ""
 
-#: templates/abstrack.html:83 templates/apple.html:37 templates/apple.html:44 templates/index.html:75 templates/index.html:93 templates/index.html:145 templates/index.html:254 templates/index.html:262 templates/isrc.html:34 templates/mxm.html:27
+#: templates/abstrack.html:83 templates/apple.html:37 templates/apple.html:44 templates/index.html:74 templates/index.html:92 templates/index.html:144 templates/index.html:253 templates/index.html:261 templates/isrc.html:34 templates/mxm.html:27
 msgid "Album:"
 msgstr ""
 
-#: templates/abstrack.html:89 templates/index.html:150 templates/mxm.html:32
+#: templates/abstrack.html:89 templates/index.html:149 templates/mxm.html:32
 msgid "Album ID:"
 msgstr ""
 
-#: templates/abstrack.html:93 templates/abstrack.html:108 templates/index.html:163 templates/index.html:176 templates/mxm.html:45 templates/mxm.html:58
+#: templates/abstrack.html:93 templates/abstrack.html:108 templates/index.html:162 templates/index.html:175 templates/mxm.html:45 templates/mxm.html:58
 msgid "Spotify source:"
 msgstr ""
 
-#: templates/abstrack.html:108 templates/abstrack.html:128 templates/abstrack.html:148 templates/index.html:176 templates/index.html:192 templates/mxm.html:58 templates/mxm.html:74
+#: templates/abstrack.html:108 templates/abstrack.html:128 templates/abstrack.html:148 templates/index.html:175 templates/index.html:191 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr ""
 
-#: templates/abstrack.html:113 templates/abstrack.html:128 templates/index.html:179 templates/index.html:192 templates/mxm.html:61 templates/mxm.html:74
+#: templates/abstrack.html:113 templates/abstrack.html:128 templates/index.html:178 templates/index.html:191 templates/mxm.html:61 templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr ""
 
@@ -296,43 +296,43 @@ msgstr ""
 msgid "Apple Music Track Link:"
 msgstr ""
 
-#: templates/apple.html:50 templates/index.html:259 templates/index.html:267
+#: templates/apple.html:50 templates/index.html:258 templates/index.html:266
 msgid "Artist:"
 msgstr ""
 
-#: templates/apple.html:51 templates/index.html:77 templates/index.html:95 templates/index.html:269 templates/isrc.html:40
+#: templates/apple.html:51 templates/index.html:76 templates/index.html:94 templates/index.html:268 templates/isrc.html:40
 msgid "ISRC:"
 msgstr ""
 
-#: templates/apple.html:52 templates/index.html:270
+#: templates/apple.html:52 templates/index.html:269
 msgid "Track ID:"
 msgstr ""
 
-#: templates/apple.html:57 templates/index.html:275 templates/layout/published_map.html:2 templates/layout/published_map.html:3 templates/split.html:53 templates/split.html:76
+#: templates/apple.html:57 templates/index.html:274 templates/layout/published_map.html:2 templates/layout/published_map.html:3 templates/split.html:53 templates/split.html:76
 msgid "Musixmatch"
 msgstr ""
 
-#: templates/apple.html:64 templates/index.html:281
+#: templates/apple.html:64 templates/index.html:280
 msgid "Note:"
 msgstr ""
 
-#: templates/apple.html:67 templates/index.html:284 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:283 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr ""
 
-#: templates/apple.html:79 templates/index.html:208 templates/index.html:296 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:207 templates/index.html:295 templates/mxm.html:90
 msgid "Cached"
 msgstr ""
 
-#: templates/apple.html:86 templates/index.html:215 templates/index.html:303 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:214 templates/index.html:302 templates/mxm.html:97
 msgid "Refresh"
 msgstr ""
 
-#: templates/base.html:19 templates/index.html:43 templates/index.html:52 templates/index.html:70 templates/index.html:88
+#: templates/base.html:19 templates/index.html:42 templates/index.html:51 templates/index.html:69 templates/index.html:87
 msgid "Spotify & Apple Music - ISRC to Musixmatch"
 msgstr ""
 
-#: templates/base.html:28 templates/base.html:39 templates/base.html:48
+#: templates/base.html:28 templates/base.html:40 templates/base.html:49
 msgid "Spotify & Apple Music to Musixmatch – ISRC Metadata Tool"
 msgstr ""
 
@@ -340,11 +340,11 @@ msgstr ""
 msgid "Convert Spotify, Apple Music, Musixmatch links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors."
 msgstr ""
 
-#: templates/base.html:41
+#: templates/base.html:42
 msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link"
 msgstr ""
 
-#: templates/base.html:50
+#: templates/base.html:51
 msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify or Apple Music Link"
 msgstr ""
 
@@ -456,157 +456,157 @@ msgstr ""
 msgid "View License"
 msgstr ""
 
-#: templates/index.html:37 templates/index.html:66 templates/index.html:84
+#: templates/index.html:36 templates/index.html:65 templates/index.html:83
 msgid "MXM Album Source"
 msgstr ""
 
-#: templates/index.html:41
+#: templates/index.html:40
 msgid "Artist Albums"
 msgstr ""
 
-#: templates/index.html:48
+#: templates/index.html:47
 msgid "Musixmatch Album Source"
 msgstr ""
 
-#: templates/index.html:50
+#: templates/index.html:49
 msgid "Metadata"
 msgstr ""
 
-#: templates/index.html:57
+#: templates/index.html:56
 msgid "Get Musixmatch album source and connected platforms for"
 msgstr ""
 
-#: templates/index.html:59
+#: templates/index.html:58
 msgid "Get Musixmatch link, ISRC, Track ID, and Album info for"
 msgstr ""
 
-#: templates/index.html:61
+#: templates/index.html:60
 msgid "Convert Spotify, Apple Music, Musixmatch links, or ISRC to Musixmatch tracks, find Track ID, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors."
 msgstr ""
 
-#: templates/index.html:75 templates/index.html:93
+#: templates/index.html:74 templates/index.html:92
 msgid "Get Musixmatch album source and connected platforms."
 msgstr ""
 
-#: templates/index.html:77 templates/index.html:95
+#: templates/index.html:76 templates/index.html:94
 msgid "Get Musixmatch link, Track ID, and Album info."
 msgstr ""
 
-#: templates/index.html:79 templates/index.html:97
+#: templates/index.html:78 templates/index.html:96
 msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link"
 msgstr ""
 
-#: templates/index.html:121
+#: templates/index.html:120
 msgid "Spotify & Apple Music to Musixmatch"
 msgstr ""
 
-#: templates/index.html:122
+#: templates/index.html:121
 msgid "Convert music links and find ISRCs effortlessly"
 msgstr ""
 
-#: templates/index.html:125
+#: templates/index.html:124
 msgid "Spotify, Apple Music, or Musixmatch Link (or ISRC):"
 msgstr ""
 
-#: templates/index.html:129 templates/isrc.html:19
+#: templates/index.html:128 templates/isrc.html:19
 msgid "E.g.:"
 msgstr ""
 
-#: templates/index.html:129
+#: templates/index.html:128
 msgid "or"
 msgstr ""
 
-#: templates/index.html:136 templates/mxm.html:18
+#: templates/index.html:135 templates/mxm.html:18
 msgid "The tool can only get the source of the album."
 msgstr ""
 
-#: templates/index.html:137 templates/mxm.html:19
+#: templates/index.html:136 templates/mxm.html:19
 msgid "If a track matches multiple albums, please use the album link."
 msgstr ""
 
-#: templates/index.html:153 templates/index.html:246 templates/mxm.html:35
+#: templates/index.html:152 templates/index.html:245 templates/mxm.html:35
 msgid "Verified by"
 msgstr ""
 
-#: templates/index.html:196
+#: templates/index.html:195
 msgid "Data fetched from cache"
 msgstr ""
 
-#: templates/index.html:279
+#: templates/index.html:278
 msgid "Studio"
 msgstr ""
 
-#: templates/index.html:329
+#: templates/index.html:328
 msgid "Type:"
 msgstr ""
 
-#: templates/index.html:331
+#: templates/index.html:330
 msgid "Spotify:"
 msgstr ""
 
-#: templates/index.html:332
+#: templates/index.html:331
 msgid "Album link"
 msgstr ""
 
-#: templates/index.html:334
+#: templates/index.html:333
 msgid "Get MXM Links"
 msgstr ""
 
-#: templates/index.html:344
+#: templates/index.html:343
 msgid "How to Use?"
 msgstr ""
 
-#: templates/index.html:350
+#: templates/index.html:349
 msgid "How to Use"
 msgstr ""
 
-#: templates/index.html:352
+#: templates/index.html:351
 msgid "Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC into the input field."
 msgstr ""
 
-#: templates/index.html:353
+#: templates/index.html:352
 msgid "Click the \"Get links\" button and wait until the processing ends."
 msgstr ""
 
-#: templates/index.html:355
+#: templates/index.html:354
 msgid "If the track has not been imported yet:"
 msgstr ""
 
-#: templates/index.html:358
+#: templates/index.html:357
 msgid "The app tries to import it automatically. You may get the links immediately or have to wait for 1 or 2 minutes (depending on the MXM API)."
 msgstr ""
 
-#: templates/index.html:361
+#: templates/index.html:360
 msgid "If you see the same message after a while, it means that the app can't import it. You have to ask for help via Slack."
 msgstr ""
 
-#: templates/index.html:364
+#: templates/index.html:363
 msgid "Spotify Limits:"
 msgstr ""
 
-#: templates/index.html:366
+#: templates/index.html:365
 msgid "You can't get more than 50 tracks from an album."
 msgstr ""
 
-#: templates/index.html:368
+#: templates/index.html:367
 msgid "Hosting Limits:"
 msgstr ""
 
-#: templates/index.html:371
+#: templates/index.html:370
 msgid "If you see a limit error, it mostly means that the album has many tracks. Try to get the links by using a track link, then open the album from MXM."
 msgstr ""
 
-#: templates/index.html:380
+#: templates/index.html:379
 #, python-format
-msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
+msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start)s@Ian P.%(link_end)s\"."
 msgstr ""
 
-#: templates/index.html:384
+#: templates/index.html:382
 #, python-format
 msgid "This site is a fork of Adel Hashem's %(link_start)sGitHub repo.%(link_end)s"
 msgstr ""
 
-#: templates/index.html:387
+#: templates/index.html:385
 msgid "Hoping this app is useful."
 msgstr ""
 
@@ -846,5 +846,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Get Spotify Data"
+#~ msgstr ""
+
+#~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
 #~ msgstr ""
 
