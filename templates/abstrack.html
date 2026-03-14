@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% from 'layout/published_map.html' import status_map %}
-{% block title %}Musixmatch Abstrack{% endblock %}
+{% block title %}{{ _("Musixmatch Abstrack Finder") }} | SpotMXM{% endblock %}
+{% block meta_title %}{{ _("Musixmatch Abstrack Finder - Track & Album Insights") }}{% endblock %}
+{% block meta_description %}
+  {{ _("Retrieve detailed track and album information from Musixmatch using Abstrack IDs, including sync status and platform sources.") }}
+{% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Musixmatch Abstrack") }}</h1>
+    <header>
+      <h1>{{ _("Musixmatch Abstrack") }}</h1>
+      <p class="subtitle">{{ _("Search tracks via Musixmatch Abstrack IDs") }}</p>
+    </header>
     <form action="/abstrack" method="GET">
       <label for="input_link">{{ _("Musixmatch abstrack:") }}</label>
       <input type="text"

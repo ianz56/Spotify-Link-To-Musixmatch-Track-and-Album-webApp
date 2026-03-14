@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Split Checker{% endblock %}
+{% block title %}{{ _("Musixmatch Split Checker") }} | SpotMXM{% endblock %}
+{% block meta_title %}{{ _("Musixmatch Split Checker - Identify Splittable Tracks") }}{% endblock %}
+{% block meta_description %}
+  {{ _("Compare two Spotify tracks to see if they can be split on Musixmatch based on their ISRC and Common Track ID.") }}
+{% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Split Checker") }}</h1>
+    <header>
+      <h1>{{ _("Split Checker") }}</h1>
+      <p class="subtitle">{{ _("Compare tracks to identify potential Musixmatch splits") }}</p>
+    </header>
     <form action="/split" method="GET">
       <label for="input_link_1">{{ _("Track 1:") }}</label>
       <input type="text"
@@ -43,7 +50,7 @@
                     <span class="track-label">{{ _("MXM Link") }}</span>
                     <span class="track-value">
                       <a href="{{ split_result.track1.track_share_url.split(" ?")[0] }}"
-                         target="_blank">Musixmatch</a>
+                         target="_blank">{{ _("Musixmatch") }}</a>
                     </span>
                   </div>
                 </div>
@@ -66,7 +73,7 @@
                     <span class="track-label">{{ _("MXM Link") }}</span>
                     <span class="track-value">
                       <a href="{{ split_result.track2.track_share_url.split(" ?")[0] }}"
-                         target="_blank">Musixmatch</a>
+                         target="_blank">{{ _("Musixmatch") }}</a>
                     </span>
                   </div>
                 </div>

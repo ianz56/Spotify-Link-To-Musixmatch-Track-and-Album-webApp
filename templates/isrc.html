@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Spotify Data{% endblock %}
+{% block title %}{{ _("Spotify Data & ISRC Finder") }} | SpotMXM{% endblock %}
+{% block meta_title %}{{ _("Spotify Data & ISRC Finder - Get Track Metadata") }}{% endblock %}
+{% block meta_description %}
+  {{ _("Find Spotify ISRC codes, album information, and available markets for any track or album link.") }}
+{% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Get Spotify Data") }}</h1>
+    <header>
+      <h1>{{ _("Spotify Data Finder") }}</h1>
+      <p class="subtitle">{{ _("Search tracks and albums to retrieve ISRCs and available markets.") }}</p>
+    </header>
     <form action="/" method="GET">
       <label for="input_link">{{ _("Spotify Track|Album Link or ISRC:") }}</label>
       <input type="text"
@@ -30,12 +37,12 @@
                          target="_blank">{{
                       track.track.album.name }}</a>
                     </p>
-                    <p class="card-text">ISRC: {{ track.isrc }}</p>
+                    <p class="card-text">{{ _("ISRC:") }} {{ track.isrc }}</p>
                     {% if track.track.available_markets %}
                       <p class="card-text">
                         <a href="javascript:void(0)"
                            onclick="showCountriesModal({{ loop.index0 }})"
-                           class="card-link show-countries-btn">Available Markets</a>
+                           class="card-link show-countries-btn">{{ _("Available Markets") }}</a>
                       </p>
                     {% else %}
                       <p class="card-text">{{ _("No Available Markets") }}</p>

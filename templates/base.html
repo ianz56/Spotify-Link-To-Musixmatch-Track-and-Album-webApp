@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ get_locale() }}">
   <head>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -16,24 +16,57 @@
     </script>
     <!-- End Google Tag Manager -->
     <title>
-      {% block title %}Spotify to Musixmatch Link{% endblock %}
+      {% block title %}{{ _("Spotify & Apple Music - ISRC to Musixmatch") }}{% endblock %}
     </title>
     <link rel="stylesheet"
           type="text/css"
           href="{{ url_for('static', filename='styles.css') }}" />
     <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="{%- block og_title -%}Spotify To Mxm{%- endblock -%}"
-          property="og:title" />
-    <meta content="{%- block og_description -%}Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link{%- endblock -%}"
-          property="og:description" />
+    <!-- Primary Meta Tags -->
+    <meta name="title"
+          content="{% block meta_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
     <meta name="description"
-          content="Convert Spotify links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.">
+          content="{% block meta_description %}{{ _("Convert Spotify, Apple Music, Musixmatch links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.") }}{% endblock %}">
     <meta name="keywords"
-          content="Spotify, Musixmatch, ISRC, Lyrics, Music, Convert, Tool, Album Art, Split, Metadata">
-    <meta name="robots" content="index, follow">
+          content="Spotify, Musixmatch, Apple, ISRC, Lyrics, Music, Convert, Tool, Album Art, Split, Metadata">
+    <meta name="robots"
+          content="{%- block robots -%}index, follow{%- endblock -%}">
     <link rel="canonical" href="{{ request.base_url }}">
-    <!-- <meta content="#ff6050" data-react-helmet="true" name="theme-color" /> -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title"
+          content="{% block og_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
+    <meta property="og:description"
+          content="{% block og_description %}{{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link") }}{% endblock %}">
+    <meta property="og:image"
+          content="{%- block og_image -%}{{ url_for('static', filename='assets/preview.png', _external=True) }}{%- endblock -%}">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:title"
+          content="{% block twitter_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
+    <meta property="twitter:description"
+          content="{% block twitter_description %}{{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify or Apple Music Link") }}{% endblock %}">
+    <meta property="twitter:image"
+          content="{%- block twitter_image -%}{{ url_for('static', filename='assets/preview.png', _external=True) }}{%- endblock -%}">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Spotify to Musixmatch Link",
+      "url": "https://{{ request.host }}",
+      "description": "{{ _("A tool to convert Spotify or Apple Music links to Musixmatch tracks, find ISRCs, and manage music metadata.") }}",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web",
+      "author": {
+        "@type": "Person",
+        "name": "Ian"
+      }
+    }
+    </script>
     {% block head %}{% endblock %}
   </head>
   <body class="preload">
