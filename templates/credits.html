@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ _("Credits") }} - Spotify to Musixmatch Link{% endblock %}
+{% block title %}{{ _("Credits & Contributors") }} | SpotMXM{% endblock %}
+{% block meta_title %}{{ _("Credits & Contributors - The People Behind SpotMXM") }}{% endblock %}
+{% block meta_description %}
+  {{ _("Meet the developers and translators who helped build SpotMXM, a tool for Spotify and Musixmatch links.") }}
+{% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Credits") }}</h1>
+    <header>
+      <h1>{{ _("Credits") }}</h1>
+      <p class="subtitle">{{ _("Acknowledge the people who make this project possible") }}</p>
+    </header>
     <h2>{{ _("Current Maintainer") }}</h2>
     <div class="card">
       <img src="https://github.com/ianz56.png" alt="ianz56" loading="lazy">
@@ -13,7 +20,7 @@
         <a href="https://github.com/ianz56"
            target="_blank"
            rel="noopener noreferrer"
-           class="card-link">GitHub Profile</a>
+           class="card-link">{{ _("GitHub Profile") }}</a>
       </div>
     </div>
     <h2>{{ _("Original Creator") }}</h2>
@@ -27,7 +34,7 @@
         <a href="https://github.com/AdelHashem"
            target="_blank"
            rel="noopener noreferrer"
-           class="card-link">GitHub Profile</a>
+           class="card-link">{{ _("GitHub Profile") }}</a>
       </div>
     </div>
     <h2>{{ _("Translators") }}</h2>
@@ -77,7 +84,7 @@
     <h2>{{ _("License") }}</h2>
     <div class="card">
       <div class="card-details">
-        <h3 class="card-title">MIT License</h3>
+        <h3 class="card-title">{{ _("MIT License") }}</h3>
         <p class="card-text">{{ _("This project is licensed under the MIT License.") }}</p>
         <a href="https://github.com/ianz56/Spotify-Link-To-Musixmatch-Track-and-Album-webApp/blob/main/LICENSE"
            target="_blank"

@@ -1,15 +1,64 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  {% if tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicRecording",
+      "name": {{ tracks_data[0].track_name|tojson }},
+      "byArtist": {
+        "@type": "MusicGroup",
+        "name": {{ tracks_data[0].artist_name|tojson }}
+      },
+      "album": {
+        "@type": "MusicAlbum",
+        "name": {{ tracks_data[0].album_name|tojson }}
+      },
+      "image": {{ tracks_data[0].image|tojson }},
+      "identifier": {{ (tracks_data[0].isrc or tracks_data[0].track_isrc)|tojson }},
+      "url": {{ request.url|tojson }}
+    }
+    </script>
+  {% elif platform == 'mxm' and mxm_album %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicAlbum",
+      "name": {{ mxm_album.album_name|tojson }},
+      "url": {{ request.url|tojson }}
+    }
+    </script>
+  {% endif %}
+{% endblock %}
 {% from 'layout/published_map.html' import status_map %}
 {% block title %}
   {% if platform == 'mxm' and mxm_album %}
     {{ mxm_album.album_name }} — {{ _("MXM Album Source") }}
   {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
-    {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }} | Spotify to MXM
+    {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }} | SpotMXM
   {% elif artist %}
-    {{ _("Artist Albums") }} | Spotify to MXM
+    {{ _("Artist Albums") }} | SpotMXM
   {% else %}
-    {{ _("Spotify, Apple Music, or Musixmatch Link") }} | SpotMXM
+    {{ _("Spotify & Apple Music - ISRC to Musixmatch") }} | SpotMXM
+  {% endif %}
+{% endblock %}
+{% block meta_title %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ mxm_album.album_name }} - {{ _("Musixmatch Album Source") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} - {{ tracks_data[0].artist_name }} {{ _("Metadata") }}
+  {% else %}
+    {{ _("Spotify & Apple Music - ISRC to Musixmatch") }}
+  {% endif %}
+{% endblock %}
+{% block meta_description %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ _("Get Musixmatch album source and connected platforms for") }} {{ mxm_album.album_name }}.
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ _("Get Musixmatch link, ISRC, Track ID, and Album info for") }} {{ tracks_data[0].track_name }} by {{ tracks_data[0].artist_name }}.
+  {% else %}
+    {{ _("Convert Spotify, Apple Music, Musixmatch links, or ISRC to Musixmatch tracks, find Track ID, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors.") }}
   {% endif %}
 {% endblock %}
 {% block og_title %}
@@ -18,7 +67,7 @@
   {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
     {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }}
   {% else %}
-    Spotify To Mxm
+    {{ _("Spotify & Apple Music - ISRC to Musixmatch") }}
   {% endif %}
 {% endblock %}
 {% block og_description %}
@@ -27,18 +76,57 @@
   {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
     {{ tracks_data[0].track_name }} — {{ _("ISRC:") }} {{ tracks_data[0].isrc or tracks_data[0].track_isrc }} | {{ _("Get Musixmatch link, Track ID, and Album info.") }}
   {% else %}
-    Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link
+    {{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link") }}
+  {% endif %}
+{% endblock %}
+{% block twitter_title %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ mxm_album.album_name }} — {{ _("MXM Album Source") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} — {{ tracks_data[0].artist_name }}
+  {% else %}
+    {{ _("Spotify & Apple Music - ISRC to Musixmatch") }}
+  {% endif %}
+{% endblock %}
+{% block twitter_description %}
+  {% if platform == 'mxm' and mxm_album %}
+    {{ _("Album:") }} {{ mxm_album.album_name }} — {{ _("Get Musixmatch album source and connected platforms.") }}
+  {% elif tracks_data and tracks_data[0] is mapping and tracks_data[0].track_name is defined %}
+    {{ tracks_data[0].track_name }} — {{ _("ISRC:") }} {{ tracks_data[0].isrc or tracks_data[0].track_isrc }} | {{ _("Get Musixmatch link, Track ID, and Album info.") }}
+  {% else %}
+    {{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link") }}
+  {% endif %}
+{% endblock %}
+{% block og_image %}
+  {% if tracks_data and tracks_data[0] is mapping and tracks_data[0].image %}
+    {{ tracks_data[0].image }}
+  {% elif artist and artist[0].images %}
+    {{ artist[0].images[0].url }}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+{% block twitter_image %}
+  {% if tracks_data and tracks_data[0] is mapping and tracks_data[0].image %}
+    {{ tracks_data[0].image }}
+  {% elif artist and artist[0].images %}
+    {{ artist[0].images[0].url }}
+  {% else %}
+    {{ super() }}
   {% endif %}
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Spotify, Apple Music, or Musixmatch Link") }}</h1>
+    <header>
+      <h1>{{ _("Spotify & Apple Music to Musixmatch") }}</h1>
+      <p class="subtitle">{{ _("Convert music links and find ISRCs effortlessly") }}</p>
+    </header>
     <form action="/" method="GET">
       <label for="input_link">{{ _("Spotify, Apple Music, or Musixmatch Link (or ISRC):") }}</label>
       <input type="text"
              id="input_link"
              name="link"
-             placeholder="{{ _("E.g.:") }} https://open.spotify.com/... or https://music.apple.com/..."
+             placeholder="{{ _("E.g.:") }} https://open.spotify.com/... {{ _("or") }} https://music.apple.com/..."
              value="{{ request.args.get('link', '') }}" />
       <button type="submit" id="process_button">{{ _("Get links") }}</button>
       <div class="loading" id="loading"></div>
@@ -259,36 +347,28 @@
   <div class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h2>How to Use</h2>
+      <h2>{{ _("How to Use") }}</h2>
       <ol>
-        <li>
-          Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC into the input
-          field.
-        </li>
-        <li>Click the "Get links" button and wait until the processing ends.</li>
+        <li>{{ _("Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC into the input field.") }}</li>
+        <li>{{ _("Click the \"Get links\" button and wait until the processing ends.") }}</li>
       </ol>
-      <h3>If the track has not been imported yet:</h3>
+      <h3>{{ _("If the track has not been imported yet:") }}</h3>
       <ul>
         <li>
-          The app tries to import it automatically. You may get the links
-          immediately or have to wait for 1 or 2 minutes (depending on the
-          MXM API).
+          {{ _("The app tries to import it automatically. You may get the links immediately or have to wait for 1 or 2 minutes (depending on the MXM API).") }}
         </li>
         <li>
-          If you see the same message after a while, it means that the app
-          can't import it. You have to ask for help via Slack.
+          {{ _("If you see the same message after a while, it means that the app can't import it. You have to ask for help via Slack.") }}
         </li>
       </ul>
-      <h3>Spotify Limits:</h3>
+      <h3>{{ _("Spotify Limits:") }}</h3>
       <ul>
-        <li>You can't get more than 50 tracks from an album.</li>
+        <li>{{ _("You can't get more than 50 tracks from an album.") }}</li>
       </ul>
-      <h3>Hosting Limits:</h3>
+      <h3>{{ _("Hosting Limits:") }}</h3>
       <ul>
         <li>
-          If you see a limit error, it mostly means that the album has many
-          tracks. Try to get the links by using a track link, then open the
-          album from MXM.
+          {{ _("If you see a limit error, it mostly means that the album has many tracks. Try to get the links by using a track link, then open the album from MXM.") }}
         </li>
         <!-- <li>
           You can use http://cifor55334.pythonanywhere.com/ or
@@ -297,16 +377,14 @@
         </li> -->
       </ul>
       <p class="reach">
-        Finally, if you face a problem or the app is malfunctioning, you can
-        reach me via Slack "<a href="https://lyricscurators.slack.com/team/U0140RQGG4E"
-   target="_blank">@Ian P.</a>".
+        {{ _("Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\".", link_start='<a href="https://lyricscurators.slack.com/team/U0140RQGG4E"
+   target="_blank">', link_end='</a>')|safe }}
       </p>
       <p>
-        This site is a fork of Adel Hashem's <a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
-    target="_blank">GitHub
-      repo.</a>
-    </p>
-    <p>Hoping this app is useful.</p>
+        {{ _("This site is a fork of Adel Hashem's %(link_start)sGitHub repo.%(link_end)s", link_start='<a href="https://github.com/AdelHashem/Spotify-Link-To-Musixmatch-Track-and-Album-webApp"
+           target="_blank">', link_end='</a>') |safe }}
+      </p>
+      <p>{{ _("Hoping this app is useful.") }}</p>
+    </div>
   </div>
-</div>
 {% endblock %}

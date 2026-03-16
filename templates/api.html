@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Set MXM API{% endblock %}
+{% block title %}{{ _("Set Musixmatch API Token") }} | SpotMXM{% endblock %}
+{% block meta_title %}{{ _("Set Musixmatch API Token - Secure Your Access") }}{% endblock %}
+{% block meta_description %}
+  {{ _("Securely add your personal Musixmatch API token to use advanced features and higher rate limits on SpotMXM.") }}
+{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
 {% block content %}
   <div class="container">
-    <h1>{{ _("Set Your Token") }}</h1>
+    <header>
+      <h1>{{ _("Set Your Token") }}</h1>
+      <p class="subtitle">{{ _("Enable advanced features with your Musixmatch user token") }}</p>
+    </header>
     <form action="/" method="GET">
       <label for="input_link">{{ _("Enter Your Token:") }}</label>
       <input type="text"
@@ -34,7 +42,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="card">
               <div class="card-details">
-                <p class="card-text">Erorr: {{ error }}</p>
+                <p class="card-text">{{ _("Error:") }} {{ error }}</p>
               </div>
             </div>
           </div>

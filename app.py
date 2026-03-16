@@ -683,11 +683,8 @@ def sitemap():
     pages = [
         "index",
         "isrc",
-        "mxm_to_sp",
         "abstrack",
         "split",
-        "setAPI",
-        "apple",
         "credits",
     ]
 
