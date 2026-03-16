@@ -35,7 +35,7 @@
     <link rel="canonical" href="{{ request.base_url }}">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:url" content="{{ request.base_url }}">
     <meta property="og:title"
           content="{% block og_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
     <meta property="og:description"
@@ -44,7 +44,7 @@
           content="{%- block og_image -%}{{ url_for('static', filename='assets/preview.png', _external=True) }}{%- endblock -%}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:url" content="{{ request.base_url }}">
     <meta name="twitter:title"
           content="{% block twitter_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
     <meta name="twitter:description"
