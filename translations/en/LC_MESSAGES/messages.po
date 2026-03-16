@@ -340,9 +340,8 @@ msgstr ""
 msgid "Convert Spotify, Apple Music, Musixmatch links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors."
 msgstr ""
 
-#: templates/base.html:42
-msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link"
-msgstr ""
+#~ msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link"
+#~ msgstr ""
 
 #: templates/base.html:51
 msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify or Apple Music Link"
@@ -492,7 +491,7 @@ msgstr ""
 msgid "Get Musixmatch link, Track ID, and Album info."
 msgstr ""
 
-#: templates/index.html:78 templates/index.html:96
+#: templates/base.html:42 templates/index.html:78 templates/index.html:96
 msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link"
 msgstr ""
 

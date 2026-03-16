@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ get_locale() }}">
+<html lang="{{ get_locale() or 'en' }}">
   <head>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -39,7 +39,7 @@
     <meta property="og:title"
           content="{% block og_title %}{{ _("Spotify & Apple Music to Musixmatch – ISRC Metadata Tool") }}{% endblock %}">
     <meta property="og:description"
-          content="{% block og_description %}{{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify Link") }}{% endblock %}">
+          content="{% block og_description %}{{ _("Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link") }}{% endblock %}">
     <meta property="og:image"
           content="{%- block og_image -%}{{ url_for('static', filename='assets/preview.png', _external=True) }}{%- endblock -%}">
     <!-- Twitter -->
