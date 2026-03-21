@@ -49,7 +49,7 @@ def test_get_apple_music_data_success(apple_music, mocker):
     # Mock session.get
     mocker.patch.object(apple_music.session, "get", return_value=mock_response)
 
-    result = apple_music.get_apple_music_data("http://apple.music/test")
+    result = apple_music.get_apple_music_data("https://music.apple.com/us/album/test")
 
     assert len(result) == 1
     track = result[0]
@@ -76,7 +76,7 @@ def test_get_apple_music_data_opengraph_fallback(apple_music, mocker):
 
     mocker.patch.object(apple_music.session, "get", return_value=mock_response)
 
-    result = apple_music.get_apple_music_data("http://apple.music/fallback")
+    result = apple_music.get_apple_music_data("https://music.apple.com/us/album/fallback")
 
     assert len(result) == 1
     track = result[0]
@@ -92,7 +92,7 @@ def test_get_apple_music_data_error(apple_music, mocker):
 
     mocker.patch.object(apple_music.session, "get", return_value=mock_response)
 
-    result = apple_music.get_apple_music_data("http://apple.music/error")
+    result = apple_music.get_apple_music_data("https://music.apple.com/us/album/error")
 
     assert len(result) == 1
     assert "Error" in result[0]

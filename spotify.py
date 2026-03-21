@@ -144,7 +144,9 @@ class Spotify:
             else:
                 return "Error in get_isrc"
 
-    def artist_albums(self, link, albums=[], offset=0) -> list:
+    def artist_albums(self, link, albums=None, offset=0) -> list:
+        if albums is None:
+            albums = []
         data = self.sp.artist_albums(
             link, limit=50, offset=offset, album_type="album,single,compilation"
         )

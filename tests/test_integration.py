@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import aiohttp
+import pytest
 from dotenv import load_dotenv
 
 from apple import AppleMusic
@@ -14,6 +15,7 @@ from mxm import MXM
 load_dotenv()
 
 
+@pytest.mark.skip(reason="Integration test requiring live external services; run directly with `python tests/test_integration.py`")
 async def test():
     am = AppleMusic()
     # Use the link provided by the user
