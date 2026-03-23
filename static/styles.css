@@ -408,6 +408,65 @@ span.card-link:hover {
   overflow-wrap: break-word;
 }
 
+/* Provider info shown on initial load */
+.provider-info {
+  margin: 24px 0 8px;
+  text-align: center;
+}
+
+.provider-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.provider-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.provider-item {
+  background-color: var(--input-bg);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.provider-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.provider-icon {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.provider-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.provider-item p {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.how-to-use-wrapper {
+  margin-top: 16px;
+  text-align: center;
+}
+
 /* Modal */
 .modal {
   display: none;

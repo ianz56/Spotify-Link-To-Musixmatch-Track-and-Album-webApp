@@ -48,13 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Hide the note element if the current URL contains a query string
-  const noteElement = document.querySelector(".note");
-  if (noteElement) {
-    noteElement.style.display = window.location.href.includes("?")
-      ? "none"
-      : "block";
-  }
+  // Hide note elements when a query string is present (i.e., after a search)
+  const noteElements = document.querySelectorAll(".note");
+  const hasQuery = window.location.href.includes("?");
+  noteElements.forEach((el) => {
+    el.style.display = hasQuery ? "none" : "block";
+  });
 });
 
 // Get the form and button elements

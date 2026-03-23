@@ -132,6 +132,31 @@
       <div class="loading" id="loading"></div>
     </form>
     <div class="output" id="output">
+      <div class="note provider-info">
+        <h3>{{ _("Supported Input Formats") }}</h3>
+        <div class="provider-grid">
+          <div class="provider-item">
+            <div class="provider-icon">🎵</div>
+            <strong>Spotify</strong>
+            <p>{{ _("Track, Album, Artist") }}</p>
+          </div>
+          <div class="provider-item">
+            <div class="provider-icon">🍎</div>
+            <strong>Apple Music</strong>
+            <p>{{ _("Track, Album") }}</p>
+          </div>
+          <div class="provider-item">
+            <div class="provider-icon">🎤</div>
+            <strong>Musixmatch</strong>
+            <p>{{ _("Track, Album") }}</p>
+          </div>
+          <div class="provider-item">
+            <div class="provider-icon">🔑</div>
+            <strong>ISRC</strong>
+            <p>{{ _("Direct ISRC lookup") }}</p>
+          </div>
+        </div>
+      </div>
       {% if platform == 'mxm' %}
         <p style="text-align: center;">{{ _("The tool can only get the source of the album.") }}</p>
         <p style="text-align: center;">{{ _("If a track matches multiple albums, please use the album link.") }}</p>
@@ -340,8 +365,8 @@
         {% endif %}
       {% endif %}
     </div>
-    <div>
-      <a href="#" id="how_to_use" style="display: none;">{{ _("How to Use?") }}</a>
+    <div class="note how-to-use-wrapper">
+      <a href="#" id="how_to_use">{{ _("How to Use?") }}</a>
     </div>
   </div>
   <div class="modal">

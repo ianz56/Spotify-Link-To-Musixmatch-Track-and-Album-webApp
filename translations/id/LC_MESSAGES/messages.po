@@ -1,22 +1,18 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: spotmxm\n"
+"Project-Id-Version:  spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-16 18:00+0700\n"
-"PO-Revision-Date: 2026-03-16 13:13\n"
+"POT-Creation-Date: 2026-03-23 21:47+0000\n"
+"PO-Revision-Date: 2026-03-16 13:13+0000\n"
 "Last-Translator: \n"
 "Language: id\n"
 "Language-Team: Indonesian\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
-"X-Crowdin-Project: spotmxm\n"
-"X-Crowdin-Project-ID: 858512\n"
-"X-Crowdin-Language: id\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 12\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: app.py:322
 msgid "Wrong Spotify Link Or Wrong ISRC"
@@ -66,19 +62,45 @@ msgstr "Silakan masukkan kunci yang valid"
 msgid "Invalid input!"
 msgstr "Masukan tidak valid!"
 
-#: mxm.py:378
+#: mxm.py:377
 #, python-format
-msgid "This track may having two pages with the same ISRC, the other <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
-msgstr "Trek ini mungkin memiliki dua halaman dengan ISRC yang sama, <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a> lain dari <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
+msgid ""
+"This track may having two pages with the same ISRC, the other <a class"
+"=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a "
+"class=\"card-link\" "
+"href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" "
+"target=\"_blank\">album</a>."
+msgstr ""
+"Trek ini mungkin memiliki dua halaman dengan ISRC yang sama, <a class"
+"=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a> lain "
+"dari <a class=\"card-link\" "
+"href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" "
+"target=\"_blank\">album</a>."
 
-#: mxm.py:386
+#: mxm.py:385
 #, python-format
-msgid "This track may be facing an ISRC issue as the Spotify ID is connected to another <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">page</a> from <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
-msgstr "Trek ini mungkin mengalami masalah ISRC karena ID Spotify terhubung ke <a class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a> lain dari <a class=\"card-link\" href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" target=\"_blank\">album</a>."
+msgid ""
+"This track may be facing an ISRC issue as the Spotify ID is connected to "
+"another <a class=\"card-link\" href=\"%(track_url)s\" "
+"target=\"_blank\">page</a> from <a class=\"card-link\" "
+"href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" "
+"target=\"_blank\">album</a>."
+msgstr ""
+"Trek ini mungkin mengalami masalah ISRC karena ID Spotify terhubung ke <a"
+" class=\"card-link\" href=\"%(track_url)s\" target=\"_blank\">halaman</a>"
+" lain dari <a class=\"card-link\" "
+"href=\"https://www.musixmatch.com/album/%(artist_id)s/%(album_id)s\" "
+"target=\"_blank\">album</a>."
 
-#: mxm.py:397
-msgid "The track hasn't been imported yet. Please try again after 1-5 minutes. Sometimes it may take longer, up to 15 minutes, depending on the MXM API and their servers."
-msgstr "Trek belum diimpor. Silakan coba lagi setelah 1-5 menit. Terkadang prosesnya bisa memakan waktu lebih lama, hingga 15 menit, tergantung pada API MXM dan servernya."
+#: mxm.py:396
+msgid ""
+"The track hasn't been imported yet. Please try again after 1-5 minutes. "
+"Sometimes it may take longer, up to 15 minutes, depending on the MXM API "
+"and their servers."
+msgstr ""
+"Trek belum diimpor. Silakan coba lagi setelah 1-5 menit. Terkadang "
+"prosesnya bisa memakan waktu lebih lama, hingga 15 menit, tergantung pada"
+" API MXM dan servernya."
 
 #: mxm.py:410
 msgid "This track may missing its Spotify id"
@@ -93,7 +115,9 @@ msgid "Musixmatch Abstrack Finder - Track & Album Insights"
 msgstr ""
 
 #: templates/abstrack.html:7
-msgid "Retrieve detailed track and album information from Musixmatch using Abstrack IDs, including sync status and platform sources."
+msgid ""
+"Retrieve detailed track and album information from Musixmatch using "
+"Abstrack IDs, including sync status and platform sources."
 msgstr ""
 
 #: templates/abstrack.html:12
@@ -108,11 +132,13 @@ msgstr ""
 msgid "Musixmatch abstrack:"
 msgstr "Abstrak Musixmatch:"
 
-#: templates/abstrack.html:20 templates/apple.html:13 templates/mxm.html:13 templates/split.html:19 templates/split.html:24
+#: templates/abstrack.html:20 templates/apple.html:13 templates/mxm.html:13
+#: templates/split.html:19 templates/split.html:24
 msgid " E.g.:"
 msgstr " Mis.:"
 
-#: templates/abstrack.html:21 templates/apple.html:14 templates/index.html:131 templates/isrc.html:20 templates/mxm.html:14
+#: templates/abstrack.html:21 templates/apple.html:14 templates/index.html:131
+#: templates/isrc.html:20 templates/mxm.html:14
 msgid "Get links"
 msgstr "Dapatkan Link"
 
@@ -140,11 +166,13 @@ msgstr "Nama Artis:"
 msgid "Explicit:"
 msgstr "Eksplisit:"
 
-#: templates/abstrack.html:52 templates/abstrack.html:55 templates/abstrack.html:58
+#: templates/abstrack.html:52 templates/abstrack.html:55
+#: templates/abstrack.html:58
 msgid "Yes"
 msgstr "Ya"
 
-#: templates/abstrack.html:52 templates/abstrack.html:55 templates/abstrack.html:58
+#: templates/abstrack.html:52 templates/abstrack.html:55
+#: templates/abstrack.html:58
 msgid "No"
 msgstr "Tidak"
 
@@ -156,15 +184,17 @@ msgstr "Memiliki Lirik:"
 msgid "Has Subtitles:"
 msgstr "Memiliki Subtitle:"
 
-#: templates/abstrack.html:61 templates/apple.html:54 templates/index.html:272
+#: templates/abstrack.html:61 templates/apple.html:54 templates/index.html:297
 msgid "Link:"
 msgstr "Link:"
 
-#: templates/abstrack.html:64 templates/apple.html:57 templates/index.html:275 templates/layout/published_map.html:2 templates/layout/published_map.html:3 templates/split.html:53 templates/split.html:76
+#: templates/abstrack.html:64 templates/apple.html:57 templates/index.html:300
+#: templates/layout/published_map.html:2 templates/layout/published_map.html:3
+#: templates/split.html:53 templates/split.html:76
 msgid "Musixmatch"
 msgstr "Musixmatch"
 
-#: templates/abstrack.html:68 templates/index.html:279
+#: templates/abstrack.html:68 templates/index.html:304
 msgid "Studio"
 msgstr "Studio"
 
@@ -172,11 +202,13 @@ msgstr "Studio"
 msgid "Verified by:"
 msgstr "Terverifikasi oleh:"
 
-#: templates/abstrack.html:74 templates/abstrack.html:77 templates/apple.html:29 templates/apple.html:32 templates/mxm.html:40
+#: templates/abstrack.html:74 templates/abstrack.html:77
+#: templates/apple.html:29 templates/apple.html:32 templates/mxm.html:40
 msgid "Verified by "
 msgstr "Terverifikasi oleh "
 
-#: templates/abstrack.html:77 templates/apple.html:32 templates/index.html:158 templates/index.html:249 templates/mxm.html:40
+#: templates/abstrack.html:77 templates/apple.html:32 templates/index.html:183
+#: templates/index.html:274 templates/mxm.html:40
 msgid "Unknown"
 msgstr "Tidak dikenal"
 
@@ -184,23 +216,32 @@ msgstr "Tidak dikenal"
 msgid "Album Info:"
 msgstr "Info Album:"
 
-#: templates/abstrack.html:83 templates/apple.html:37 templates/apple.html:44 templates/index.html:75 templates/index.html:93 templates/index.html:145 templates/index.html:254 templates/index.html:262 templates/isrc.html:34 templates/mxm.html:27
+#: templates/abstrack.html:83 templates/apple.html:37 templates/apple.html:44
+#: templates/index.html:75 templates/index.html:93 templates/index.html:170
+#: templates/index.html:279 templates/index.html:287 templates/isrc.html:34
+#: templates/mxm.html:27
 msgid "Album:"
 msgstr "Album:"
 
-#: templates/abstrack.html:89 templates/index.html:150 templates/mxm.html:32
+#: templates/abstrack.html:89 templates/index.html:175 templates/mxm.html:32
 msgid "Album ID:"
 msgstr "ID Album:"
 
-#: templates/abstrack.html:93 templates/abstrack.html:108 templates/index.html:163 templates/index.html:176 templates/mxm.html:45 templates/mxm.html:58
+#: templates/abstrack.html:93 templates/abstrack.html:108
+#: templates/index.html:188 templates/index.html:201 templates/mxm.html:45
+#: templates/mxm.html:58
 msgid "Spotify source:"
 msgstr "Sumber Spotify:"
 
-#: templates/abstrack.html:108 templates/abstrack.html:128 templates/abstrack.html:148 templates/index.html:176 templates/index.html:192 templates/mxm.html:58 templates/mxm.html:74
+#: templates/abstrack.html:108 templates/abstrack.html:128
+#: templates/abstrack.html:148 templates/index.html:201
+#: templates/index.html:217 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr "Tidak Ada Sumber Terhubung"
 
-#: templates/abstrack.html:113 templates/abstrack.html:128 templates/index.html:179 templates/index.html:192 templates/mxm.html:61 templates/mxm.html:74
+#: templates/abstrack.html:113 templates/abstrack.html:128
+#: templates/index.html:204 templates/index.html:217 templates/mxm.html:61
+#: templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr "Sumber Apple Music:"
 
@@ -221,7 +262,9 @@ msgid "Set Musixmatch API Token - Secure Your Access"
 msgstr ""
 
 #: templates/api.html:6
-msgid "Securely add your personal Musixmatch API token to use advanced features and higher rate limits on SpotMXM."
+msgid ""
+"Securely add your personal Musixmatch API token to use advanced features "
+"and higher rate limits on SpotMXM."
 msgstr ""
 
 #: templates/api.html:12
@@ -242,7 +285,9 @@ msgstr "Simpan"
 
 #: templates/api.html:25
 msgid "This Page is for any one want to use the tool with their Private Token key"
-msgstr "Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token Pribadinya"
+msgstr ""
+"Halaman ini untuk siapa saja yang ingin menggunakan alat ini dengan Token"
+" Pribadinya"
 
 #: templates/api.html:32
 msgid "Your Token:"
@@ -269,8 +314,14 @@ msgid "Copy the debug and copy usertoken"
 msgstr "Salin debug dan salin usertoken"
 
 #: templates/api.html:67
-msgid "Please save and pin your key on the clipboard as it is saved in the browser you use only. If you changed browsers, you'll need to enter it again."
-msgstr "Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu memasukkannya lagi."
+msgid ""
+"Please save and pin your key on the clipboard as it is saved in the "
+"browser you use only. If you changed browsers, you'll need to enter it "
+"again."
+msgstr ""
+"Harap simpan dan pin token Anda di clipboard karena hanya tersimpan di "
+"browser yang Anda gunakan. Jika Anda mengganti browser, Anda perlu "
+"memasukkannya lagi."
 
 #: templates/api.html:71
 msgid "How can I return to use the tool Token:"
@@ -293,8 +344,16 @@ msgid "How secure will be the Token?"
 msgstr "Seberapa aman Token ini?"
 
 #: templates/api.html:85
-msgid "We are not setting the Token directly to the cookie. Instead, we are generating a token based on your Token which expires in every one hour then it regenerates a new token automatically. So you can say your Token is super secured."
-msgstr "Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang Token Anda sangat aman."
+msgid ""
+"We are not setting the Token directly to the cookie. Instead, we are "
+"generating a token based on your Token which expires in every one hour "
+"then it regenerates a new token automatically. So you can say your Token "
+"is super secured."
+msgstr ""
+"Web tidak menyimpan Token secara langsung di cookie. Sebaliknya, web "
+"menghasilkan token berdasarkan Token Anda yang kedaluwarsa setiap satu "
+"jam, lalu menghasilkan token baru secara otomatis. Jadi bisa dibilang "
+"Token Anda sangat aman."
 
 #: templates/apple.html:4 templates/apple.html:7
 msgid "Apple Music to Musixmatch Link"
@@ -304,35 +363,39 @@ msgstr "Apple Music ke Link Musixmatch"
 msgid "Apple Music Track Link:"
 msgstr "Link Trek Apple Music:"
 
-#: templates/apple.html:50 templates/index.html:259 templates/index.html:267
+#: templates/apple.html:50 templates/index.html:284 templates/index.html:292
 msgid "Artist:"
 msgstr "Artis:"
 
-#: templates/apple.html:51 templates/index.html:77 templates/index.html:95 templates/index.html:269 templates/isrc.html:40
+#: templates/apple.html:51 templates/index.html:77 templates/index.html:95
+#: templates/index.html:294 templates/isrc.html:40
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: templates/apple.html:52 templates/index.html:270
+#: templates/apple.html:52 templates/index.html:295
 msgid "Track ID:"
 msgstr "ID Trek:"
 
-#: templates/apple.html:64 templates/index.html:281
+#: templates/apple.html:64 templates/index.html:306
 msgid "Note:"
 msgstr "Catatan:"
 
-#: templates/apple.html:67 templates/index.html:284 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:309 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr " Data diambil dari cache"
 
-#: templates/apple.html:79 templates/index.html:208 templates/index.html:296 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:233 templates/index.html:321
+#: templates/mxm.html:90
 msgid "Cached"
 msgstr "Di-cache"
 
-#: templates/apple.html:86 templates/index.html:215 templates/index.html:303 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:240 templates/index.html:328
+#: templates/mxm.html:97
 msgid "Refresh"
 msgstr "Segarkan"
 
-#: templates/base.html:19 templates/index.html:43 templates/index.html:52 templates/index.html:70 templates/index.html:88
+#: templates/base.html:19 templates/index.html:43 templates/index.html:52
+#: templates/index.html:70 templates/index.html:88
 msgid "Spotify & Apple Music - ISRC to Musixmatch"
 msgstr ""
 
@@ -341,19 +404,28 @@ msgid "Spotify & Apple Music to Musixmatch – ISRC Metadata Tool"
 msgstr ""
 
 #: templates/base.html:30
-msgid "Convert Spotify, Apple Music, Musixmatch links to Musixmatch tracks, find ISRCs, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors."
+msgid ""
+"Convert Spotify, Apple Music, Musixmatch links to Musixmatch tracks, find"
+" ISRCs, get album art, and split tracks. The ultimate tool for music "
+"curators and Musixmatch contributors."
 msgstr ""
 
 #: templates/base.html:42 templates/index.html:79 templates/index.html:97
-msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple Music Link"
+msgid ""
+"Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify & Apple "
+"Music Link"
 msgstr ""
 
 #: templates/base.html:51
-msgid "Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify or Apple Music Link"
+msgid ""
+"Get Musixmatch Link, ISRC, Track ID, Album Link From Spotify or Apple "
+"Music Link"
 msgstr ""
 
 #: templates/base.html:61
-msgid "A tool to convert Spotify or Apple Music links to Musixmatch tracks, find ISRCs, and manage music metadata."
+msgid ""
+"A tool to convert Spotify or Apple Music links to Musixmatch tracks, find"
+" ISRCs, and manage music metadata."
 msgstr ""
 
 #: templates/base.html:81
@@ -405,7 +477,9 @@ msgid "Credits & Contributors - The People Behind SpotMXM"
 msgstr ""
 
 #: templates/credits.html:6
-msgid "Meet the developers and translators who helped build SpotMXM, a tool for Spotify and Musixmatch links."
+msgid ""
+"Meet the developers and translators who helped build SpotMXM, a tool for "
+"Spotify and Musixmatch links."
 msgstr ""
 
 #: templates/credits.html:12
@@ -485,7 +559,10 @@ msgid "Get Musixmatch link, ISRC, Track ID, and Album info for"
 msgstr ""
 
 #: templates/index.html:61
-msgid "Convert Spotify, Apple Music, Musixmatch links, or ISRC to Musixmatch tracks, find Track ID, get album art, and split tracks. The ultimate tool for music curators and Musixmatch contributors."
+msgid ""
+"Convert Spotify, Apple Music, Musixmatch links, or ISRC to Musixmatch "
+"tracks, find Track ID, get album art, and split tracks. The ultimate tool"
+" for music curators and Musixmatch contributors."
 msgstr ""
 
 #: templates/index.html:75 templates/index.html:93
@@ -516,93 +593,123 @@ msgstr "Mis.:"
 msgid "or"
 msgstr ""
 
-#: templates/index.html:136 templates/mxm.html:18
+#: templates/index.html:136
+msgid "Supported Input Formats"
+msgstr "Format Input yang Didukung"
+
+#: templates/index.html:141
+msgid "Track, Album, Artist"
+msgstr "Lagu, Album, Artis"
+
+#: templates/index.html:146 templates/index.html:151
+msgid "Track, Album"
+msgstr "Lagu, Album"
+
+#: templates/index.html:156
+msgid "Direct ISRC lookup"
+msgstr "Pencarian ISRC langsung"
+
+#: templates/index.html:161 templates/mxm.html:18
 msgid "The tool can only get the source of the album."
 msgstr "Alat ini dapat mengambil sumber album."
 
-#: templates/index.html:137 templates/mxm.html:19
+#: templates/index.html:162 templates/mxm.html:19
 msgid "If a track matches multiple albums, please use the album link."
 msgstr "Jika halaman trek terhubung ke banyak album, silakan gunakan link album."
 
-#: templates/index.html:153 templates/index.html:246 templates/mxm.html:35
+#: templates/index.html:178 templates/index.html:271 templates/mxm.html:35
 msgid "Verified by"
 msgstr "Terverifikasi oleh"
 
-#: templates/index.html:196
+#: templates/index.html:221
 msgid "Data fetched from cache"
 msgstr "Data diambil dari cache"
 
-#: templates/index.html:329
+#: templates/index.html:354
 msgid "Type:"
 msgstr "Tipe:"
 
-#: templates/index.html:331
+#: templates/index.html:356
 msgid "Spotify:"
 msgstr "Spotify:"
 
-#: templates/index.html:332
+#: templates/index.html:357
 msgid "Album link"
 msgstr "Link Album"
 
-#: templates/index.html:334
+#: templates/index.html:359
 msgid "Get MXM Links"
 msgstr "Daptakan Link MXM"
 
-#: templates/index.html:344
+#: templates/index.html:369
 msgid "How to Use?"
 msgstr "Cara Penggunaan?"
 
-#: templates/index.html:350
+#: templates/index.html:375
 msgid "How to Use"
 msgstr ""
 
-#: templates/index.html:352
-msgid "Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC into the input field."
+#: templates/index.html:377
+msgid ""
+"Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC "
+"into the input field."
 msgstr ""
 
-#: templates/index.html:353
+#: templates/index.html:378
 msgid "Click the \"Get links\" button and wait until the processing ends."
 msgstr ""
 
-#: templates/index.html:355
+#: templates/index.html:380
 msgid "If the track has not been imported yet:"
 msgstr ""
 
-#: templates/index.html:358
-msgid "The app tries to import it automatically. You may get the links immediately or have to wait for 1 or 2 minutes (depending on the MXM API)."
+#: templates/index.html:383
+msgid ""
+"The app tries to import it automatically. You may get the links "
+"immediately or have to wait for 1 or 2 minutes (depending on the MXM "
+"API)."
 msgstr ""
 
-#: templates/index.html:361
-msgid "If you see the same message after a while, it means that the app can't import it. You have to ask for help via Slack."
+#: templates/index.html:386
+msgid ""
+"If you see the same message after a while, it means that the app can't "
+"import it. You have to ask for help via Slack."
 msgstr ""
 
-#: templates/index.html:364
+#: templates/index.html:389
 msgid "Spotify Limits:"
 msgstr ""
 
-#: templates/index.html:366
+#: templates/index.html:391
 msgid "You can't get more than 50 tracks from an album."
 msgstr ""
 
-#: templates/index.html:368
+#: templates/index.html:393
 msgid "Hosting Limits:"
 msgstr ""
 
-#: templates/index.html:371
-msgid "If you see a limit error, it mostly means that the album has many tracks. Try to get the links by using a track link, then open the album from MXM."
+#: templates/index.html:396
+msgid ""
+"If you see a limit error, it mostly means that the album has many tracks."
+" Try to get the links by using a track link, then open the album from "
+"MXM."
 msgstr ""
 
-#: templates/index.html:380
+#: templates/index.html:405
 #, python-format
-msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
+msgid ""
+"Finally, if you face a problem or the app is malfunctioning, you can "
+"reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
 msgstr ""
 
-#: templates/index.html:384
+#: templates/index.html:409
 #, python-format
-msgid "This site is a fork of Adel Hashem's %(link_start)sGitHub repo.%(link_end)s"
+msgid ""
+"This site is a fork of Adel Hashem's %(link_start)sGitHub "
+"repo.%(link_end)s"
 msgstr ""
 
-#: templates/index.html:387
+#: templates/index.html:412
 msgid "Hoping this app is useful."
 msgstr ""
 
@@ -615,7 +722,9 @@ msgid "Spotify Data & ISRC Finder - Get Track Metadata"
 msgstr ""
 
 #: templates/isrc.html:6
-msgid "Find Spotify ISRC codes, album information, and available markets for any track or album link."
+msgid ""
+"Find Spotify ISRC codes, album information, and available markets for any"
+" track or album link."
 msgstr ""
 
 #: templates/isrc.html:11
@@ -663,7 +772,9 @@ msgid "Musixmatch Split Checker - Identify Splittable Tracks"
 msgstr ""
 
 #: templates/split.html:6
-msgid "Compare two Spotify tracks to see if they can be split on Musixmatch based on their ISRC and Common Track ID."
+msgid ""
+"Compare two Spotify tracks to see if they can be split on Musixmatch "
+"based on their ISRC and Common Track ID."
 msgstr ""
 
 #: templates/split.html:12
@@ -847,9 +958,17 @@ msgstr "Komunitas"
 #~ msgid "Get Spotify Data"
 #~ msgstr ""
 
-#~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
+#~ msgid ""
+#~ "Finally, if you face a problem or"
+#~ " the app is malfunctioning, you can"
+#~ " reach me via Slack \"%(link_start) "
+#~ "s@Ian P.%(link_end)s\"."
 #~ msgstr ""
 
-#~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start)s@Ian P.%(link_end)s\"."
+#~ msgid ""
+#~ "Finally, if you face a problem or"
+#~ " the app is malfunctioning, you can"
+#~ " reach me via Slack \"%(link_start)s@Ian"
+#~ " P.%(link_end)s\"."
 #~ msgstr ""
 
