@@ -610,7 +610,7 @@ msgstr ""
 
 #: templates/index.html:405
 #, python-format
-msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
+msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start)s@Ian P.%(link_end)s\"."
 msgstr ""
 
 #: templates/index.html:409
@@ -863,7 +863,7 @@ msgstr ""
 #~ msgid "Get Spotify Data"
 #~ msgstr ""
 
-#~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
+#~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start)s@Ian P.%(link_end)s\"."
 #~ msgstr ""
 
 #~ msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start)s@Ian P.%(link_end)s\"."
