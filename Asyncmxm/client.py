@@ -582,9 +582,7 @@ class Musixmatch:
         params.update(kwargs)
         return await self._api_call("get", "album.tracks.get", params)
 
-    async def crowd_track_history_get(
-        self, commontrack_id, part="user", **kwargs
-    ):
+    async def crowd_track_history_get(self, commontrack_id, part="user", **kwargs):
         """
         Get the contribution history of a track.
 

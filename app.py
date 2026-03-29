@@ -651,9 +651,7 @@ async def history():
 
         # Check if input is a Musixmatch link
         if "musixmatch.com" in id:
-            match = re.search(
-                r"lyrics/([^?]+/[^?]+)", unquote(id)
-            )
+            match = re.search(r"lyrics/([^?]+/[^?]+)", unquote(id))
             if match:
                 try:
                     async with aiohttp.ClientSession() as session:
@@ -662,15 +660,12 @@ async def history():
                             commontrack_vanity_id=match.group(1)
                         )
                         commontrack_id = str(
-                            track["message"]["body"]["track"][
-                                "commontrack_id"
-                            ]
+                            track["message"]["body"]["track"]["commontrack_id"]
                         )
                 except Exception as e:
                     return render_template(
                         "history.html",
-                        error=_("Failed to resolve Musixmatch link: ")
-                        + str(e),
+                        error=_("Failed to resolve Musixmatch link: ") + str(e),
                     )
             else:
                 return render_template(
@@ -689,9 +684,7 @@ async def history():
             history_data = await mxm.track_history(commontrack_id)
 
         if isinstance(history_data, dict) and history_data.get("error"):
-            return render_template(
-                "history.html", error=history_data["error"]
-            )
+            return render_template("history.html", error=history_data["error"])
 
         # Group history entries by user
         user_groups = {}
@@ -755,6 +748,7 @@ async def api_history(commontrack_id):
         "total_contributions": len(history_data),
         "commontrack_id": commontrack_id,
     }
+
 
 @app.route("/credits")
 def credits():

@@ -80,7 +80,10 @@ if (form && button) {
       return Promise.resolve(); // Resolve with a void value
     }
 
-    if (window.location.pathname === "/abstrack" || window.location.pathname === "/history") {
+    if (
+      window.location.pathname === "/abstrack" ||
+      window.location.pathname === "/history"
+    ) {
       window.location.href =
         window.location.href.split("?")[0] +
         "?id=" +
@@ -299,8 +302,7 @@ function openHistoryModal(commontrackId) {
               '<span class="history-date">' + entry.created_date + "</span>";
           }
           if (entry.app_id) {
-            html +=
-              '<span class="history-app">' + entry.app_id + "</span>";
+            html += '<span class="history-app">' + entry.app_id + "</span>";
           }
           html += "</div>"; // entry-footer
           html += "</div>"; // entry
