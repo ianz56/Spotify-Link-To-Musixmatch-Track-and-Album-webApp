@@ -50,7 +50,9 @@
                     <div class="history-avatar-placeholder">{{ group.user.user_name[:1] | upper }}</div>
                   {% endif %}
                   <div class="history-user-info">
-                    <span class="history-username">{{ group.user.user_name }}</span>
+                    <a href="https://www.musixmatch.com/profile/{{ group.user.uaid }}"
+                       target="_blank"
+                       class="history-username">{{ group.user.user_name }}</a>
                     <div class="history-user-badges">
                       {% if group.user.rank_name %}
                         <span class="history-rank-badge"

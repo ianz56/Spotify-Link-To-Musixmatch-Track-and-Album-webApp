@@ -234,7 +234,11 @@ function openHistoryModal(commontrackId) {
 
         html += '<div class="history-user-info">';
         html +=
-          '<span class="history-username">' + escapeHtml(userName) + "</span>";
+          '<a href="https://www.musixmatch.com/profile/' +
+          escapeHtml(user.uaid) +
+          '" target="_blank" class="history-username">' +
+          escapeHtml(userName) +
+          "</a>";
         html += '<div class="history-user-badges">';
 
         // Rank badge

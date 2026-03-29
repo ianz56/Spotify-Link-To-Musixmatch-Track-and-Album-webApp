@@ -1185,6 +1185,13 @@ body.preload {
   font-weight: 600;
   color: var(--text-color);
   font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.history-username:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 .history-user-badges {
