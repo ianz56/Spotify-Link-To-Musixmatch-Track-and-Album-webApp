@@ -33,7 +33,7 @@ class Musixmatch:
         :param backoff: Factor to apply between attempts after the second try
         """
 
-        self._url = "https://apic-desktop.musixmatch.com/ws/1.1/"
+        self._url = "https://apic-appmobile.musixmatch.com/ws/1.1/"
         self._key = API_key
         self.requests_timeout = requests_timeout
         self.backoff_factor = backoff_factor
@@ -64,11 +64,15 @@ class Musixmatch:
         else:
             params = {"usertoken": self._key}
 
-        params["app_id"] = "web-desktop-app-v1.0"
+        params["app_id"] = "mac-ios-v2.0"
 
         headers = {
-            "Authority": "apic-desktop.musixmatch.com",
-            "Cookie": "x-mxm-token-guid=",
+            "Host": "apic-appmobile.musixmatch.com",
+            "Accept": "application/json",
+            "x-mxm-app-version": "1.37.2",
+            "User-Agent": "Musixmatch/2025120901 CFNetwork/3860.300.31 Darwin/25.2.0",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Connection": "keep-alive",
         }
 
         retries = 0
