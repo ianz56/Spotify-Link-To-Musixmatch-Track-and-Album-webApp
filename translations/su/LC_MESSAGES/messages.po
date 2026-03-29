@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spotmxm\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-16 18:00+0700\n"
-"PO-Revision-Date: 2026-03-16 13:13\n"
+"POT-Creation-Date: 2026-03-29 15:31+0700\n"
+"PO-Revision-Date: 2026-03-29 11:55\n"
 "Last-Translator: \n"
 "Language: su\n"
 "Language-Team: Sundanese\n"
@@ -18,53 +18,61 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 12\n"
 
-#: app.py:322
+#: app.py:323
 msgid "Wrong Spotify Link Or Wrong ISRC"
 msgstr "Salah Link Spotify atawa ISRC"
 
-#: app.py:370 app.py:390 app.py:397
+#: app.py:371 app.py:391 app.py:398
 msgid "An unexpected error occurred, please try again"
 msgstr "Aya kasalahan teu diduga, mangga cobi deui"
 
-#: app.py:468
+#: app.py:469
 msgid "Can be split"
 msgstr "Tiasa dipisahkeun"
 
-#: app.py:469
+#: app.py:470
 msgid "You can copy and paste this:"
 msgstr "Anjeun tiasa salin sareng témpél ieu:"
 
-#: app.py:478
+#: app.py:479
 msgid "Copy Template"
 msgstr "Salin Template"
 
-#: app.py:487
+#: app.py:488
 msgid "Copied to clipboard!"
 msgstr "Disalin ka clipboard!"
 
-#: app.py:495
+#: app.py:496
 msgid "Can not be splitted as they have the Same ISRC"
 msgstr "Teu tiasa di-split sabab ISRC-na sami"
 
-#: app.py:497
+#: app.py:498
 msgid "They have different Pages"
 msgstr "Duanana gaduh Kaca nu béda"
 
-#: app.py:500
+#: app.py:501
 msgid "Something went wrong"
 msgstr "Aya kasalahan"
 
-#: app.py:509 app.py:529
+#: app.py:510 app.py:530
 msgid "Wrong Spotify Link"
 msgstr "Salah Link Spotify"
 
-#: app.py:571
+#: app.py:572
 msgid "Please Enter A Valid Key"
 msgstr "Mangga lebetkeun konci anu valid"
 
-#: app.py:623
+#: app.py:624 app.py:680
 msgid "Invalid input!"
 msgstr "Teu valid input!"
+
+#: app.py:668
+msgid "Failed to resolve Musixmatch link: "
+msgstr ""
+
+#: app.py:674
+msgid "Invalid Musixmatch link! Use a track link like: https://www.musixmatch.com/lyrics/Artist/Song"
+msgstr ""
 
 #: mxm.py:378
 #, python-format
@@ -116,7 +124,7 @@ msgstr " Mis.:"
 msgid "Get links"
 msgstr "Téang link"
 
-#: templates/abstrack.html:30 templates/abstrack.html:161 templates/api.html:45
+#: templates/abstrack.html:30 templates/abstrack.html:164 templates/api.html:45 templates/history.html:29
 msgid "Error:"
 msgstr "Eror:"
 
@@ -168,47 +176,51 @@ msgstr "Musixmatch"
 msgid "Studio"
 msgstr ""
 
-#: templates/abstrack.html:72
+#: templates/abstrack.html:71 templates/base.html:195 templates/index.html:282
+msgid "Contributors"
+msgstr ""
+
+#: templates/abstrack.html:75
 msgid "Verified by:"
 msgstr "Divérifikasi ku:"
 
-#: templates/abstrack.html:74 templates/abstrack.html:77 templates/apple.html:29 templates/apple.html:32 templates/mxm.html:40
+#: templates/abstrack.html:77 templates/abstrack.html:80 templates/apple.html:29 templates/apple.html:32 templates/mxm.html:40
 msgid "Verified by "
 msgstr "Divérifikasi ku "
 
-#: templates/abstrack.html:77 templates/apple.html:32 templates/index.html:158 templates/index.html:249 templates/mxm.html:40
+#: templates/abstrack.html:80 templates/apple.html:32 templates/history.html:101 templates/index.html:158 templates/index.html:249 templates/mxm.html:40
 msgid "Unknown"
 msgstr "Teu dikenal"
 
-#: templates/abstrack.html:81
+#: templates/abstrack.html:84
 msgid "Album Info:"
 msgstr "Info Album:"
 
-#: templates/abstrack.html:83 templates/apple.html:37 templates/apple.html:44 templates/index.html:75 templates/index.html:93 templates/index.html:145 templates/index.html:254 templates/index.html:262 templates/isrc.html:34 templates/mxm.html:27
+#: templates/abstrack.html:86 templates/apple.html:37 templates/apple.html:44 templates/index.html:75 templates/index.html:93 templates/index.html:145 templates/index.html:254 templates/index.html:262 templates/isrc.html:34 templates/mxm.html:27
 msgid "Album:"
 msgstr "Album:"
 
-#: templates/abstrack.html:89 templates/index.html:150 templates/mxm.html:32
+#: templates/abstrack.html:92 templates/index.html:150 templates/mxm.html:32
 msgid "Album ID:"
 msgstr "ID Album:"
 
-#: templates/abstrack.html:93 templates/abstrack.html:108 templates/index.html:163 templates/index.html:176 templates/mxm.html:45 templates/mxm.html:58
+#: templates/abstrack.html:96 templates/abstrack.html:111 templates/index.html:163 templates/index.html:176 templates/mxm.html:45 templates/mxm.html:58
 msgid "Spotify source:"
 msgstr "Sumber Spotify:"
 
-#: templates/abstrack.html:108 templates/abstrack.html:128 templates/abstrack.html:148 templates/index.html:176 templates/index.html:192 templates/mxm.html:58 templates/mxm.html:74
+#: templates/abstrack.html:111 templates/abstrack.html:131 templates/abstrack.html:151 templates/index.html:176 templates/index.html:192 templates/mxm.html:58 templates/mxm.html:74
 msgid "No Connected Source"
 msgstr "Taya Sumber Kahubung"
 
-#: templates/abstrack.html:113 templates/abstrack.html:128 templates/index.html:179 templates/index.html:192 templates/mxm.html:61 templates/mxm.html:74
+#: templates/abstrack.html:116 templates/abstrack.html:131 templates/index.html:179 templates/index.html:192 templates/mxm.html:61 templates/mxm.html:74
 msgid "Apple Music source:"
 msgstr "Sumber Apple Music:"
 
-#: templates/abstrack.html:133 templates/abstrack.html:148
+#: templates/abstrack.html:136 templates/abstrack.html:151
 msgid "Amazon Music source:"
 msgstr "Sumber Amazon Music:"
 
-#: templates/abstrack.html:174 templates/isrc.html:132 templates/mxm.html:122
+#: templates/abstrack.html:177 templates/isrc.html:132 templates/mxm.html:122
 msgid "Countries"
 msgstr "Nagara"
 
@@ -312,23 +324,23 @@ msgstr "Artis:"
 msgid "ISRC:"
 msgstr ""
 
-#: templates/apple.html:52 templates/index.html:270
+#: templates/apple.html:52 templates/history.html:35 templates/index.html:270
 msgid "Track ID:"
 msgstr ""
 
-#: templates/apple.html:64 templates/index.html:281
+#: templates/apple.html:64 templates/index.html:284
 msgid "Note:"
 msgstr "Catetan:"
 
-#: templates/apple.html:67 templates/index.html:284 templates/mxm.html:78
+#: templates/apple.html:67 templates/index.html:287 templates/mxm.html:78
 msgid " Data fetched from cache"
 msgstr " Data dicandak tina cache"
 
-#: templates/apple.html:79 templates/index.html:208 templates/index.html:296 templates/mxm.html:90
+#: templates/apple.html:79 templates/index.html:208 templates/index.html:299 templates/mxm.html:90
 msgid "Cached"
 msgstr "Di-cache"
 
-#: templates/apple.html:86 templates/index.html:215 templates/index.html:303 templates/mxm.html:97
+#: templates/apple.html:86 templates/index.html:215 templates/index.html:306 templates/mxm.html:97
 msgid "Refresh"
 msgstr "Anyarkeun"
 
@@ -376,25 +388,33 @@ msgstr "Data Spotify"
 msgid "MXM Abstrack"
 msgstr "Abstrak MXM"
 
-#: templates/base.html:105 templates/split.html:11
+#: templates/base.html:105
+msgid "History"
+msgstr ""
+
+#: templates/base.html:108 templates/split.html:11
 msgid "Split Checker"
 msgstr "Split Checker"
 
-#: templates/base.html:108
+#: templates/base.html:111
 msgid "Set Token"
 msgstr "Atur Token"
 
-#: templates/base.html:131
+#: templates/base.html:134
 msgid "Contribute"
 msgstr "Kontribusi"
 
-#: templates/base.html:143 templates/credits.html:11
+#: templates/base.html:146 templates/credits.html:11
 msgid "Credits"
 msgstr "Krédit"
 
-#: templates/base.html:146
+#: templates/base.html:149
 msgid "Coded with ❤️ for music"
 msgstr "Dikodeu ku ❤️ pikeun musik"
+
+#: templates/base.html:205
+msgid "View full history"
+msgstr ""
 
 #: templates/credits.html:3
 msgid "Credits & Contributors"
@@ -460,6 +480,46 @@ msgstr "Proyék ieu dinaungan ku lisensina Lisensi MIT."
 msgid "View License"
 msgstr "Tingali Lisensi"
 
+#: templates/history.html:3 templates/history.html:11
+msgid "Contribution History"
+msgstr ""
+
+#: templates/history.html:4
+msgid "Musixmatch Track Contribution History"
+msgstr ""
+
+#: templates/history.html:6
+msgid "View the contribution history of a Musixmatch track, including who added lyrics, synced, and edited the track."
+msgstr ""
+
+#: templates/history.html:12
+msgid "View who contributed to a track on Musixmatch"
+msgstr ""
+
+#: templates/history.html:15
+msgid "Commontrack ID or Musixmatch Link:"
+msgstr ""
+
+#: templates/history.html:19 templates/index.html:129 templates/isrc.html:19
+msgid "E.g.:"
+msgstr "Mis.:"
+
+#: templates/history.html:19 templates/index.html:129
+msgid "or"
+msgstr ""
+
+#: templates/history.html:21
+msgid "View History"
+msgstr ""
+
+#: templates/history.html:36 templates/history.html:77
+msgid "contributions"
+msgstr ""
+
+#: templates/history.html:36
+msgid "contributors"
+msgstr ""
+
 #: templates/index.html:37 templates/index.html:66 templates/index.html:84
 msgid "MXM Album Source"
 msgstr ""
@@ -508,14 +568,6 @@ msgstr ""
 msgid "Spotify, Apple Music, or Musixmatch Link (or ISRC):"
 msgstr ""
 
-#: templates/index.html:129 templates/isrc.html:19
-msgid "E.g.:"
-msgstr "Mis.:"
-
-#: templates/index.html:129
-msgid "or"
-msgstr ""
-
 #: templates/index.html:136 templates/mxm.html:18
 msgid "The tool can only get the source of the album."
 msgstr "Alat ieu ngan tiasa nyandak sumber pikeun album."
@@ -532,77 +584,77 @@ msgstr "Divérifikasi ku"
 msgid "Data fetched from cache"
 msgstr ""
 
-#: templates/index.html:329
+#: templates/index.html:332
 msgid "Type:"
 msgstr ""
 
-#: templates/index.html:331
+#: templates/index.html:334
 msgid "Spotify:"
 msgstr ""
 
-#: templates/index.html:332
+#: templates/index.html:335
 msgid "Album link"
 msgstr ""
 
-#: templates/index.html:334
+#: templates/index.html:337
 msgid "Get MXM Links"
 msgstr ""
 
-#: templates/index.html:344
+#: templates/index.html:347
 msgid "How to Use?"
 msgstr "Cara Ngagunakeun?"
 
-#: templates/index.html:350
+#: templates/index.html:353
 msgid "How to Use"
 msgstr ""
 
-#: templates/index.html:352
+#: templates/index.html:355
 msgid "Enter a valid Spotify link, Apple Music link, Musixmatch link, or ISRC into the input field."
 msgstr ""
 
-#: templates/index.html:353
+#: templates/index.html:356
 msgid "Click the \"Get links\" button and wait until the processing ends."
 msgstr ""
 
-#: templates/index.html:355
+#: templates/index.html:358
 msgid "If the track has not been imported yet:"
 msgstr ""
 
-#: templates/index.html:358
+#: templates/index.html:361
 msgid "The app tries to import it automatically. You may get the links immediately or have to wait for 1 or 2 minutes (depending on the MXM API)."
 msgstr ""
 
-#: templates/index.html:361
+#: templates/index.html:364
 msgid "If you see the same message after a while, it means that the app can't import it. You have to ask for help via Slack."
 msgstr ""
 
-#: templates/index.html:364
+#: templates/index.html:367
 msgid "Spotify Limits:"
 msgstr ""
 
-#: templates/index.html:366
+#: templates/index.html:369
 msgid "You can't get more than 50 tracks from an album."
 msgstr ""
 
-#: templates/index.html:368
+#: templates/index.html:371
 msgid "Hosting Limits:"
 msgstr ""
 
-#: templates/index.html:371
+#: templates/index.html:374
 msgid "If you see a limit error, it mostly means that the album has many tracks. Try to get the links by using a track link, then open the album from MXM."
 msgstr ""
 
-#: templates/index.html:380
+#: templates/index.html:383
 #, python-format
 msgid "Finally, if you face a problem or the app is malfunctioning, you can reach me via Slack \"%(link_start) s@Ian P.%(link_end)s\"."
 msgstr ""
 
-#: templates/index.html:384
+#: templates/index.html:387
 #, python-format
 msgid "This site is a fork of Adel Hashem's %(link_start)sGitHub repo.%(link_end)s"
 msgstr ""
 
-#: templates/index.html:387
+#: templates/index.html:390
 msgid "Hoping this app is useful."
 msgstr ""
 
