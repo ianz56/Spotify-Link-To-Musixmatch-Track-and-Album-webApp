@@ -577,3 +577,20 @@ class Musixmatch:
         }
         params.update(kwargs)
         return await self._api_call("get", "album.tracks.get", params)
+
+    async def crowd_track_history_get(
+        self, commontrack_id, part="user", **kwargs
+    ):
+        """
+        Get the contribution history of a track.
+
+        :param commontrack_id: Musixmatch commontrack id
+        :param part: Parts to include in the response (default: "user")
+        """
+        params = {
+            k: v
+            for k, v in locals().items()
+            if v is not None and k != "self" and k != "kwargs"
+        }
+        params.update(kwargs)
+        return await self._api_call("get", "crowd.track.history.get", params)

@@ -476,3 +476,14 @@ class MXM:
             return track, album
         except Asyncmxm.exceptions.MXMException as e:
             return {"error": str(e)}, {"error": str(e)}
+
+    async def track_history(self, commontrack_id: int) -> list:
+        """Get the contribution history of a track."""
+        try:
+            response = await self.musixmatch.crowd_track_history_get(
+                commontrack_id=commontrack_id, part="user"
+            )
+            history = response.get("message", {}).get("body", {}).get("history", [])
+            return history
+        except Asyncmxm.exceptions.MXMException as e:
+            return {"error": str(e)}

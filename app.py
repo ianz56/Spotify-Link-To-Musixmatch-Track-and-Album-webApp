@@ -633,6 +633,37 @@ async def abstrack() -> str:
         return render_template("abstrack.html")
 
 
+@app.route("/history", methods=["GET"])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
+async def history():
+    """Get the contribution history of a track."""
+    id = request.args.get("id")
+    key = None
+    if id:
+        token = request.cookies.get("api_token")
+        if token:
+            payload = verify_token(token)
+            if payload:
+                key = payload.get("mxm-key")
+        if not re.match("^[0-9]+$", id):
+            return render_template("history.html", error=_("Invalid input!"))
+
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            history_data = await mxm.track_history(id)
+
+        if isinstance(history_data, dict) and history_data.get("error"):
+            return render_template(
+                "history.html", error=history_data["error"]
+            )
+
+        return render_template(
+            "history.html", history=history_data, commontrack_id=id
+        )
+    else:
+        return render_template("history.html")
+
+
 @app.route("/credits")
 def credits():
     contributors = []
@@ -684,6 +715,7 @@ def sitemap():
         "index",
         "isrc",
         "abstrack",
+        "history",
         "split",
         "credits",
     ]

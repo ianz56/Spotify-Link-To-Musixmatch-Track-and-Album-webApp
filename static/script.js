@@ -80,7 +80,7 @@ if (form && button) {
       return Promise.resolve(); // Resolve with a void value
     }
 
-    if (window.location.pathname === "/abstrack") {
+    if (window.location.pathname === "/abstrack" || window.location.pathname === "/history") {
       window.location.href =
         window.location.href.split("?")[0] +
         "?id=" +
