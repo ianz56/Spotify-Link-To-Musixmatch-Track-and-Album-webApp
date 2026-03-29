@@ -650,8 +650,8 @@ async def history():
         commontrack_id = None
 
         # Check if input is a Musixmatch link
-        if "musixmatch.com" in id:
-            match = re.search(r"lyrics/([^?]+/[^?]+)", unquote(id))
+        if "musixmatch.com" in track_id:
+            match = re.search(r"lyrics/([^?]+/[^?]+)", unquote(track_id))
             if match:
                 try:
                     async with aiohttp.ClientSession() as session:
@@ -674,8 +674,8 @@ async def history():
                         "Invalid Musixmatch link! Use a track link like: https://www.musixmatch.com/lyrics/Artist/Song"
                     ),
                 )
-        elif re.match("^[0-9]+$", id):
-            commontrack_id = id
+        elif re.match("^[0-9]+$", track_id):
+            commontrack_id = track_id
         else:
             return render_template("history.html", error=_("Invalid input!"))
 
