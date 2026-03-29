@@ -96,7 +96,7 @@ redis[hiredis]==7.3.0
     # via
     #   -r requirements.in
     #   spotipy
-requests[security]==2.32.5
+requests[security]==2.33.0
     # via
     #   -r requirements.in
     #   mxmapi
