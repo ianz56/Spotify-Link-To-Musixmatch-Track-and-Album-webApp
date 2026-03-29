@@ -96,30 +96,232 @@ if (form && button) {
 
 // Get the how-to-use link and modal elements
 const howToUseLink = document.querySelector("#how_to_use");
-const modal = document.querySelector(".modal");
-const closeBtn = document.querySelector(".modal .close");
+const howToUseModal = document.querySelector(".modal:not(#history-modal)");
+const howToUseCloseBtn = howToUseModal
+  ? howToUseModal.querySelector(".close")
+  : null;
 
 // Add click event listener for the how-to-use link
-if (howToUseLink && modal) {
+if (howToUseLink && howToUseModal) {
   howToUseLink.addEventListener("click", (event) => {
     event.preventDefault();
-    modal.style.display = "block";
+    howToUseModal.style.display = "block";
   });
 }
 
-// Add click event listener for the close button in the modal
-if (closeBtn && modal) {
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
+// Add click event listener for the close button in the how-to-use modal
+if (howToUseCloseBtn && howToUseModal) {
+  howToUseCloseBtn.addEventListener("click", () => {
+    howToUseModal.style.display = "none";
   });
 }
 
-// Add click event listener for clicks outside the modal
+// History modal elements
+const historyModal = document.getElementById("history-modal");
+const historyModalClose = document.getElementById("history-modal-close");
+const historyModalBody = document.getElementById("history-modal-body");
+const historyModalLoading = document.getElementById("history-modal-loading");
+const historyModalFooter = document.getElementById("history-modal-footer");
+const historyModalFullLink = document.getElementById("history-modal-full-link");
+
+if (historyModalClose && historyModal) {
+  historyModalClose.addEventListener("click", () => {
+    historyModal.style.display = "none";
+  });
+}
+
+// Close modals on outside click
 window.addEventListener("click", (event) => {
-  if (modal && event.target === modal) {
-    modal.style.display = "none";
+  if (howToUseModal && event.target === howToUseModal) {
+    howToUseModal.style.display = "none";
+  }
+  if (historyModal && event.target === historyModal) {
+    historyModal.style.display = "none";
   }
 });
+
+/**
+ * Open the history modal and fetch contribution data for a track.
+ * @param {number} commontrackId - The Musixmatch commontrack_id
+ */
+function openHistoryModal(commontrackId) {
+  if (!historyModal || !historyModalBody) return;
+
+  // Show modal with loading state
+  historyModal.style.display = "block";
+  historyModalBody.innerHTML = "";
+  historyModalLoading.style.display = "block";
+  historyModalFooter.style.display = "none";
+
+  // Set the full history link
+  historyModalFullLink.href = "/history?id=" + commontrackId;
+
+  fetch("/api/history/" + commontrackId)
+    .then((res) => res.json())
+    .then((data) => {
+      historyModalLoading.style.display = "none";
+
+      if (data.error) {
+        historyModalBody.innerHTML =
+          '<p style="text-align:center;color:var(--danger-color);">' +
+          data.error +
+          "</p>";
+        return;
+      }
+
+      const groups = data.grouped_history || [];
+      if (groups.length === 0) {
+        historyModalBody.innerHTML =
+          '<p style="text-align:center;">No contributions found.</p>';
+        return;
+      }
+
+      // Summary line
+      let html =
+        '<p class="history-summary">' +
+        "<strong>" +
+        data.total_contributions +
+        "</strong> contributions, <strong>" +
+        groups.length +
+        "</strong> contributors</p>";
+
+      html += '<div class="history-timeline">';
+
+      for (const group of groups) {
+        const user = group.user || {};
+        const entries = group.entries || [];
+        const userName = user.user_name || "Unknown";
+        const initial = userName.charAt(0).toUpperCase();
+
+        html += '<div class="history-user-group">';
+        html += '<div class="history-user-group-header">';
+        html += '<div class="history-user">';
+
+        // Avatar
+        if (user.user_profile_photo) {
+          html +=
+            '<img src="' +
+            user.user_profile_photo +
+            '" alt="' +
+            userName +
+            '" class="history-avatar" loading="lazy" onerror="this.style.display=\'none\'" />';
+        } else {
+          html +=
+            '<div class="history-avatar-placeholder">' + initial + "</div>";
+        }
+
+        html += '<div class="history-user-info">';
+        html += '<span class="history-username">' + userName + "</span>";
+        html += '<div class="history-user-badges">';
+
+        // Rank badge
+        if (user.rank_name) {
+          const bgColor =
+            user.rank_colors && user.rank_colors.rank_color_10
+              ? user.rank_colors.rank_color_10
+              : "f0f0f0";
+          const textColor = user.rank_color || "888";
+          const borderColor =
+            user.rank_colors && user.rank_colors.rank_color_50
+              ? user.rank_colors.rank_color_50
+              : "ddd";
+          html +=
+            '<span class="history-rank-badge" style="background-color:#' +
+            bgColor +
+            ";color:#" +
+            textColor +
+            ";border-color:#" +
+            borderColor +
+            ';">';
+          if (user.rank_image_url) {
+            html +=
+              '<img src="' +
+              user.rank_image_url +
+              '" alt="' +
+              user.rank_name +
+              '" class="history-rank-icon" loading="lazy" />';
+          }
+          html +=
+            user.rank_name.charAt(0).toUpperCase() +
+            user.rank_name.slice(1) +
+            "</span>";
+        }
+
+        if (user.admin) {
+          html +=
+            '<span class="history-role-badge history-role-admin">Admin</span>';
+        }
+        if (user.moderator) {
+          html +=
+            '<span class="history-role-badge history-role-mod">Mod</span>';
+        }
+
+        html += "</div></div></div>"; // badges, user-info, user
+
+        // Stats
+        html += '<div class="history-user-stats">';
+        html +=
+          '<span class="history-contribution-count">' +
+          entries.length +
+          " contributions</span>";
+        if (user.score) {
+          html +=
+            '<span class="history-score">★ ' +
+            user.score.toLocaleString() +
+            "</span>";
+        }
+        html += "</div>"; // user-stats
+
+        html += "</div>"; // group-header
+
+        // Entries
+        html += '<div class="history-entries-list">';
+        for (const entry of entries) {
+          html += '<div class="history-entry">';
+          html += '<div class="history-entry-body">';
+          html +=
+            '<span class="history-type-badge history-type-' +
+            (entry.type_id || "unknown") +
+            '">' +
+            (entry.friendly_type_id || entry.type_id || "Unknown") +
+            "</span>";
+          if (entry.description && entry.description !== "") {
+            html +=
+              '<span class="history-description">' +
+              entry.description +
+              "</span>";
+          }
+          html += "</div>"; // entry-body
+
+          html += '<div class="history-entry-footer">';
+          if (entry.created_date) {
+            html +=
+              '<span class="history-date">' + entry.created_date + "</span>";
+          }
+          if (entry.app_id) {
+            html +=
+              '<span class="history-app">' + entry.app_id + "</span>";
+          }
+          html += "</div>"; // entry-footer
+          html += "</div>"; // entry
+        }
+        html += "</div>"; // entries-list
+        html += "</div>"; // user-group
+      }
+
+      html += "</div>"; // timeline
+
+      historyModalBody.innerHTML = html;
+      historyModalFooter.style.display = "block";
+    })
+    .catch((err) => {
+      historyModalLoading.style.display = "none";
+      historyModalBody.innerHTML =
+        '<p style="text-align:center;color:var(--danger-color);">Failed to load history: ' +
+        err.message +
+        "</p>";
+    });
+}
 
 window.addEventListener("load", () => {
   const offlineDiv = document.getElementById("offline-div");

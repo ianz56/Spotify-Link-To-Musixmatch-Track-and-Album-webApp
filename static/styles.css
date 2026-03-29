@@ -435,6 +435,20 @@ span.card-link:hover {
   animation: slideIn 0.3s ease;
 }
 
+.history-modal-content {
+  max-width: 900px;
+  margin: 5% auto;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-modal-content #history-modal-body {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
 .modal-content a {
   color: var(--primary-color);
 }

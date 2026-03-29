@@ -12,11 +12,11 @@
       <p class="subtitle">{{ _("View who contributed to a track on Musixmatch") }}</p>
     </header>
     <form action="/history" method="GET">
-      <label for="input_link">{{ _("Musixmatch Commontrack ID:") }}</label>
+      <label for="input_link">{{ _("Commontrack ID or Musixmatch Link:") }}</label>
       <input type="text"
              id="input_link"
              name="id"
-             placeholder="{{ _("E.g.:") }} 111786910"
+             placeholder="{{ _(('E.g.:') ) }} 111786910 {{ _('or') }} https://www.musixmatch.com/lyrics/Artist/Song"
              value="{{ request.args.get('id', '') }}" />
       <button type="submit" id="process_button">{{ _("View History") }}</button>
       <div class="loading" id="loading"></div>
