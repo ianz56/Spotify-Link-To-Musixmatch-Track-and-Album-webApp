@@ -7,6 +7,7 @@ import json
 import os
 import re
 import time
+from urllib.parse import unquote
 
 from dotenv import load_dotenv
 from markupsafe import escape as html_escape
@@ -633,6 +634,122 @@ async def abstrack() -> str:
         return render_template("abstrack.html")
 
 
+@app.route("/history", methods=["GET"])
+@cache.cached(timeout=3600, key_prefix=make_cache_key)
+async def history():
+    """Get the contribution history of a track."""
+    track_id = request.args.get("id")
+    key = None
+    if track_id:
+        token = request.cookies.get("api_token")
+        if token:
+            payload = verify_token(token)
+            if payload:
+                key = payload.get("mxm-key")
+
+        commontrack_id = None
+
+        # Check if input is a Musixmatch link
+        if "musixmatch.com" in id:
+            match = re.search(r"lyrics/([^?]+/[^?]+)", unquote(id))
+            if match:
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        mxm = MXM(key, session=session)
+                        track = await mxm.musixmatch.track_get(
+                            commontrack_vanity_id=match.group(1)
+                        )
+                        commontrack_id = str(
+                            track["message"]["body"]["track"]["commontrack_id"]
+                        )
+                except Exception as e:
+                    return render_template(
+                        "history.html",
+                        error=_("Failed to resolve Musixmatch link: ") + str(e),
+                    )
+            else:
+                return render_template(
+                    "history.html",
+                    error=_(
+                        "Invalid Musixmatch link! Use a track link like: https://www.musixmatch.com/lyrics/Artist/Song"
+                    ),
+                )
+        elif re.match("^[0-9]+$", id):
+            commontrack_id = id
+        else:
+            return render_template("history.html", error=_("Invalid input!"))
+
+        async with aiohttp.ClientSession() as session:
+            mxm = MXM(key, session=session)
+            history_data = await mxm.track_history(commontrack_id)
+
+        if isinstance(history_data, dict) and history_data.get("error"):
+            return render_template("history.html", error=history_data["error"])
+
+        # Group history entries by user
+        user_groups = {}
+        for entry in history_data:
+            user = entry.get("user")
+            if user:
+                user_key = user.get("user_name", "Unknown")
+            else:
+                user_key = "Unknown"
+            if user_key not in user_groups:
+                user_groups[user_key] = {
+                    "user": user or {"user_name": "Unknown"},
+                    "entries": [],
+                }
+            user_groups[user_key]["entries"].append(entry)
+
+        grouped_history = list(user_groups.values())
+
+        return render_template(
+            "history.html",
+            grouped_history=grouped_history,
+            total_contributions=len(history_data),
+            commontrack_id=commontrack_id,
+        )
+    else:
+        return render_template("history.html")
+
+
+@app.route("/api/history/<int:commontrack_id>")
+@cache.cached(timeout=3600)
+async def api_history(commontrack_id):
+    """JSON API: Get grouped contribution history for a track."""
+    key = None
+    token = request.cookies.get("api_token")
+    if token:
+        payload = verify_token(token)
+        if payload:
+            key = payload.get("mxm-key")
+
+    async with aiohttp.ClientSession() as session:
+        mxm = MXM(key, session=session)
+        history_data = await mxm.track_history(commontrack_id)
+
+    if isinstance(history_data, dict) and history_data.get("error"):
+        return {"error": history_data["error"]}, 400
+
+    # Group by user
+    user_groups = {}
+    for entry in history_data:
+        user = entry.get("user")
+        user_key = user.get("user_name", "Unknown") if user else "Unknown"
+        if user_key not in user_groups:
+            user_groups[user_key] = {
+                "user": user or {"user_name": "Unknown"},
+                "entries": [],
+            }
+        user_groups[user_key]["entries"].append(entry)
+
+    return {
+        "grouped_history": list(user_groups.values()),
+        "total_contributions": len(history_data),
+        "commontrack_id": commontrack_id,
+    }
+
+
 @app.route("/credits")
 def credits():
     contributors = []
@@ -684,6 +801,7 @@ def sitemap():
         "index",
         "isrc",
         "abstrack",
+        "history",
         "split",
         "credits",
     ]
