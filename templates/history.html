@@ -30,92 +30,99 @@
             </div>
           </div>
         </div>
-      {% elif history is defined and history %}
+      {% elif grouped_history is defined and grouped_history %}
         <p class="history-summary">
           {{ _("Track ID:") }} <strong>{{ commontrack_id }}</strong> &mdash;
-          {{ history|length }} {{ _("contributions found") }}
+          {{ total_contributions }} {{ _("contributions") }}, {{ grouped_history|length }} {{ _("contributors") }}
         </p>
         <div class="history-timeline">
-          {% for entry in history %}
-            <div class="history-entry">
-              <div class="history-entry-header">
-                {% if entry.user %}
-                  <div class="history-user">
-                    {% if entry.user.user_profile_photo %}
-                      <img src="{{ entry.user.user_profile_photo }}"
-                           alt="{{ entry.user.user_name }}"
-                           class="history-avatar"
-                           loading="lazy"
-                           onerror="this.style.display='none'" />
-                    {% else %}
-                      <div class="history-avatar-placeholder">
-                        {{ entry.user.user_name[:1] | upper }}
-                      </div>
-                    {% endif %}
-                    <div class="history-user-info">
-                      <span class="history-username">{{ entry.user.user_name }}</span>
-                      <div class="history-user-badges">
-                        {% if entry.user.rank_name %}
-                          <span class="history-rank-badge"
-                                style="background-color: #{{ entry.user.rank_colors.rank_color_10 if entry.user.rank_colors else 'f0f0f0' }};
-                                       color: #{{ entry.user.rank_color or '888' }};
-                                       border-color: #{{ entry.user.rank_colors.rank_color_50 if entry.user.rank_colors else 'ddd' }};">
-                            {% if entry.user.rank_image_url %}
-                              <img src="{{ entry.user.rank_image_url }}"
-                                   alt="{{ entry.user.rank_name }}"
-                                   class="history-rank-icon"
-                                   loading="lazy" />
-                            {% endif %}
-                            {{ entry.user.rank_name | capitalize }}
-                          </span>
-                        {% endif %}
-                        {% if entry.user.admin %}
-                          <span class="history-role-badge history-role-admin">Admin</span>
-                        {% endif %}
-                        {% if entry.user.moderator %}
-                          <span class="history-role-badge history-role-mod">Mod</span>
-                        {% endif %}
-                      </div>
+          {% for group in grouped_history %}
+            <div class="history-user-group">
+              <div class="history-user-group-header">
+                <div class="history-user">
+                  {% if group.user.user_profile_photo %}
+                    <img src="{{ group.user.user_profile_photo }}"
+                         alt="{{ group.user.user_name }}"
+                         class="history-avatar"
+                         loading="lazy"
+                         onerror="this.style.display='none'" />
+                  {% else %}
+                    <div class="history-avatar-placeholder">
+                      {{ group.user.user_name[:1] | upper }}
+                    </div>
+                  {% endif %}
+                  <div class="history-user-info">
+                    <span class="history-username">{{ group.user.user_name }}</span>
+                    <div class="history-user-badges">
+                      {% if group.user.rank_name %}
+                        <span class="history-rank-badge"
+                              style="background-color: #{{ group.user.rank_colors.rank_color_10 if group.user.rank_colors else 'f0f0f0' }};
+                                     color: #{{ group.user.rank_color or '888' }};
+                                     border-color: #{{ group.user.rank_colors.rank_color_50 if group.user.rank_colors else 'ddd' }};">
+                          {% if group.user.rank_image_url %}
+                            <img src="{{ group.user.rank_image_url }}"
+                                 alt="{{ group.user.rank_name }}"
+                                 class="history-rank-icon"
+                                 loading="lazy" />
+                          {% endif %}
+                          {{ group.user.rank_name | capitalize }}
+                        </span>
+                      {% endif %}
+                      {% if group.user.admin %}
+                        <span class="history-role-badge history-role-admin">Admin</span>
+                      {% endif %}
+                      {% if group.user.moderator %}
+                        <span class="history-role-badge history-role-mod">Mod</span>
+                      {% endif %}
                     </div>
                   </div>
-                {% endif %}
+                </div>
+                <div class="history-user-stats">
+                  <span class="history-contribution-count">{{ group.entries|length }} {{ _("contributions") }}</span>
+                  {% if group.user.score %}
+                    <span class="history-score">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                      {{ "{:,}".format(group.user.score) }}
+                    </span>
+                  {% endif %}
+                </div>
               </div>
-              <div class="history-entry-body">
-                <span class="history-type-badge history-type-{{ entry.type_id | default('unknown') }}">
-                  {{ entry.friendly_type_id | default(entry.type_id) | default(_("Unknown")) }}
-                </span>
-                {% if entry.description and entry.description != "" %}
-                  <span class="history-description">{{ entry.description }}</span>
-                {% endif %}
-              </div>
-              <div class="history-entry-footer">
-                {% if entry.created_date %}
-                  <span class="history-date" title="{{ entry.created_date }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    {{ entry.created_date }}
-                  </span>
-                {% endif %}
-                {% if entry.app_id %}
-                  <span class="history-app">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                      <line x1="8" y1="21" x2="16" y2="21"></line>
-                      <line x1="12" y1="17" x2="12" y2="21"></line>
-                    </svg>
-                    {{ entry.app_id }}
-                  </span>
-                {% endif %}
-                {% if entry.user and entry.user.score %}
-                  <span class="history-score">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                    {{ "{:,}".format(entry.user.score) }}
-                  </span>
-                {% endif %}
+              <div class="history-entries-list">
+                {% for entry in group.entries %}
+                  <div class="history-entry">
+                    <div class="history-entry-body">
+                      <span class="history-type-badge history-type-{{ entry.type_id | default('unknown') }}">
+                        {{ entry.friendly_type_id | default(entry.type_id) | default(_("Unknown")) }}
+                      </span>
+                      {% if entry.description and entry.description != "" %}
+                        <span class="history-description">{{ entry.description }}</span>
+                      {% endif %}
+                    </div>
+                    <div class="history-entry-footer">
+                      {% if entry.created_date %}
+                        <span class="history-date" title="{{ entry.created_date }}">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                          </svg>
+                          {{ entry.created_date }}
+                        </span>
+                      {% endif %}
+                      {% if entry.app_id %}
+                        <span class="history-app">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                          </svg>
+                          {{ entry.app_id }}
+                        </span>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
           {% endfor %}

@@ -657,8 +657,28 @@ async def history():
                 "history.html", error=history_data["error"]
             )
 
+        # Group history entries by user
+        user_groups = {}
+        for entry in history_data:
+            user = entry.get("user")
+            if user:
+                user_key = user.get("user_name", "Unknown")
+            else:
+                user_key = "Unknown"
+            if user_key not in user_groups:
+                user_groups[user_key] = {
+                    "user": user or {"user_name": "Unknown"},
+                    "entries": [],
+                }
+            user_groups[user_key]["entries"].append(entry)
+
+        grouped_history = list(user_groups.values())
+
         return render_template(
-            "history.html", history=history_data, commontrack_id=id
+            "history.html",
+            grouped_history=grouped_history,
+            total_contributions=len(history_data),
+            commontrack_id=id,
         )
     else:
         return render_template("history.html")

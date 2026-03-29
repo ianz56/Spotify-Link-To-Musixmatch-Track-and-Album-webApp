@@ -1060,6 +1060,69 @@ body.preload {
   box-shadow: var(--shadow-md);
 }
 
+/* User Group */
+.history-user-group {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.history-user-group:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.history-user-group-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+}
+
+.history-user-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.history-contribution-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: rgba(29, 185, 84, 0.1);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+
+.history-entries-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-entries-list .history-entry {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 20px;
+  margin: 0;
+  background: transparent;
+}
+
+.history-entries-list .history-entry:last-child {
+  border-bottom: none;
+}
+
+.history-entries-list .history-entry:hover {
+  background-color: var(--input-bg);
+  box-shadow: none;
+}
+
 .history-entry-header {
   margin-bottom: 10px;
 }
@@ -1263,6 +1326,22 @@ body.preload {
 
   .history-user-badges {
     gap: 4px;
+  }
+
+  .history-user-group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px;
+  }
+
+  .history-user-stats {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .history-entries-list .history-entry {
+    padding: 10px 16px;
   }
 }
 
