@@ -41,7 +41,7 @@ class AppleMusic:
 
             for script in scripts:
                 try:
-                    loaded_data = json.loads(script.string)
+                    loaded_data = json.loads(script.get_text() or script.string or "")
                     # Check if it contains music data
                     if isinstance(loaded_data, dict) and "@graph" in loaded_data:
                         # Browse the graph
@@ -138,8 +138,8 @@ class AppleMusic:
 
             if not results:
                 # Fallback: OpenGraph
-                og_title = soup.find("meta", property="og:title")
-                og_image = soup.find("meta", property="og:image")
+                og_title = soup.find("meta", attrs={"property": "og:title"})
+                og_image = soup.find("meta", attrs={"property": "og:image"})
 
                 if og_title:
                     content = og_title["content"]
