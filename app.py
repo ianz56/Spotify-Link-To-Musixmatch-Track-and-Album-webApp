@@ -638,9 +638,9 @@ async def abstrack() -> str:
 @cache.cached(timeout=3600, key_prefix=make_cache_key)
 async def history():
     """Get the contribution history of a track."""
-    id = request.args.get("id")
+    track_id = request.args.get("id")
     key = None
-    if id:
+    if track_id:
         token = request.cookies.get("api_token")
         if token:
             payload = verify_token(token)

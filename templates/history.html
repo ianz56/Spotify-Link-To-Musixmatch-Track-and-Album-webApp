@@ -16,7 +16,7 @@
       <input type="text"
              id="input_link"
              name="id"
-             placeholder="{{ _(('E.g.:') ) }} 111786910 {{ _("or") }} https://www.musixmatch.com/lyrics/Artist/Song"
+             placeholder="{{ _("E.g.:") }} 111786910 {{ _("or") }} https://www.musixmatch.com/lyrics/Artist/Song"
              value="{{ request.args.get('id', '') }}" />
       <button type="submit" id="process_button">{{ _("View History") }}</button>
       <div class="loading" id="loading"></div>

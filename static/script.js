@@ -1,3 +1,20 @@
+/**
+ * Escapes HTML special characters in a string to prevent XSS.
+ * @param {any} text - The text to escape
+ * @returns {string} - The safely escaped HTML string
+ */
+function escapeHtml(text) {
+  if (text === null || text === undefined) return "";
+  const map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  return String(text).replace(/[&<>"']/g, (m) => map[m]);
+}
+
 // Highlight active navbar link
 document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
@@ -167,7 +184,7 @@ function openHistoryModal(commontrackId) {
       if (data.error) {
         historyModalBody.innerHTML =
           '<p style="text-align:center;color:var(--danger-color);">' +
-          data.error +
+          escapeHtml(data.error) +
           "</p>";
         return;
       }
@@ -183,9 +200,9 @@ function openHistoryModal(commontrackId) {
       let html =
         '<p class="history-summary">' +
         "<strong>" +
-        data.total_contributions +
+        escapeHtml(data.total_contributions) +
         "</strong> contributions, <strong>" +
-        groups.length +
+        escapeHtml(groups.length) +
         "</strong> contributors</p>";
 
       html += '<div class="history-timeline">';
@@ -204,17 +221,20 @@ function openHistoryModal(commontrackId) {
         if (user.user_profile_photo) {
           html +=
             '<img src="' +
-            user.user_profile_photo +
+            escapeHtml(user.user_profile_photo) +
             '" alt="' +
-            userName +
+            escapeHtml(userName) +
             '" class="history-avatar" loading="lazy" onerror="this.style.display=\'none\'" />';
         } else {
           html +=
-            '<div class="history-avatar-placeholder">' + initial + "</div>";
+            '<div class="history-avatar-placeholder">' +
+            escapeHtml(initial) +
+            "</div>";
         }
 
         html += '<div class="history-user-info">';
-        html += '<span class="history-username">' + userName + "</span>";
+        html +=
+          '<span class="history-username">' + escapeHtml(userName) + "</span>";
         html += '<div class="history-user-badges">';
 
         // Rank badge
@@ -230,24 +250,24 @@ function openHistoryModal(commontrackId) {
               : "ddd";
           html +=
             '<span class="history-rank-badge" style="background-color:#' +
-            bgColor +
+            escapeHtml(bgColor) +
             ";color:#" +
-            textColor +
+            escapeHtml(textColor) +
             ";border-color:#" +
-            borderColor +
+            escapeHtml(borderColor) +
             ';">';
           if (user.rank_image_url) {
             html +=
               '<img src="' +
-              user.rank_image_url +
+              escapeHtml(user.rank_image_url) +
               '" alt="' +
-              user.rank_name +
+              escapeHtml(user.rank_name) +
               '" class="history-rank-icon" loading="lazy" />';
           }
           html +=
-            user.rank_name.charAt(0).toUpperCase() +
-            user.rank_name.slice(1) +
-            "</span>";
+            escapeHtml(
+              user.rank_name.charAt(0).toUpperCase() + user.rank_name.slice(1),
+            ) + "</span>";
         }
 
         if (user.admin) {
@@ -265,12 +285,12 @@ function openHistoryModal(commontrackId) {
         html += '<div class="history-user-stats">';
         html +=
           '<span class="history-contribution-count">' +
-          entries.length +
+          escapeHtml(entries.length) +
           " contributions</span>";
         if (user.score) {
           html +=
             '<span class="history-score">★ ' +
-            user.score.toLocaleString() +
+            escapeHtml(user.score.toLocaleString()) +
             "</span>";
         }
         html += "</div>"; // user-stats
@@ -284,14 +304,14 @@ function openHistoryModal(commontrackId) {
           html += '<div class="history-entry-body">';
           html +=
             '<span class="history-type-badge history-type-' +
-            (entry.type_id || "unknown") +
+            escapeHtml(entry.type_id || "unknown") +
             '">' +
-            (entry.friendly_type_id || entry.type_id || "Unknown") +
+            escapeHtml(entry.friendly_type_id || entry.type_id || "Unknown") +
             "</span>";
           if (entry.description && entry.description !== "") {
             html +=
               '<span class="history-description">' +
-              entry.description +
+              escapeHtml(entry.description) +
               "</span>";
           }
           html += "</div>"; // entry-body
@@ -299,10 +319,15 @@ function openHistoryModal(commontrackId) {
           html += '<div class="history-entry-footer">';
           if (entry.created_date) {
             html +=
-              '<span class="history-date">' + entry.created_date + "</span>";
+              '<span class="history-date">' +
+              escapeHtml(entry.created_date) +
+              "</span>";
           }
           if (entry.app_id) {
-            html += '<span class="history-app">' + entry.app_id + "</span>";
+            html +=
+              '<span class="history-app">' +
+              escapeHtml(entry.app_id) +
+              "</span>";
           }
           html += "</div>"; // entry-footer
           html += "</div>"; // entry
