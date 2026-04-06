@@ -92,11 +92,11 @@ python-dotenv==1.2.1
     # via -r requirements.in
 pytz==2025.2
     # via flask-babel
-redis[hiredis]==7.3.0
+redis[hiredis]==7.4.0
     # via
     #   -r requirements.in
     #   spotipy
-requests[security]==2.33.0
+requests[security]==2.33.1
     # via
     #   -r requirements.in
     #   mxmapi
